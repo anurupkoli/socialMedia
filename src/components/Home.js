@@ -1,9 +1,10 @@
 import React from 'react'
-import PersonIcon from '@mui/icons-material/Person';
+import Topbar from './topbar/Topbar'
+
 export default function Home() {
   return (
     <>
-        <PersonIcon/>
+        <Topbar/>
     </>
   )
 }
