@@ -1,0 +1,16 @@
+
+.container{
+    display: flex;
+    width: 100%;
+    height: calc(100vh-40px);
+}
+
+#leftBar{
+    flex: 3;
+}
+#feed{
+    flex: 5;
+}
+#rightBar{
+    flex: 3;
+}
