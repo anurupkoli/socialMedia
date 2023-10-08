@@ -1,0 +1,57 @@
+.leftBarWrapper{
+    margin: 0;
+    padding: 20px;
+}
+
+.leftBarFeeds{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.leftBarFeedItems{
+    display: flex;
+    align-items: flex-start;
+    list-style: none;
+    margin-bottom: 20px;
+    cursor: pointer;
+}
+.leftBarFeedItems:hover{
+    text-decoration: underline;
+}
+
+ ul{
+    padding: 0;
+}
+
+.leftBarFeedItems span{
+    margin-left: 10px;
+}
+
+.btn{
+    font-size: 15px;
+    font-weight: bold;
+    padding: 10px 25px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(208, 110, 208);
+    transition: all .3s ease-out;
+}
+.btn:hover{
+    border-radius: 30px;
+}
+
+hr{
+    margin: 20px 0;
+}
+
+.leftBarFriends{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+}
+
+.leftBarFriend{
+    list-style: none;
+    margin-bottom: 20px;
+}
