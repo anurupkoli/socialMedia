@@ -13,8 +13,8 @@ export default function Topbar(){
             <span>SocialMedia</span>
         </div>
         <div className="navBarLinks">
-            <span  className='navBarLinks'>TimeLine</span>
-            <span  className='navBarLinks'>Home</span>
+            <span  className='navBarLink'>TimeLine</span>
+            <span  className='navBarLink'>Home</span>
 
         </div>
         <div className="middleNavbar">
@@ -36,7 +36,7 @@ export default function Topbar(){
             </div>
         </div>
         <div className="userProfile">
-            
+
         </div>
     </div>
   )
