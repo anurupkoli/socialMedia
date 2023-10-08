@@ -1,14 +1,14 @@
 import React from "react";
 import "./leftbar.css";
 import RssFeedIcon from "@mui/icons-material/RssFeed";
-import ChatIcon from '@mui/icons-material/Chat';
-import SmartDisplayIcon from '@mui/icons-material/SmartDisplay';
-import Diversity1Icon from '@mui/icons-material/Diversity1';
-import BookmarksIcon from '@mui/icons-material/Bookmarks';
-import HelpIcon from '@mui/icons-material/Help';
-import WorkIcon from '@mui/icons-material/Work';
-import EventAvailableIcon from '@mui/icons-material/EventAvailable';
-import SchoolIcon from '@mui/icons-material/School';
+import ChatIcon from "@mui/icons-material/Chat";
+import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
+import Diversity1Icon from "@mui/icons-material/Diversity1";
+import BookmarksIcon from "@mui/icons-material/Bookmarks";
+import HelpIcon from "@mui/icons-material/Help";
+import WorkIcon from "@mui/icons-material/Work";
+import EventAvailableIcon from "@mui/icons-material/EventAvailable";
+import SchoolIcon from "@mui/icons-material/School";
 
 export default function Leftbar() {
   return (
@@ -53,36 +53,60 @@ export default function Leftbar() {
               <span>Cources</span>
             </li>
           </ul>
-          <button className="btn" >Show More</button>
+          <button className="btn">Show More</button>
         </div>
-        <hr /> 
+        <hr />
         <div className="leftBarFriends">
-            <ul>
-                <li className="leftBarFriend">
-                    <img src="" alt="" />
-                    <span>Friend1</span>
-                </li>
-                <li className="leftBarFriend">
-                    <img src="" alt="" />
-                    <span>Friend1</span>
-                </li>
-                <li className="leftBarFriend">
-                    <img src="" alt="" />
-                    <span>Friend1</span>
-                </li>
-                <li className="leftBarFriend">
-                    <img src="" alt="" />
-                    <span>Friend1</span>
-                </li>
-                <li className="leftBarFriend">
-                    <img src="" alt="" />
-                    <span>Friend1</span>
-                </li>
-                <li className="leftBarFriend">
-                    <img src="" alt="" />
-                    <span>Friend1</span>
-                </li>
-            </ul>
+          <ul>
+            <li className="leftBarFriend">
+              <div className="leftBarFriendImg">
+                {/* <img src="" alt="f" /> */}
+              </div>
+              <span>Friend1</span>
+            </li>
+            <li className="leftBarFriend">
+              <div className="leftBarFriendImg">
+                {/* <img src="" alt="f" /> */}
+              </div>
+              <span>Friend1</span>
+            </li>
+            <li className="leftBarFriend">
+              <div className="leftBarFriendImg">
+                {/* <img src="" alt="f" /> */}
+              </div>
+              <span>Friend1</span>
+            </li>
+            <li className="leftBarFriend">
+              <div className="leftBarFriendImg">
+                {/* <img src="" alt="f" /> */}
+              </div>
+              <span>Friend1</span>
+            </li>
+            <li className="leftBarFriend">
+              <div className="leftBarFriendImg">
+                {/* <img src="" alt="f" /> */}
+              </div>
+              <span>Friend1</span>
+            </li>
+            <li className="leftBarFriend">
+              <div className="leftBarFriendImg">
+                {/* <img src="" alt="f" /> */}
+              </div>
+              <span>Friend1</span>
+            </li>
+            <li className="leftBarFriend">
+              <div className="leftBarFriendImg">
+                {/* <img src="" alt="f" /> */}
+              </div>
+              <span>Friend1</span>
+            </li>
+            <li className="leftBarFriend">
+              <div className="leftBarFriendImg">
+                {/* <img src="" alt="f" /> */}
+              </div>
+              <span>Friend1</span>
+            </li>
+          </ul>
         </div>
       </div>
     </>
