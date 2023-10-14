@@ -39,3 +39,33 @@
 .share hr {
     margin: 5px 20px;
 }
+
+.shareBottom{
+    display: flex;
+    align-items: center;
+    padding: 20px;
+    margin-top: 10px;
+}
+
+.shareTypes{
+    margin-right: 30px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.shareBtn{
+    background-color: green;
+    color: aliceblue;
+    border: none;
+    border-radius: 10px;
+    padding: 10px;
+    margin-left: 80px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: all 0.1s ease-out;
+}
+
+.shareBtn:hover{
+    box-shadow: 1px 2px 3px 1px rgb(39, 39, 39);
+}
