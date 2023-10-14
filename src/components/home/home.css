@@ -26,8 +26,12 @@
 #feed{
     flex: 5;
     height: calc(100vh - 50px);
+    height: calc(100vh - 50px);
+    overflow-y: auto;
 }
 #rightBar{
     flex: 3;
     height: calc(100vh - 50px);
+    height: calc(100vh - 50px);
+    overflow-y: auto;
 }
