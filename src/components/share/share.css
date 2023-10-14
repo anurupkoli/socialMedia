@@ -63,7 +63,7 @@
     margin-left: 80px;
     font-weight: bold;
     cursor: pointer;
-    transition: all 0.1s ease-out;
+    transition: all 0.2s ease-out;
 }
 
 .shareBtn:hover{
