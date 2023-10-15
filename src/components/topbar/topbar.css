@@ -5,14 +5,22 @@
     background-color: rgb(208, 110, 208);
     padding: 5px;
     position: sticky;
+    position: -webkit-sticky;
     top: 0;
     padding: 5px;
     height: 40px;
+    z-index: 999;
 }
 
 .leftNavbar{
-    font-size: 25px;
     margin-left: 40px;
+    cursor: pointer;
+}
+
+.leftNavbar span{
+    font-size: 25px;
+    text-decoration: none;
+    color: black;
 }
 
 .navBarLinks{
@@ -20,10 +28,16 @@
 }
 .navBarLink{
     margin: 0 10px;
+    color: black;
+    text-decoration: none;
 }
 .navBarLink:hover{
     cursor: pointer;
     text-decoration: underline;
+}
+.navBarLink NavLink{
+    text-decoration: none;
+    color: black;
 }
 
 .middleNavbar{
@@ -83,4 +97,14 @@
     margin-right: 40px;
     border-radius: 40px;
     cursor: pointer;
+}
+.userProfileLink NavLink{
+    background-color: aliceblue;
+    width: 40px;
+    height: 40px;
+    margin-right: 40px;
+    border-radius: 40px;
+    cursor: pointer;
+    color: black;
+    text-decoration: none;
 }
