@@ -12,7 +12,6 @@ import SchoolIcon from "@mui/icons-material/School";
 
 export default function Leftbar() {
   return (
-    <>
       <div className="leftBarWrapper">
         <div className="leftBarFeeds">
           <ul>
@@ -109,6 +108,5 @@ export default function Leftbar() {
           </ul>
         </div>
       </div>
-    </>
   );
 }
