@@ -9,7 +9,7 @@ app.use(cors())
 
 // These are Routing Paths that are resolved in routes folder
 app.use(express.json());
-// app.use('/api/auth', require('./routes/auth'));
+app.use('/api/auth', require('./routes/auth'));
 // app.use('/api/note', require('./routes/note'));
 
 app.listen(port, ()=>{
