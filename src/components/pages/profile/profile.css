@@ -1,5 +1,6 @@
 .profileContainer{
     display: flex;
+    overflow-y: auto;
 }
 .profileRightBar{
     flex: 8;

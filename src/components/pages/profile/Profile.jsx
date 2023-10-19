@@ -5,6 +5,7 @@ import Feed from "../../feed/Feed";
 import Rightbar from "../../rightbar/Rightbar";
 import "./profile.css";
 import '../home/home.css'
+import '../../topbar/topbar.css'
 import ProfileComponent from "./ProfileComponent";
 export default function Profile() {
   return (
