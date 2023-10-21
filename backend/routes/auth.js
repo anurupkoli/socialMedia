@@ -52,4 +52,32 @@ router.post(
   }
 );
 
+router.post('/login', async(req, res)=>{
+  try{
+    let user = await User.findOne({email: req.body.email})
+    if(!user){
+      return res.status(400).json({error: "Invalid Credentials"})
+    }
+
+    let secPassword = await bcrypt.compare(req.body.password, user.password)
+    if(!secPassword){
+      return res.status(400).json({error: "Invalid Credentials"})
+    }
+
+    let data = {
+      user: {
+        id: user.Id
+      }
+    }
+
+    const authToken =  JWST.sign(data, myToken)
+    res.status(200).json(authToken)
+
+  }
+  catch(error){
+    console.log(error)
+    res.status(400).json(error)
+  }
+})
+
 module.exports = router;
