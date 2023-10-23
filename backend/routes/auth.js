@@ -6,6 +6,7 @@ const bcrypt = require("bcryptjs");
 const JWST = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
 const fetchUserD = require("../middlewares/fetchUser");
+const multer = require('multer')
 const jws_secret = process.env.JWT_TOKEN;
 
 router.post(
@@ -160,5 +161,39 @@ router.post("/unfollowFriend", fetchUserD, async (req, res) => {
     res.status(400).json(error);
   }
 });
+
+const Storage = multer.diskStorage({
+  destination: 'uploadedProfilePic',
+  filename: (req,file,cd)=>{
+    cd(null, 'userProfilePic'+file.originalname)
+  }
+});
+
+const uploadProfilePic = multer({
+  storage: Storage
+}).single('testImg')
+
+router.post('/uploadProfilePic', fetchUserD, async(req,res)=>{
+  const userId = req.user.id;
+  const img = req.body.profileImg;
+  try {
+    let user = await User.findById(userId);
+    if(!user){
+      return res.status(400).json('Invalid request')
+    }
+    user = await User.updateOne(
+      {_id: userId},
+      {$set: {
+        profilePic: {
+          img: req.file.filename,
+          contentType: 'image/jpg'
+        }
+      }}
+    )
+    res.status(200).json('Profile Pic uploaded')
+  } catch (error) {
+    
+  }
+})
 
 module.exports = router;
