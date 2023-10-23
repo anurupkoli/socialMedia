@@ -5,7 +5,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const JWST = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
-const fetchUser = require("../middlewares/fetchUser");
+const fetchUserD = require("../middlewares/fetchUser");
 const jws_secret = process.env.JWT_TOKEN;
 
 router.post(
@@ -59,14 +59,14 @@ router.post(
 
 router.post("/login",[
   body("email", "Enter valid Email").isEmail(),
-  body("password", "Enter valid Password").isLength({ min: 5 })
+  body("password", "Enter valid Password").exists()
 ], async (req, res) => {
   let errors = await validationResult(req);
   if(!errors.isEmpty()){
     res.status(400).json({errors: errors.array()})
   }
   try {
-    let user = await User.findOne({ email: req.body.email });
+    const user = await User.findOne({ email: req.body.email });
     if (!user) {
       return res.status(400).json({ error: "Invalid Credentials" });
     }
@@ -76,14 +76,13 @@ router.post("/login",[
       return res.status(400).json({ error: "Invalid Credentials" });
     }
 
-    let data = {
+    const data = {
       user: {
-        id: user.Id,
+        id: user.id,
       },
     };
-
     const authToken = JWST.sign(data, jws_secret);
-    res.status(200).json(authToken);
+    res.status(200).json({ authToken });
   } catch (error) {
     console.log(error);
     res.status(400).json(error);
@@ -91,18 +90,18 @@ router.post("/login",[
 });
 
 
-router.post('/getUser', fetchUser, async(req, res)=>{
+router.post('/getUser', fetchUserD, async(req, res)=>{
   let userId = req.user.id;
   try {
-    const user = await User.findById(userId).select("-password");
-    return res.status(200).json(user)
+    let data = await User.findById(userId).select("-password");
+    res.status(200).json(data)
   } catch (error) {
     console.log(error);
     res.status(500).json(error)
   }
 });
 
-router.post("/followFriend", fetchUser, async (req, res) => {
+router.post("/followFriend", fetchUserD, async (req, res) => {
   try {
     let userId = req.user.id;
     let user = await User.findById(userId);
