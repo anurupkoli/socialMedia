@@ -6,7 +6,7 @@ const bcrypt = require("bcryptjs");
 const JWST = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
 const fetchUser = require("../middlewares/fetchUser");
-const myToken = process.env.JWT_TOKEN;
+const jws_secret = process.env.JWT_TOKEN;
 
 router.post(
   "/createUser",
@@ -48,7 +48,7 @@ router.post(
         },
       };
 
-      const authToken = JWST.sign(data, myToken);
+      const authToken = JWST.sign(data, jws_secret);
       res.status(200).json(authToken);
     } catch (error) {
       console.log(error);
@@ -57,7 +57,14 @@ router.post(
   }
 );
 
-router.post("/login", async (req, res) => {
+router.post("/login",[
+  body("email", "Enter valid Email").isEmail(),
+  body("password", "Enter valid Password").isLength({ min: 5 })
+], async (req, res) => {
+  let errors = await validationResult(req);
+  if(!errors.isEmpty()){
+    res.status(400).json({errors: errors.array()})
+  }
   try {
     let user = await User.findOne({ email: req.body.email });
     if (!user) {
@@ -75,7 +82,7 @@ router.post("/login", async (req, res) => {
       },
     };
 
-    const authToken = JWST.sign(data, myToken);
+    const authToken = JWST.sign(data, jws_secret);
     res.status(200).json(authToken);
   } catch (error) {
     console.log(error);
@@ -84,7 +91,7 @@ router.post("/login", async (req, res) => {
 });
 
 
-router.get('/getUser', fetchUser, async(req, res)=>{
+router.post('/getUser', fetchUser, async(req, res)=>{
   let userId = req.user.id;
   try {
     const user = await User.findById(userId).select("-password");
