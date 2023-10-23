@@ -163,29 +163,34 @@ router.post("/unfollowFriend", fetchUserD, async (req, res) => {
 });
 
 const Storage = multer.diskStorage({
-  destination: 'uploadedProfilePic',
+  destination: 'images/uploadedProfilePic',
   filename: (req,file,cd)=>{
-    cd(null, 'userProfilePic'+file.originalname)
+    cd(null, `${Date.now()}`+file.originalname)
   }
 });
 
 const uploadProfilePic = multer({
   storage: Storage
-}).single('testImg')
+}).single('uploadImg')
 
-router.post('/uploadProfilePic', fetchUserD, async(req,res)=>{
+router.post('/uploadProfilePic', fetchUserD,uploadProfilePic, async(req,res)=>{
   const userId = req.user.id;
-  const img = req.body.profileImg;
+  const imgFile = req.file;
   try {
     let user = await User.findById(userId);
+    let profilePic = await User.findById(userId).select('profilePic')
     if(!user){
       return res.status(400).json('Invalid request')
     }
+    if(!imgFile){
+      return res.status(400).json('No such file')
+    }
+
     user = await User.updateOne(
       {_id: userId},
       {$set: {
         profilePic: {
-          img: req.file.filename,
+          img: imgFile.filename,
           contentType: 'image/jpg'
         }
       }}

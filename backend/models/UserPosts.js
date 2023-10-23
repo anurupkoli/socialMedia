@@ -11,7 +11,8 @@ const PostSchema = mongoose.Schema({
     },
     postImg: {
         type: Buffer,
-        contentType: String
+        contentType: String,
+        default: ''
     }
 }, {
     timestamps: true

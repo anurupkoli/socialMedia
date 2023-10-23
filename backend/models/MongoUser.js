@@ -14,7 +14,7 @@ const UserSchema = mongoose.Schema({
     },
     password: {
         type: String,
-        required: true
+        required: true,
     },
     date: {
         type: Date,
@@ -26,7 +26,8 @@ const UserSchema = mongoose.Schema({
     },
     profilePic: {
         img: Buffer,
-        contentType: String
+        contentType: String,
+        uploadedAt: {type: Date, default: Date.now}
     },
     description: {
         type: String,
