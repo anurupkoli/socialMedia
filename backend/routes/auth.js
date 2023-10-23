@@ -5,6 +5,7 @@ const router = express.Router();
 const bcrypt = require("bcryptjs");
 const JWST = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
+const fetchUser = require("../middlewares/fetchUser");
 const myToken = process.env.JWT_TOKEN;
 
 router.post(
@@ -13,7 +14,7 @@ router.post(
     body("name", "Enter Your Full Name").isLength({ min: 3 }),
     body("email", "Enter valid Email").isEmail(),
     body("mobileNo", "Enter valid Mobile No").isNumeric(10),
-    body("password", "Enter valid Password").isLength({min:5}),
+    body("password", "Enter valid Password").isLength({ min: 5 }),
   ],
   async (req, res) => {
     let errors = await validationResult(req);
@@ -28,7 +29,7 @@ router.post(
       }
 
       let salt = await bcrypt.genSalt(10);
-      const secPassword = await bcrypt.hash(req.body.password,salt );
+      const secPassword = await bcrypt.hash(req.body.password, salt);
 
       user = await User.create({
         name: req.body.name,
@@ -37,7 +38,7 @@ router.post(
         mobileNo: req.body.mobileNo,
         date: Date.now(),
         // location: {
-        //   latitude: 
+        //   latitude:
         // }
       });
 
@@ -50,60 +51,65 @@ router.post(
       const authToken = JWST.sign(data, myToken);
       res.status(200).json(authToken);
     } catch (error) {
-        console.log(error)
-        res.status(500).json({error: "Some error occured"})
+      console.log(error);
+      res.status(500).json({ error: "Some error occured" });
     }
   }
 );
 
-router.post('/login', async(req, res)=>{
-  try{
-    let user = await User.findOne({email: req.body.email})
-    if(!user){
-      return res.status(400).json({error: "Invalid Credentials"})
+router.post("/login", async (req, res) => {
+  try {
+    let user = await User.findOne({ email: req.body.email });
+    if (!user) {
+      return res.status(400).json({ error: "Invalid Credentials" });
     }
 
-    let secPassword = await bcrypt.compare(req.body.password, user.password)
-    if(!secPassword){
-      return res.status(400).json({error: "Invalid Credentials"})
+    let secPassword = await bcrypt.compare(req.body.password, user.password);
+    if (!secPassword) {
+      return res.status(400).json({ error: "Invalid Credentials" });
     }
 
     let data = {
       user: {
-        id: user.Id
+        id: user.Id,
+      },
+    };
+
+    const authToken = JWST.sign(data, myToken);
+    res.status(200).json(authToken);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+});
+
+router.post("/follow", fetchUser, async (req, res) => {
+  try {
+    let userId = req.user.id;
+    let user = await User.findById(userId);
+    let friend = await User.findOne({email: req.body.friendEmail})
+    if(!friend){
+      return res.status(400).json("Invalid account")
+    }
+    friend = false;
+    for (i = 0; i < user.friends.length; i++) {
+      if (user.friends[i] === req.body.friendEmail) {
+        friend === true;
+        return res.status(400).json('He is already a friend')
       }
     }
-
-    const authToken =  JWST.sign(data, myToken)
-    res.status(200).json(authToken)
-
-  }
-  catch(error){
-    console.log(error)
-    res.status(400).json(error)
-  }
-})
-
-
-router.post('/follow', async (req, res)=>{
-  try {
-    let user = await User.findOne({email: req.body.email});
-  let friend = false;
-  for(i=0; i<user.friends.length;i++){
-    if(user.friend[i] === req.body.friendEmail){
-      friend === true;
+    if (friend === false) {
+      user = await User.updateOne(
+        { _id: userId },
+        { $push: { friends: req.body.friendEmail } }
+      );
+      return res.status(200).json("Friend Added");
     }
-  }
-  if(friend===false){
-    user = await User.updateOne({email: req.body.email},{$push: {friends: req.body.friendEmail}})
-    return res.status(200).json("Friend Added")
-  }
-  res.status(400).json('Friend could not be added')
+    res.status(400).json("Friend could not be added");
   } catch (error) {
-    console.log(error)
-    res.status(400).json(error)
+    console.log(error);
+    res.status(400).json(error);
   }
-
-})
+});
 
 module.exports = router;
