@@ -57,47 +57,50 @@ router.post(
   }
 );
 
-router.post("/login",[
-  body("email", "Enter valid Email").isEmail(),
-  body("password", "Enter valid Password").exists()
-], async (req, res) => {
-  let errors = await validationResult(req);
-  if(!errors.isEmpty()){
-    res.status(400).json({errors: errors.array()})
-  }
-  try {
-    const user = await User.findOne({ email: req.body.email });
-    if (!user) {
-      return res.status(400).json({ error: "Invalid Credentials" });
+router.post(
+  "/login",
+  [
+    body("email", "Enter valid Email").isEmail(),
+    body("password", "Enter valid Password").exists(),
+  ],
+  async (req, res) => {
+    let errors = await validationResult(req);
+    if (!errors.isEmpty()) {
+      res.status(400).json({ errors: errors.array() });
     }
+    try {
+      const user = await User.findOne({ email: req.body.email });
+      if (!user) {
+        return res.status(400).json({ error: "Invalid Credentials" });
+      }
 
-    let secPassword = await bcrypt.compare(req.body.password, user.password);
-    if (!secPassword) {
-      return res.status(400).json({ error: "Invalid Credentials" });
+      let secPassword = await bcrypt.compare(req.body.password, user.password);
+      if (!secPassword) {
+        return res.status(400).json({ error: "Invalid Credentials" });
+      }
+
+      const data = {
+        user: {
+          id: user.id,
+        },
+      };
+      const authToken = JWST.sign(data, jws_secret);
+      res.status(200).json({ authToken });
+    } catch (error) {
+      console.log(error);
+      res.status(400).json(error);
     }
-
-    const data = {
-      user: {
-        id: user.id,
-      },
-    };
-    const authToken = JWST.sign(data, jws_secret);
-    res.status(200).json({ authToken });
-  } catch (error) {
-    console.log(error);
-    res.status(400).json(error);
   }
-});
+);
 
-
-router.post('/getUser', fetchUserD, async(req, res)=>{
+router.post("/getUser", fetchUserD, async (req, res) => {
   let userId = req.user.id;
   try {
     let data = await User.findById(userId).select("-password");
-    res.status(200).json(data)
+    res.status(200).json(data);
   } catch (error) {
     console.log(error);
-    res.status(500).json(error)
+    res.status(500).json(error);
   }
 });
 
@@ -105,25 +108,53 @@ router.post("/followFriend", fetchUserD, async (req, res) => {
   try {
     let userId = req.user.id;
     let user = await User.findById(userId);
-    let friend = await User.findOne({email: req.body.friendEmail})
-    if(!friend){
-      return res.status(400).json("Invalid account")
+    let friend = await User.findOne({ email: req.body.friendEmail });
+    if (!friend) {
+      return res.status(400).json("Invalid account");
     }
-    friend = false;
+
     for (i = 0; i < user.friends.length; i++) {
       if (user.friends[i] === req.body.friendEmail) {
-        friend === true;
-        return res.status(400).json('He is already a friend')
+        return res.status(400).json("He is already a friend");
       }
     }
-    if (friend === false) {
-      user = await User.updateOne(
-        { _id: userId },
-        { $push: { friends: req.body.friendEmail } }
-      );
-      return res.status(200).json("Friend Added");
+
+    user = await User.updateOne(
+      { _id: userId },
+      { $push: { friends: req.body.friendEmail } }
+    );
+    return res.status(200).json("Friend Added");
+  } catch (error) {
+    console.log(error);
+    res.status(400).json(error);
+  }
+});
+
+router.post("/unfollowFriend", fetchUserD, async (req, res) => {
+  const userId = req.user.id;
+  try {
+    let user = await User.findById(userId);
+    const friend = await User.findOne({ email: req.body.friendEmail });
+    if (!friend) {
+      return res.status(400).json("No such friend");
     }
-    res.status(400).json("Friend could not be added");
+
+    let isFriend = false;
+    for(i=0; i<user.friends.length; i++){
+      if(user.friends[i] === req.body.friendEmail){
+        isFriend =  true;
+      }
+    }
+
+    if(!isFriend){
+      return res.status(400).json('He is not your friend')
+    }
+
+    user = await User.updateOne(
+      {_id: userId },
+      { $pull: { friends: req.body.friendEmail } }
+      );
+    res.status(200).json("Unfollowed friend");
   } catch (error) {
     console.log(error);
     res.status(400).json(error);
