@@ -19,6 +19,21 @@ const UserSchema = mongoose.Schema({
     date: {
         type: Date,
         default: Date.now
+    },
+    friends: {
+        type:  Array,
+        default: []
+    },
+    profilePic: {
+        type: String,
+        default: ''
+    },
+    description: {
+        type: String,
+        default: ''
+    },
+    location: {
+        type: Number
     }
 })
 

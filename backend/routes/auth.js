@@ -35,6 +35,10 @@ router.post(
         email: req.body.email,
         password: secPassword,
         mobileNo: req.body.mobileNo,
+        date: Date.now(),
+        // location: {
+        //   latitude: 
+        // }
       });
 
       let data = {
@@ -78,6 +82,28 @@ router.post('/login', async(req, res)=>{
     console.log(error)
     res.status(400).json(error)
   }
+})
+
+
+router.post('/follow', async (req, res)=>{
+  try {
+    let user = await User.findOne({email: req.body.email});
+  let friend = false;
+  for(i=0; i<user.friends.length;i++){
+    if(user.friend[i] === req.body.friendEmail){
+      friend === true;
+    }
+  }
+  if(friend===false){
+    user = await User.updateOne({email: req.body.email},{$push: {friends: req.body.friendEmail}})
+    return res.status(200).json("Friend Added")
+  }
+  res.status(400).json('Friend could not be added')
+  } catch (error) {
+    console.log(error)
+    res.status(400).json(error)
+  }
+
 })
 
 module.exports = router;
