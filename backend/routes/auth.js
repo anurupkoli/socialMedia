@@ -83,7 +83,19 @@ router.post("/login", async (req, res) => {
   }
 });
 
-router.post("/follow", fetchUser, async (req, res) => {
+
+router.get('/getUser', fetchUser, async(req, res)=>{
+  let userId = req.user.id;
+  try {
+    const user = await User.findById(userId).select("-password");
+    return res.status(200).json(user)
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error)
+  }
+});
+
+router.post("/followFriend", fetchUser, async (req, res) => {
   try {
     let userId = req.user.id;
     let user = await User.findById(userId);
