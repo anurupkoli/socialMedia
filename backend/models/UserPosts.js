@@ -12,6 +12,7 @@ const PostSchema = mongoose.Schema({
     postImg: {
         type: Buffer,
         contentType: String,
+        filename: String,
         default: ''
     }
 }, {

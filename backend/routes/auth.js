@@ -6,7 +6,8 @@ const bcrypt = require("bcryptjs");
 const JWST = require("jsonwebtoken");
 const { body, validationResult } = require("express-validator");
 const fetchUserD = require("../middlewares/fetchUser");
-const multer = require('multer')
+const multer = require("multer");
+const crypto = require("crypto");
 const jws_secret = process.env.JWT_TOKEN;
 
 router.post(
@@ -141,20 +142,20 @@ router.post("/unfollowFriend", fetchUserD, async (req, res) => {
     }
 
     let isFriend = false;
-    for(i=0; i<user.friends.length; i++){
-      if(user.friends[i] === req.body.friendEmail){
-        isFriend =  true;
+    for (i = 0; i < user.friends.length; i++) {
+      if (user.friends[i] === req.body.friendEmail) {
+        isFriend = true;
       }
     }
 
-    if(!isFriend){
-      return res.status(400).json('He is not your friend')
+    if (!isFriend) {
+      return res.status(400).json("He is not your friend");
     }
 
     user = await User.updateOne(
-      {_id: userId },
+      { _id: userId },
       { $pull: { friends: req.body.friendEmail } }
-      );
+    );
     res.status(200).json("Unfollowed friend");
   } catch (error) {
     console.log(error);
@@ -163,42 +164,89 @@ router.post("/unfollowFriend", fetchUserD, async (req, res) => {
 });
 
 const Storage = multer.diskStorage({
-  destination: 'images/uploadedProfilePic',
-  filename: (req,file,cd)=>{
-    cd(null, `${Date.now()}`+file.originalname)
-  }
+  destination: "images/uploadedProfilePic",
+  filename: (req, file, cd) => {
+    cd(null, "profilePic" + `${Date.now()}` + file.originalname);
+  },
 });
 
 const uploadProfilePic = multer({
-  storage: Storage
-}).single('uploadImg')
+  storage: Storage,
+}).single("uploadImg");
 
-router.post('/uploadProfilePic', fetchUserD,uploadProfilePic, async(req,res)=>{
+router.post(
+  "/uploadProfilePic",
+  fetchUserD,
+  uploadProfilePic,
+  async (req, res) => {
+    const userId = req.user.id;
+    const imgFile = req.file;
+    try {
+      let user = await User.findById(userId);
+      let profilePic = await User.findById(userId).select("profilePic");
+      console.log(profilePic.profilePic);
+      if (!user) {
+        return res.status(400).json("Invalid request");
+      }
+      if (!imgFile) {
+        return res.status(400).json("No such file");
+      }
+      user = await User.updateOne(
+        { _id: userId },
+        {
+          $set: {
+            profilePic: {
+              img: imgFile.filename,
+              contentType: "image/jpeg",
+              fileName: "profilePic" + `${Date.now()}` + imgFile.originalname,
+            },
+          },
+        }
+      );
+      res.status(200).json("Profile Pic uploaded");
+    } catch (error) {
+      console.log(error);
+      res.status(400).json(error);
+    }
+  }
+);
+
+router.get("/getProfilePic", fetchUserD, async (req, res) => {
   const userId = req.user.id;
-  const imgFile = req.file;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(400).json("User not found");
+    }
+    if (!user.profilePic || !user.profilePic.img) {
+      return res.status(400).json("Profile Pic not found");
+    }
+    res.contentType(user.profilePic.contentType)
+    res.status(200).send(user.profilePic.img)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(error)
+  }
+});
+
+router.delete("/removeProfilePic", fetchUserD, async (req, res) => {
+  let userId = req.user.id;
+
   try {
     let user = await User.findById(userId);
-    let profilePic = await User.findById(userId).select('profilePic')
-    if(!user){
-      return res.status(400).json('Invalid request')
+    if (!user) {
+      return res.status(400).json("No user found");
     }
-    if(!imgFile){
-      return res.status(400).json('No such file')
+    if (!user.profilePic || !user.profilePic.img) {
+      return res.status(400).json("No Profile Pic to delete");
     }
-
-    user = await User.updateOne(
-      {_id: userId},
-      {$set: {
-        profilePic: {
-          img: imgFile.filename,
-          contentType: 'image/jpg'
-        }
-      }}
-    )
-    res.status(200).json('Profile Pic uploaded')
+    user.profilePic = null;
+    await user.save();
+    res.status(200).json("Profile Pic deleted");
   } catch (error) {
-    
+    console.log(error);
+    res.status(400).json(error);
   }
-})
+});
 
 module.exports = router;
