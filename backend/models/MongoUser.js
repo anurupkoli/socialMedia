@@ -27,7 +27,6 @@ const UserSchema = mongoose.Schema({
     profilePic: {
         img: Buffer,
         contentType: String,
-        fileName: String,
         uploadedAt: {type: Date, default: Date.now}
     },
     description: {

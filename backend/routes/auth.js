@@ -197,8 +197,7 @@ router.post(
           $set: {
             profilePic: {
               img: imgFile.filename,
-              contentType: "image/jpeg",
-              fileName: "profilePic" + `${Date.now()}` + imgFile.originalname,
+              contentType: "image/jpg",
             },
           },
         }

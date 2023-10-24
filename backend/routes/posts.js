@@ -2,6 +2,7 @@ require('dotenv').config()
 const express = require('express')
 const mongoose = require('mongoose')
 const Posts = require('../models/UserPosts');
+const User = require('../models/MongoUser')
 const multer = require('multer')
 const JWT_SECRET = process.env.JWT_TOKEN;
 const fetchUser = require('../middlewares/fetchUser')
@@ -11,12 +12,62 @@ const router = express.Router()
 const Storage = multer.diskStorage({
     destination: 'images/posts',
     filename: (req, file, cd)=>{
-        cd(null, 'posts')
+        cd(null, `post${Date.now()}${file.originalname}`)
     }
 })
 
-router.post('/uploadPost', fetchUser, async(req,res)=>{
-    
+const uploadPost = multer({
+    storage: Storage
+}).single('uploadPost')
+
+router.post('/uploadPost', fetchUser,uploadPost, async(req,res)=>{
+    const userId = req.user.id;
+    const uploadPost = req.file;
+    const description = req.body.description;
+    console.log(description)
+    try {
+        let user = await User.findById(userId);
+        if(!user){
+            res.status(400).json('User not found')
+        }
+        let post = await Posts.create({
+            user: userId,
+            description: description,
+            postImg: {
+                img: uploadPost.filename,
+                contentType: 'image/jpg'
+            }
+        })
+        res.status(200).json('Post Uploaded')
+        
+    } catch (error) {
+        console.log(error)
+        res.status(500).json(error)
+    }
+})
+
+router.get('/getPosts', fetchUser, async(req,res)=>{
+    let userId = req.user.id;
+    try {
+        let user = await User.findById(userId);
+        if(!user){
+            return res.status(400).json('No user found')
+        }
+        let posts = await Posts.find({user: userId});
+        if(!posts){
+            return res.status(400).json('No posts found')
+        }
+
+        const response = posts.map(post=>({
+            description: post.description,
+            postImg: post.postImg,
+            createdAt: post.createdAt
+        }))
+        res.status(200).json(response)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json(error)
+    }
 })
 
 module.exports = router;

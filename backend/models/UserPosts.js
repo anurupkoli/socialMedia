@@ -10,11 +10,9 @@ const PostSchema = mongoose.Schema({
         default: 'No description'
     },
     postImg: {
-        type: Buffer,
+        img: Buffer,
         contentType: String,
-        filename: String,
-        default: ''
-    }
+    },
 }, {
     timestamps: true
 })
