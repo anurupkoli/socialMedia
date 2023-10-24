@@ -13,6 +13,20 @@ const PostSchema = mongoose.Schema({
         img: Buffer,
         contentType: String,
     },
+    likes: {
+        type: Number,
+        default: 0
+    },
+    comments: {
+        email:{
+            type: Array,
+            default: []
+        },
+        comment:{
+            type: Array,
+            default: []
+        }
+    }
 }, {
     timestamps: true
 })

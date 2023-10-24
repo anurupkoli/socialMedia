@@ -59,11 +59,30 @@ router.get('/getPosts', fetchUser, async(req,res)=>{
         }
 
         const response = posts.map(post=>({
+            id: post.id,
             description: post.description,
             postImg: post.postImg,
             createdAt: post.createdAt
         }))
         res.status(200).json(response)
+    } catch (error) {
+        console.log(error)
+        res.status(500).json(error)
+    }
+})
+
+router.delete('/deletePost/:id', fetchUser, async (req, res)=>{
+    let postId = req.params.id;
+    try {
+        let post = await Posts.findById(postId)
+        if(!post){
+            return res.status(400).json('No such post')
+        }
+        if(post.user.toString() !== req.user.id){
+            return res.status(400).json('Authentication revoked')
+        }
+        let deletedPost = await Posts.findByIdAndDelete(postId);
+        res.status(200).json(deletedPost)
     } catch (error) {
         console.log(error)
         res.status(500).json(error)

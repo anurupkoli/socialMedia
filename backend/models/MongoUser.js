@@ -34,7 +34,8 @@ const UserSchema = mongoose.Schema({
         default: ''
     },
     location: {
-        type: Number
+        type: String,
+        default: ''
     }
 })
 

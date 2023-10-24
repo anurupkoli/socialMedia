@@ -106,6 +106,38 @@ router.post("/getUser", fetchUserD, async (req, res) => {
   }
 });
 
+router.post('/updateUser', fetchUserD, async(req,res)=>{
+  const userId = req.user.id;
+  try {
+    let user = await User.findById(userId)
+    if(!user){
+      return res.status(400).json('No such user')
+    }
+    
+    let updateUser = {};
+    let {description,location, name} = req.body;
+    if(description){
+      updateUser.description = description;
+    }
+    if(location){
+      updateUser.location = location;
+    }
+    if(name){
+      updateUser.name = name;
+    }
+    console.log(updateUser.name)
+    user = await User.findByIdAndUpdate(
+      userId,
+      {$set: updateUser},
+      {new: true}
+    )
+    res.status(200).json('User updated')
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error)
+  }
+})
+
 router.post("/followFriend", fetchUserD, async (req, res) => {
   try {
     let userId = req.user.id;
