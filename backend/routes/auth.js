@@ -142,20 +142,20 @@ router.post("/followFriend", fetchUserD, async (req, res) => {
   try {
     let userId = req.user.id;
     let user = await User.findById(userId);
-    let friend = await User.findOne({ email: req.body.friendEmail });
+    let friend = await User.findOne({ _id: req.body.friendId });
     if (!friend) {
       return res.status(400).json("Invalid account");
     }
 
     for (i = 0; i < user.friends.length; i++) {
-      if (user.friends[i] === req.body.friendEmail) {
+      if (user.friends[i] === req.body.friendId) {
         return res.status(400).json("He is already a friend");
       }
     }
 
     user = await User.updateOne(
       { _id: userId },
-      { $push: { friends: req.body.friendEmail } }
+      { $push: { friends: req.body.friendId } }
     );
     return res.status(200).json("Friend Added");
   } catch (error) {
@@ -168,14 +168,14 @@ router.post("/unfollowFriend", fetchUserD, async (req, res) => {
   const userId = req.user.id;
   try {
     let user = await User.findById(userId);
-    const friend = await User.findOne({ email: req.body.friendEmail });
+    const friend = await User.findOne({ _id: req.body.friendId });
     if (!friend) {
       return res.status(400).json("No such friend");
     }
 
     let isFriend = false;
     for (i = 0; i < user.friends.length; i++) {
-      if (user.friends[i] === req.body.friendEmail) {
+      if (user.friends[i] === req.body.friendId) {
         isFriend = true;
       }
     }
@@ -186,7 +186,7 @@ router.post("/unfollowFriend", fetchUserD, async (req, res) => {
 
     user = await User.updateOne(
       { _id: userId },
-      { $pull: { friends: req.body.friendEmail } }
+      { $pull: { friends: req.body.friendId } }
     );
     res.status(200).json("Unfollowed friend");
   } catch (error) {

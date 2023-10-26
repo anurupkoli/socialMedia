@@ -51,7 +51,8 @@ router.get("/getPosts", fetchUser, async (req, res) => {
     if (!user) {
       return res.status(400).json("No user found");
     }
-    let posts = await Posts.find({ user: userId });
+    let friends = user.friends.map(friend=>friend.email)
+    const posts = await Posts.find({user: {$in: [userId, ...friends]}})
     if (!posts) {
       return res.status(400).json("No posts found");
     }
@@ -101,6 +102,18 @@ router.put("/updatePost/:id", fetchUser, uploadPost, async (req, res) => {
     res.status(500).json(error);
   }
 });
+
+router.put('/updateLikes/:id', fetchUser, async(req, res)=>{
+    let postId = req.params.id;
+    try {
+        let post = await Posts.findById(postId);
+        
+    } catch (error) {
+        console.log(error);
+        res.status(500).json('Internal server error')
+    }
+})
+
 router.delete("/deletePost/:id", fetchUser, async (req, res) => {
   let postId = req.params.id;
   try {
