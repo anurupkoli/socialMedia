@@ -125,7 +125,7 @@ router.post('/updateUser', fetchUserD, async(req,res)=>{
     if(name){
       updateUser.name = name;
     }
-    console.log(updateUser.name)
+
     user = await User.findByIdAndUpdate(
       userId,
       {$set: updateUser},
