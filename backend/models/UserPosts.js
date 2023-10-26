@@ -25,11 +25,11 @@ const PostSchema = mongoose.Schema(
       },
     },
     comments: {
-      email: {
+      emails: {
         type: Array,
         default: [],
       },
-      comment: {
+      comments: {
         type: Array,
         default: [],
       },

@@ -51,16 +51,18 @@ router.get("/getPosts", fetchUser, async (req, res) => {
     if (!user) {
       return res.status(400).json("No user found");
     }
-    let friends = user.friends.map(friend=>friend.email)
-    const posts = await Posts.find({user: {$in: [userId, ...friends]}})
+
+    const posts = await Posts.find({user: {$in: [userId, ...user.friends]}});
     if (!posts) {
       return res.status(400).json("No posts found");
     }
 
     const response = posts.map((post) => ({
-      id: post.id,
+      name: post.user.name,
       description: post.description,
       postImg: post.postImg,
+      likes: post.likes,
+      comments: post.comments,
       createdAt: post.createdAt,
     }));
     res.status(200).json(response);
@@ -103,11 +105,32 @@ router.put("/updatePost/:id", fetchUser, uploadPost, async (req, res) => {
   }
 });
 
-router.put('/updateLikes/:id', fetchUser, async(req, res)=>{
+router.put('/updateLikes/:id', async(req, res)=>{
     let postId = req.params.id;
+    let friendEmail = req.body.friendEmail;
+    let didLike = req.body.didLike;
     try {
         let post = await Posts.findById(postId);
-        
+        if(!post){
+          return res.status(400).json('Invalid request')
+        }
+
+        if(didLike === false && post.likes.emails.includes(friendEmail)){
+          post.likes.emails = post.likes.emails.filter(email=>email !== email)
+          post.likes.count -= 1;
+          await post.save();
+          return res.status(200).json('Post Unliked')
+        }
+        if(didLike === false && !post.likes.emails.includes(friendEmail)){
+          return res.status(400).json('Cannot do that')
+        }
+        if(didLike === true && post.likes.emails.includes(friendEmail)){
+          return res.status(400).json('Already Liked')
+        }
+        post.likes.emails.push(friendEmail);
+        post.likes.count += 1;
+        await post.save();
+        res.status(200).json('post Liked')
     } catch (error) {
         console.log(error);
         res.status(500).json('Internal server error')
