@@ -79,7 +79,10 @@ router.put("/updatePost/:id", fetchUser, uploadPost, async (req, res) => {
     if (post.user.toString() !== userId) {
       res.status(400).json("Authenticaion Revoked");
     }
-    let updatedPost = {};
+    let updatedPost = {
+        postImg: post.postImg,
+        description:  post.description
+    };
     if (updatedImage) {
       updatedPost.postImg.img = updatedImage.filename,
       updatedPost.postImg.contentType = "image/jpg"
