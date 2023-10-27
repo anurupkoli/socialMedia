@@ -8,16 +8,18 @@ import "./home.css";
 export default function Home() {
   return (
     <>
+      <div className="mainContainer">
         <Topbar />
-      <div className="container">
-        <div className="leftBar">
-          <Leftbar />
-        </div>
-        <div className="feed">
-          <Feed />
-        </div>
-        <div className="rightBar">
-          <Rightbar />
+        <div className="container">
+          <div className="leftBar">
+            <Leftbar />
+          </div>
+          <div className="feed">
+            <Feed />
+          </div>
+          <div className="rightBar">
+            <Rightbar />
+          </div>
         </div>
       </div>
     </>

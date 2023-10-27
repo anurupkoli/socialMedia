@@ -1,8 +1,12 @@
 .container {
     display: flex;
-    width: 100%;
     height: calc(100vh - 50px);
-    overflow-y:auto;
+    overflow-y: auto;
+}
+
+.mainContainer{
+    width: 100%;
+    overflow-x: hidden;
 }
 
 .leftBar {
