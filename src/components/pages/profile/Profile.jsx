@@ -4,13 +4,13 @@ import Leftbar from "../../leftbar/Leftbar";
 import Feed from "../../feed/Feed";
 import Rightbar from "../../rightbar/Rightbar";
 import "./profile.css";
-import '../home/home.css'
-import '../../topbar/topbar.css'
+import "../home/home.css";
+import "../../topbar/topbar.css";
 import ProfileComponent from "./ProfileComponent";
 export default function Profile() {
   return (
     <>
-      <>
+      <div className="mainContainer">
         <Topbar />
         <div className="profileContainer">
           <div className="leftBar">
@@ -18,7 +18,7 @@ export default function Profile() {
           </div>
           <div className="profileRightBar">
             <div className="profileRightTop">
-                <ProfileComponent/>
+              <ProfileComponent />
             </div>
             <div className="profileRightBottom">
               <div className="feed">
@@ -30,7 +30,7 @@ export default function Profile() {
             </div>
           </div>
         </div>
-      </>
+      </div>
     </>
   );
 }

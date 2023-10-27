@@ -1,5 +1,20 @@
 const mongoose = require("mongoose");
 
+const commentSchema = mongoose.Schema({
+  user:{
+    type: mongoose.Schema.Types.ObjectId,
+    ref: "user"
+  },
+  name: {
+    type: String,
+    required: true
+  },
+  comment: {
+    type: String,
+    required: true
+  }
+})
+
 const PostSchema = mongoose.Schema(
   {
     user: {
@@ -24,16 +39,7 @@ const PostSchema = mongoose.Schema(
         default: 0,
       },
     },
-    comments: {
-      emails: {
-        type: Array,
-        default: [],
-      },
-      comments: {
-        type: Array,
-        default: [],
-      },
-    },
+    comments: [commentSchema]
   },
   {
     timestamps: true,

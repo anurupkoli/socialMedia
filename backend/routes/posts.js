@@ -155,4 +155,56 @@ router.delete("/deletePost/:id", fetchUser, async (req, res) => {
   }
 });
 
+
+router.post('/commentOnPost/:id',fetchUser,async(req,res)=>{
+  const comment = req.body.comment;
+  const userId = req.user.id;
+  const postId = req.params.id;
+  try {
+    let post = await Posts.findById(postId);
+    let user = await User.findOne({_id: userId});
+    if(!user){
+      return res.status(400).json("Invalid request")
+    }
+    if(!post){
+      return res.status(400).json('Post Unavailable')
+    }
+
+    post = await Posts.findByIdAndUpdate(
+      postId,
+      {$push: {comments: [{name: user.name, comment: comment, user: user._id}]}},
+      {new: true}
+    )
+    res.status(200).json('Comment Uploaded')
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).json("Internal Server Error")
+  }
+})
+router.delete('/deleteCommentOnPost/:id/:commentId',fetchUser,async(req,res)=>{
+  const userId = req.user.id;
+  const postId = req.params.id;
+  const commentId = req.params.commentId;
+  try {
+    let post = await Posts.findById(postId);
+    let comment = post.comments.find(
+      (c)=>c._id === commentId && c.user.toString() === userId
+    );
+    if(!post){
+      return res.status(400).json('Post Unavailable')
+    }
+    if(!comment){
+      return res.status(400).json("Authentication Revoked")
+    }
+    
+    
+    res.status(200).json('Comment Deleted')
+
+  } catch (error) {
+    console.log(error)
+    res.status(500).json("Internal Server Error")
+  }
+})
+
 module.exports = router;
