@@ -188,17 +188,19 @@ router.delete('/deleteCommentOnPost/:id/:commentId',fetchUser,async(req,res)=>{
   const commentId = req.params.commentId;
   try {
     let post = await Posts.findById(postId);
-    let comment = post.comments.find(
-      (c)=>c._id === commentId && c.user.toString() === userId
+    const commentIndex = post.comments.findIndex(
+      (c) => c._id.toString() === commentId && c.user.toString() === userId
     );
+
     if(!post){
       return res.status(400).json('Post Unavailable')
     }
-    if(!comment){
+    if(commentIndex === -1){
       return res.status(400).json("Authentication Revoked")
     }
-    
-    
+
+    post.comments.splice(commentIndex, 1);
+    await post.save()
     res.status(200).json('Comment Deleted')
 
   } catch (error) {
