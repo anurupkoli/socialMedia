@@ -39,7 +39,9 @@ export default function Topbar() {
         </div>
       </div>
       <NavLink to="/profile">
-        <div className="userProfile">{/* <img src="" alt="" /> */}</div>
+        <div className="userProfile">
+          <img src="/images/shivaray2.jpg" alt="profile" />
+        </div>
       </NavLink>
     </div>
   );

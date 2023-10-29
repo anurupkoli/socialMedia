@@ -5,8 +5,8 @@ export default function ProfileComponent() {
   return (
     <>
       <div className="profileCover">
-        <div className="profileBackImg"></div>
-        <div className="profileFrontImg"></div>
+        <div className="profileBackImg"><img src="/images/shivaray2.jpg" alt="" /></div>
+        <div className="profileFrontImg"><img src="/images/shivaray2.jpg" alt="" /></div>
       </div>
         <div className="userDescription">
           <h4>Anurup Koli</h4>
