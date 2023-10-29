@@ -59,49 +59,49 @@ export default function Leftbar() {
           <ul>
             <li className="leftBarFriend">
               <div className="leftBarFriendImg">
-                {/* <img src="" alt="f" /> */}
+                <img src="/images/shivaray2.jpg" alt="f" />
               </div>
               <span>Friend1</span>
             </li>
             <li className="leftBarFriend">
               <div className="leftBarFriendImg">
-                {/* <img src="" alt="f" /> */}
+                <img src="/images/shivaray2.jpg" alt="f" />
               </div>
               <span>Friend1</span>
             </li>
             <li className="leftBarFriend">
               <div className="leftBarFriendImg">
-                {/* <img src="" alt="f" /> */}
+                <img src="/images/shivaray2.jpg" alt="f" />
               </div>
               <span>Friend1</span>
             </li>
             <li className="leftBarFriend">
               <div className="leftBarFriendImg">
-                {/* <img src="" alt="f" /> */}
+                <img src="/images/shivaray2.jpg" alt="f" />
               </div>
               <span>Friend1</span>
             </li>
             <li className="leftBarFriend">
               <div className="leftBarFriendImg">
-                {/* <img src="" alt="f" /> */}
+                <img src="/images/shivaray2.jpg" alt="f" />
               </div>
               <span>Friend1</span>
             </li>
             <li className="leftBarFriend">
               <div className="leftBarFriendImg">
-                {/* <img src="" alt="f" /> */}
+                <img src="/images/shivaray2.jpg" alt="f" />
               </div>
               <span>Friend1</span>
             </li>
             <li className="leftBarFriend">
               <div className="leftBarFriendImg">
-                {/* <img src="" alt="f" /> */}
+                <img src="/images/shivaray2.jpg" alt="f" />
               </div>
               <span>Friend1</span>
             </li>
             <li className="leftBarFriend">
               <div className="leftBarFriendImg">
-                {/* <img src="" alt="f" /> */}
+                <img src="/images/shivaray2.jpg" alt="f" />
               </div>
               <span>Friend1</span>
             </li>

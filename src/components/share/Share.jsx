@@ -11,7 +11,7 @@ export default function Share() {
       <div className="share">
         <div className="shareContainer1">
           <div className="shareTop">
-            <div className="shareImg"></div>
+            <div className="shareImg"><img src="/images/shivaray2.jpg" alt="" /></div>
             <input
               type="text"
               className="shareText"

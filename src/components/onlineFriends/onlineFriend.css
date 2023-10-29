@@ -14,6 +14,12 @@
     background-color: purple;
 }
 
+.onlineFriendImg img{
+    width: 100%;
+    object-fit: contain;
+    border-radius: 50%;
+}
+
 .isOnlineIcon{
     width: 12px;
     height: 12px;

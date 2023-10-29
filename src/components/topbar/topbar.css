@@ -94,8 +94,8 @@
 
 .userProfile{
     background-color: aliceblue;
-    width: 40px;
-    height: 40px;
+    width: 45px;
+    height: 45px;
     margin-right: 40px;
     border-radius: 40px;
     cursor: pointer;
@@ -103,6 +103,6 @@
 
 .userProfile img{
     width: 100%;
-    object-fit: cover;
+    object-fit: contain;
     border-radius: 50%;
 }

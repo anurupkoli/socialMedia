@@ -31,7 +31,7 @@ export default function Post() {
         <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <div className="postUserImg"></div>
+            <div className="postUserImg"><img src="/images/shivaray2.jpg" alt="" /></div>
             <span className="postUserName">Anurup Koli</span>
             <span className="postTime">20 min ago</span>
           </div>
@@ -43,7 +43,7 @@ export default function Post() {
             <div className="postMessage">
                 Hello! this is my first Post
             </div>
-            <div className="postedImg"></div>
+            <div className="postedImg"><img src="/images/shivaray2.jpg" alt="" /></div>
         </div>
         <div className="postBottom">
             <div className="postBottomLeft" onClick={updateLike} >
