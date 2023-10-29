@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./topbar.css";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
@@ -7,6 +7,15 @@ import NotificationsIcon from "@mui/icons-material/Notifications";
 import { NavLink } from "react-router-dom";
 
 export default function Topbar() {
+  const [route, setRoute] = useState('/profile');
+  const toggleRoute = ()=>{
+    if(route === '/'){
+      setRoute('/profile')
+    }
+    else{
+      setRoute('/')
+    }
+  }
   return (
     <div className="navBar">
       <div className="leftNavbar">
@@ -38,7 +47,7 @@ export default function Topbar() {
           <span>2</span>
         </div>
       </div>
-      <NavLink to="/profile">
+      <NavLink to={`${route}`} onClick={toggleRoute}>
         <div className="userProfile">
           <img src="/images/shivaray2.jpg" alt="profile" />
         </div>
