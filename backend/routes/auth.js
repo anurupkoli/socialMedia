@@ -95,7 +95,7 @@ router.post(
   }
 );
 
-router.post("/getUser", fetchUserD, async (req, res) => {
+router.get("/getUser", fetchUserD, async (req, res) => {
   let userId = req.user.id;
   try {
     let data = await User.findById(userId).select("-password");
@@ -115,15 +115,21 @@ router.post('/updateUser', fetchUserD, async(req,res)=>{
     }
     
     let updateUser = {};
-    let {description,location, name} = req.body;
+    let {description,currentlyLiving, name, DOB, relationshipStatus} = req.body;
     if(description){
       updateUser.description = description;
     }
-    if(location){
-      updateUser.location = location;
+    if(currentlyLiving){
+      updateUser.currentlyLiving = currentlyLiving;
     }
     if(name){
       updateUser.name = name;
+    }
+    if(DOB){
+      updateUser.DOB = DOB;
+    }
+    if(relationshipStatus){
+      updateUser.relationshipStatus = relationshipStatus;
     }
 
     user = await User.findByIdAndUpdate(

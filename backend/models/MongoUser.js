@@ -33,9 +33,17 @@ const UserSchema = mongoose.Schema({
         type: String,
         default: ''
     },
-    location: {
+    rurrentlyLiving: {
         type: String,
         default: ''
+    },
+    DOB: {
+        type: Date,
+        default: ""
+    },
+    relationshipStatus: {
+        type: String,
+        default: ""
     }
 })
 
