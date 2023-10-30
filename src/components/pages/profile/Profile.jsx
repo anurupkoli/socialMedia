@@ -7,6 +7,7 @@ import "../home/home.css";
 import "../../topbar/topbar.css";
 import ProfileComponent from "./ProfileComponent";
 import ProfileRightBar from "./ProfileRightBar";
+
 export default function Profile() {
   return (
     <>

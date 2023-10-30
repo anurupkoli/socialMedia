@@ -98,8 +98,8 @@ router.post(
 router.get("/getUser", fetchUserD, async (req, res) => {
   let userId = req.user.id;
   try {
-    let data = await User.findById(userId).select("-password");
-    res.status(200).json(data);
+    let user = await User.findById(userId).select("-password,-profilePic");
+    res.status(200).json({user: user});
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
