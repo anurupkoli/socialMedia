@@ -5,8 +5,14 @@ import PersonIcon from "@mui/icons-material/Person";
 import MessageIcon from "@mui/icons-material/Message";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { NavLink } from "react-router-dom";
+import UserContext from "../../Contexts/User/UserContext";
+import { useContext } from "react";
+import PF from "../../EnvironmentVariables";
 
 export default function Topbar() {
+  const context = useContext(UserContext)
+  let {userProfilePic} = context;
+  console.log(userProfilePic)
   const [route, setRoute] = useState('/profile');
   const toggleRoute = ()=>{
     if(route === '/'){
@@ -49,7 +55,7 @@ export default function Topbar() {
       </div>
       <NavLink to={`${route}`} onClick={toggleRoute}>
         <div className="userProfile">
-          <img src="/images/shivaray2.jpg" alt="profile" />
+          <img src={`${PF}/uploadedProfilePic/${userProfilePic}`} alt="profile" />
         </div>
       </NavLink>
     </div>

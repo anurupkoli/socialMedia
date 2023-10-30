@@ -29,6 +29,10 @@ const UserSchema = mongoose.Schema({
         contentType: String,
         uploadedAt: {type: Date, default: Date.now}
     },
+    backgroundImg: {
+        img: Buffer,
+        contentType: String,
+    },
     description: {
         type: String,
         default: ''

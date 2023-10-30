@@ -9,6 +9,7 @@ const port = 8000;
 app.use(cors())
 app.use('/images/posts', express.static(path.join(__dirname, 'images/posts')));
 app.use('/images/uploadedProfilePic', express.static(path.join(__dirname, 'images/uploadedProfilePic')));
+app.use('/images/uploadedBackgroundPic', express.static(path.join(__dirname, 'images/uploadedBackgroundPic')));
 
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

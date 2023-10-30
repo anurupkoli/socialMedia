@@ -203,7 +203,9 @@ router.post("/unfollowFriend", fetchUserD, async (req, res) => {
   }
 });
 
-const Storage = multer.diskStorage({
+
+
+const Storage1 = multer.diskStorage({
   destination: "images/uploadedProfilePic",
   filename: (req, file, cd) => {
     cd(null, "profilePic" + `${Date.now()}` + file.originalname);
@@ -211,8 +213,10 @@ const Storage = multer.diskStorage({
 });
 
 const uploadProfilePic = multer({
-  storage: Storage,
+  storage: Storage1,
 }).single("uploadImg");
+
+
 
 router.post(
   "/uploadProfilePic",
@@ -223,8 +227,6 @@ router.post(
     const imgFile = req.file;
     try {
       let user = await User.findById(userId);
-      let profilePic = await User.findById(userId).select("profilePic");
-      console.log(profilePic.profilePic);
       if (!user) {
         return res.status(400).json("Invalid request");
       }
@@ -250,6 +252,55 @@ router.post(
   }
 );
 
+
+
+const Storage2 = multer.diskStorage({
+  destination: "images/uploadedBackgroundPic",
+  filename: (req, file, cd) => {
+    cd(null, "backgroundPic" + `${Date.now()}` + file.originalname);
+  },
+});
+
+const uploadBackgroundPic = multer({
+  storage: Storage2,
+}).single("uploadBackgroundPic");
+
+
+
+router.post(
+  "/uploadBackgroundPic",
+  fetchUserD,
+  uploadBackgroundPic,
+  async (req, res) => {
+    const userId = req.user.id;
+    const imgFile = req.file;
+    try {
+      let user = await User.findById(userId);
+      if (!user) {
+        return res.status(400).json("Invalid request");
+      }
+      if (!imgFile) {
+        return res.status(400).json("No such file");
+      }
+      user = await User.updateOne(
+        { _id: userId },
+        {
+          $set: {
+            backgroundImg: {
+              img: imgFile.filename,
+              contentType: "image/jpg",
+            },
+          },
+        }
+      );
+      res.status(200).json("Background Pic uploaded");
+    } catch (error) {
+      console.log(error);
+      res.status(400).json(error);
+    }
+  }
+);
+
 router.get("/getProfilePic", fetchUserD, async (req, res) => {
   const userId = req.user.id;
   try {
@@ -262,6 +313,23 @@ router.get("/getProfilePic", fetchUserD, async (req, res) => {
     }
     res.contentType(user.profilePic.contentType)
     res.status(200).send(user.profilePic.img)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(error)
+  }
+});
+router.get("/getBackgroundPic", fetchUserD, async (req, res) => {
+  const userId = req.user.id;
+  try {
+    const user = await User.findById(userId);
+    if (!user) {
+      return res.status(400).json("User not found");
+    }
+    if (!user.backgroundImg || !user.backgroundImg.img) {
+      return res.status(400).json("Profile Pic not found");
+    }
+    res.contentType(user.backgroundImg.contentType)
+    res.status(200).send(user.backgroundImg.img)
   } catch (error) {
     console.log(error)
     res.status(500).json(error)

@@ -6,6 +6,7 @@ const UserState = (props)=>{
     let user  = {}
     const [sUser, setSUser] = useState(user);
     const [userProfilePic, setUserProfilePic] = useState(null);
+    const [userBackgroundPic, setUserBackgroundPic] = useState(null);
 
     const fetchUser = async () => {
         try {
@@ -47,10 +48,30 @@ const UserState = (props)=>{
           console.error("Error fetching user data:", error);
         }
       };
+    const fetchUserBackgroundPic = async () => {
+        try {
+          const resp = await fetch(`${host}/api/auth/getBackgroundPic`, {
+            method: "GET",
+            headers: {
+              "Content-type": "application/json",
+              "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUzZmIxZjNiNGYxMjE5NTMyNTcxYmNlIn0sImlhdCI6MTY5ODY3MzU4Nn0.epFCuo31uChQ4VQ8MQMxAlAJZ8t1wlNEmzQZPu-QPe8"
+            }
+          });
+      
+          if (!resp.ok) {
+            throw new Error('Network response was not ok');
+          }
+      
+          const backgroundPic = await resp.text();
+          setUserBackgroundPic(backgroundPic);
+        } catch (error) {
+          console.error("Error fetching user data:", error);
+        }
+      };
       
 
     return (
-        <UserContext.Provider value = {{fetchUser, sUser, fetchUserProfilePic, userProfilePic}} >
+        <UserContext.Provider value = {{fetchUser, sUser, fetchUserProfilePic, userProfilePic, fetchUserBackgroundPic, userBackgroundPic}} >
             {props.children}
         </UserContext.Provider>
     )
