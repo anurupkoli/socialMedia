@@ -12,7 +12,6 @@ import PF from "../../EnvironmentVariables";
 export default function Topbar() {
   const context = useContext(UserContext)
   let {userProfilePic} = context;
-  console.log(userProfilePic)
   const [route, setRoute] = useState('/profile');
   const toggleRoute = ()=>{
     if(route === '/'){

@@ -50,23 +50,25 @@ router.get('/getPosts', fetchUser, async (req, res) => {
       return res.status(400).json("No user found");
     }
 
-    const posts = await Posts.find({ user: { $in: [userId, ...user.friends]} });
+    const posts = await Posts.find({ user: { $in: [userId, ...user.friends] } })
+      .populate("user", "name email") // Populate user field with name and email
+      .exec();
+    
     if (!posts) {
       return res.status(400).json("No posts found");
     }
 
-    const response = await Promise.all(posts.map(async (post) => {
-      const imgPath = `/posts/${post.postImg.img}`;
+    const response = posts.map(post => {
       return {
-        name: user.name,
+        name: post.user.name, // Access the user name from the populated user field
         description: post.description,
         likes: post.likes,
         comments: post.comments,
         createdAt: post.createdAt,
         id: post._id,
-        imagePath: imgPath,
+        imagePath: `/posts/${post.postImg.img}`,
       };
-    }));
+    });
 
     res.status(200).json(response);
   } catch (error) {
@@ -74,6 +76,7 @@ router.get('/getPosts', fetchUser, async (req, res) => {
     res.status(500).json(error);
   }
 });
+
 
 
 router.put("/updatePost/:id", fetchUser, uploadPost, async (req, res) => {
