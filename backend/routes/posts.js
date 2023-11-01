@@ -1,10 +1,8 @@
 require("dotenv").config();
 const express = require("express");
-const mongoose = require("mongoose");
 const Posts = require("../models/UserPosts");
 const User = require("../models/MongoUser");
 const multer = require("multer");
-const JWT_SECRET = process.env.JWT_TOKEN;
 const fetchUser = require("../middlewares/fetchUser");
 
 const router = express.Router();
@@ -44,33 +42,39 @@ router.post("/uploadPost", fetchUser, uploadPost, async (req, res) => {
   }
 });
 
-router.get("/getPosts", fetchUser, async (req, res) => {
-  let userId = req.user.id;
+router.get('/getPosts', fetchUser, async (req, res) => {
+  const userId = req.user.id;
   try {
     let user = await User.findById(userId);
     if (!user) {
       return res.status(400).json("No user found");
     }
 
-    const posts = await Posts.find({user: {$in: [userId, ...user.friends]}});
+    const posts = await Posts.find({ user: { $in: [userId, ...user.friends]} });
     if (!posts) {
       return res.status(400).json("No posts found");
     }
 
-    const response = posts.map((post) => ({
-      name: post.user.name,
-      description: post.description,
-      postImg: post.postImg,
-      likes: post.likes,
-      comments: post.comments,
-      createdAt: post.createdAt,
+    const response = await Promise.all(posts.map(async (post) => {
+      const imgPath = `/posts/${post.postImg.img}`;
+      return {
+        name: user.name,
+        description: post.description,
+        likes: post.likes,
+        comments: post.comments,
+        createdAt: post.createdAt,
+        id: post._id,
+        imagePath: imgPath,
+      };
     }));
+
     res.status(200).json(response);
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
   }
 });
+
 
 router.put("/updatePost/:id", fetchUser, uploadPost, async (req, res) => {
   const userId = req.user.id;
