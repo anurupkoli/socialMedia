@@ -51,24 +51,25 @@ router.get('/getPosts', fetchUser, async (req, res) => {
     }
 
     const posts = await Posts.find({ user: { $in: [userId, ...user.friends] } })
-      .populate("user", "name email") // Populate user field with name and email
+      .populate("user", "name profilePic") 
       .exec();
     
     if (!posts) {
       return res.status(400).json("No posts found");
     }
 
-    const response = posts.map(post => {
+    const response = await  Promise.all(posts.map(post => {
       return {
-        name: post.user.name, // Access the user name from the populated user field
+        name: post.user.name,
         description: post.description,
         likes: post.likes,
         comments: post.comments,
         createdAt: post.createdAt,
         id: post._id,
         imagePath: `/posts/${post.postImg.img}`,
+        profilePicPath: `/uploadedProfilePic/${post.user.profilePic.img}`
       };
-    });
+    }));
 
     res.status(200).json(response);
   } catch (error) {

@@ -47,14 +47,13 @@ export default function Post(props) {
       }
     }
   };
-
   return (
     <>
       <div className="posts">
         <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <div className="postUserImg"><img src={`${PF}/uploadedProfilePic/${post.imagePath}`} alt="" /></div>
+            <div className="postUserImg"><img src={`${PF}${post.profilePicPath}`} alt="" /></div>
             <span className="postUserName">{post.name}</span>
             <span className="postTime">{formatTimeAgo(post.createdAt)}</span>
           </div>
