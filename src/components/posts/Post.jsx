@@ -1,26 +1,37 @@
-import React, { useState} from "react";
+import React, { useState, useContext} from "react";
 import "./post.css";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FavoriteIcon from '@mui/icons-material/Favorite';
 import ThumbUpAltIcon from '@mui/icons-material/ThumbUpAlt';
 import PF from "../../EnvironmentVariables";
+import PostContext from "../../Contexts/Post/PostContext";
+import UserContext from "../../Contexts/User/UserContext";
 
 export default function Post(props) {
   let post = props.post
-  
+
+  const context1 = useContext(PostContext);
+  const context2 = useContext(UserContext);
+  let {updateLikes} = context1;
+  let {sUser} = context2;
+
+  let initialLikeState = post.likes.emails.includes(sUser.email)
+  const [isLiked, setIsLiked] = useState(initialLikeState)
   const [likes, setLikes] = useState(post.likes.count)
-  const [isLiked, setIsLiked] = useState(false)
-  const [favoriteIconColor, setFavoriteIconColor] = useState('black')
-  const [thumbsUpIconColor, setThumbsUpIconColor] = useState('black')
+  const [favoriteIconColor, setFavoriteIconColor] = useState(initialLikeState?'red':'black')
+  const [thumbsUpIconColor, setThumbsUpIconColor] = useState(initialLikeState?'blue':'black')
+
   const updateLike = ()=>{
     if(isLiked === false){
       setLikes(likes+1)
+      updateLikes(post.id, true, sUser.email)
       setIsLiked(true)
       setFavoriteIconColor('red')
       setThumbsUpIconColor('blue')
     }
     else{
       setLikes(likes-1)
+      updateLikes(post.id, false, sUser.email)
       setIsLiked(false)
       setFavoriteIconColor('black')
       setThumbsUpIconColor('black')

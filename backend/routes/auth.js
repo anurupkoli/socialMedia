@@ -164,6 +164,10 @@ router.post("/followFriend", fetchUserD, async (req, res) => {
       { _id: userId },
       { $push: { friends: req.body.friendId } }
     );
+    friend = await User.updateOne(
+      {_id: friendId},
+      {$push: {friends: userId}}
+    )
     return res.status(200).json("Friend Added");
   } catch (error) {
     console.log(error);
@@ -176,7 +180,7 @@ router.post("/unfollowFriend", fetchUserD, async (req, res) => {
   let friendId = req.body.friendId;
   try {
     let user = await User.findById(userId);
-    const friend = await User.findOne({ _id:friendId});
+    let friend = await User.findOne({ _id:friendId});
     if (!friend) {
       return res.status(400).json("No such friend");
     }
@@ -195,6 +199,10 @@ router.post("/unfollowFriend", fetchUserD, async (req, res) => {
     user = await User.updateOne(
       { _id: userId },
       { $pull: { friends: friendId } }
+    );
+    friend = await User.updateOne(
+      { _id: friendId },
+      { $pull: { friends: userId } }
     );
     res.status(200).json("Unfollowed friend");
   } catch (error) {

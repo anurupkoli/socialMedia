@@ -24,7 +24,6 @@ export default function Feed() {
       <Share/>
       {posts?(<div>
         {sortPostsByCreatedAt(posts).map((post) => {
-          console.log(post)
           return <Post key={post.id} post={post} />;
         })}
       </div>):'No Posts found'}

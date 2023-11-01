@@ -1,15 +1,34 @@
-import {React, useEffect, useContext} from "react";
+import {React, useEffect, useContext, useState} from "react";
 import "./share.css";
 import PermMediaIcon from "@mui/icons-material/PermMedia";
 import LabelIcon from "@mui/icons-material/Label";
 import LocationOnIcon from "@mui/icons-material/LocationOn";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import UserContext from "../../Contexts/User/UserContext";
+import PostContext from "../../Contexts/Post/PostContext";
 import PF from "../../EnvironmentVariables";
 
 export default function Share() {
-  const context = useContext(UserContext);
-  let {fetchUser, sUser, fetchUserProfilePic, userProfilePic} = context;
+  const context1 = useContext(UserContext);
+  const context2 = useContext(PostContext);
+  let {fetchUser, sUser, fetchUserProfilePic, userProfilePic} = context1;
+  let{uploadPost} = context2
+
+  let [description, setdescription] = useState('');
+  let [file, setfile] = useState(null);
+
+  const setDescription = (e)=>{
+    setdescription(e.target.value)
+  }
+
+  const setImage = (e)=>{
+    setfile(e.target.files[0])
+  }
+
+  const sharePost = ()=>{
+    uploadPost(description, file);
+
+  }
 
   useEffect(() => {
     fetchUser()
@@ -26,6 +45,7 @@ export default function Share() {
               type="text"
               className="shareText"
               placeholder={`What's on your mind ${sUser.name}?`}
+              onChange={setDescription}
             />
           </div>
           <hr />
@@ -33,6 +53,7 @@ export default function Share() {
             <div className="shareTypes">
               <PermMediaIcon htmlColor="green" />
               <span>Photo or Video</span>
+              <input type="file" accept="image/*" name="uploadPost" multiple={false} onChange={setImage}/>
             </div>
             <div className="shareTypes">
               <LabelIcon htmlColor="blue" />
@@ -46,7 +67,7 @@ export default function Share() {
               <EmojiEmotionsIcon htmlColor="goldenrod" />
               <span>Feelings</span>
             </div>
-            <button className="shareBtn">Share</button>
+            <button className="shareBtn" onClick={sharePost} >Share</button>
           </div>
         </div>
       </div>
