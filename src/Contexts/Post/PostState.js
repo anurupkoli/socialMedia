@@ -29,8 +29,8 @@ const PostState = (props) => {
   const uploadPost = async (description, file) => {
     try {
       let formData = new FormData();
-      formData.append("file", file);
-      formData.append("uploadPost", description);
+      formData.append("uploadPost", file);
+      formData.append("description", description);
       const response = await fetch(`${host}/api/posts/uploadPost`, {
         method: "POST",
         headers: {
@@ -39,8 +39,8 @@ const PostState = (props) => {
         },
         body: formData,
       });
-      const json = await response.json();
-      console.log(json);
+      const json = await response.json()
+      console.log(json)
     } catch (error) {
       console.log(error)
     }

@@ -1,4 +1,4 @@
-import {React, useEffect, useContext, useState} from "react";
+import { React, useEffect, useContext, useState, useRef } from "react";
 import "./share.css";
 import PermMediaIcon from "@mui/icons-material/PermMedia";
 import LabelIcon from "@mui/icons-material/Label";
@@ -11,28 +11,33 @@ import PF from "../../EnvironmentVariables";
 export default function Share() {
   const context1 = useContext(UserContext);
   const context2 = useContext(PostContext);
-  let {fetchUser, sUser, fetchUserProfilePic, userProfilePic} = context1;
-  let{uploadPost} = context2
+  let { fetchUser, sUser, fetchUserProfilePic, userProfilePic } = context1;
+  let { uploadPost } = context2;
 
-  let [description, setdescription] = useState('');
+  let [description, setdescription] = useState("");
   let [file, setfile] = useState(null);
 
-  const setDescription = (e)=>{
-    setdescription(e.target.value)
-  }
+  const uploadImageRef = useRef();
+  const fireImageInputRef = () => {
+    uploadImageRef.current.click();
+  };
 
-  const setImage = (e)=>{
-    setfile(e.target.files[0])
-  }
+  const setDescription = (e) => {
+    setdescription(e.target.value);
+  };
 
-  const sharePost = ()=>{
+  const setImage = (e) => {
+    setfile(e.target.files[0]);
+  };
+
+  const sharePost = (e) => {
+    e.preventDefault();
     uploadPost(description, file);
-
-  }
+  };
 
   useEffect(() => {
-    fetchUser()
-    fetchUserProfilePic()
+    fetchUser();
+    fetchUserProfilePic();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   return (
@@ -40,7 +45,9 @@ export default function Share() {
       <div className="share">
         <div className="shareContainer1">
           <div className="shareTop">
-            <div className="shareImg"><img src={`${PF}/uploadedProfilePic/${userProfilePic}`} alt="" /></div>
+            <div className="shareImg">
+              <img src={`${PF}/uploadedProfilePic/${userProfilePic}`} alt="" />
+            </div>
             <input
               type="text"
               className="shareText"
@@ -49,11 +56,19 @@ export default function Share() {
             />
           </div>
           <hr />
-          <div className="shareBottom">
-            <div className="shareTypes">
+          <div className="shareBottom" >
+            <div className="shareTypes" onClick={fireImageInputRef}>
               <PermMediaIcon htmlColor="green" />
               <span>Photo or Video</span>
-              <input type="file" accept="image/*" name="uploadPost" multiple={false} onChange={setImage}/>
+              <input
+                type="file"
+                accept="image/*"
+                name="uploadPost"
+                multiple={false}
+                ref={uploadImageRef}
+                onChange={setImage}
+                style={{display: "none"}}
+              />
             </div>
             <div className="shareTypes">
               <LabelIcon htmlColor="blue" />
@@ -67,7 +82,9 @@ export default function Share() {
               <EmojiEmotionsIcon htmlColor="goldenrod" />
               <span>Feelings</span>
             </div>
-            <button className="shareBtn" onClick={sharePost} >Share</button>
+            <button className="shareBtn" onClick={sharePost}>
+              Share
+            </button>
           </div>
         </div>
       </div>
