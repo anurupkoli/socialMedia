@@ -20,22 +20,6 @@ export default function ProfileRightBar() {
                 <img src="/images/shivaray2.jpg" alt="" />
                 <h4>Naveed</h4>
             </div>
-            <div className="profileBarFriendsProfile">
-                <img src="/images/shivaray2.jpg" alt="" />
-                <h4>Naveed</h4>
-            </div>
-            <div className="profileBarFriendsProfile">
-                <img src="/images/shivaray2.jpg" alt="" />
-                <h4>Naveed</h4>
-            </div>
-            <div className="profileBarFriendsProfile">
-                <img src="/images/shivaray2.jpg" alt="" />
-                <h4>Naveed</h4>
-            </div>
-            <div className="profileBarFriendsProfile">
-                <img src="/images/shivaray2.jpg" alt="" />
-                <h4>Naveed</h4>
-            </div>
         </div>
       </div>
     </>

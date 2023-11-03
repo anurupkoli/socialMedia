@@ -211,6 +211,20 @@ router.post("/unfollowFriend", fetchUserD, async (req, res) => {
   }
 });
 
+router.get('/getFriendProfileDetails/:friendId', async(req,res)=>{
+  const friendId = req.params.friendId;
+  try {
+    let friend = User.findById({_id: friendId})
+    if(!friend){
+      return res.status(400).json("No such friend")
+    }
+    res.status(200).json(friend);
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(error)
+  }
+})
+
 
 
 const Storage1 = multer.diskStorage({
