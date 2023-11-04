@@ -31,10 +31,10 @@
     justify-content: center;
 }
 
-.profileBackImg img{
+.profileBackImg img {
     width: 100%;
     height: 100%;
-    object-fit:cover;
+    object-fit: cover;
 }
 
 .profileFrontImg {
@@ -49,10 +49,10 @@
     margin: auto;
 }
 
-.profileFrontImg img{
+.profileFrontImg img {
     width: 150px;
     height: 150px;
-    object-fit:cover;
+    object-fit: cover;
     border-radius: 50%;
 }
 
@@ -64,35 +64,35 @@
     margin-top: -10px;
 }
 
-.userDescription span{
+.userDescription span {
     max-width: 500px;
     text-align: center;
 }
 
 /* ProfileRightBar CSS */
 
-.ProfileRightBar{
+.ProfileRightBar {
     padding: 20px 0px;
 }
 
-.profileRightBarTop{
+.profileRightBarTop {
     -webkit-box-shadow: 0px 0px 28px -13px rgba(66, 68, 90, 1);
     -moz-box-shadow: 0px 0px 28px -13px rgba(66, 68, 90, 1);
     box-shadow: 0px 0px 28px -18px rgba(66, 68, 90, 1);
     padding: 10px;
 }
 
-.ProfileRightBar h1{
+.ProfileRightBar h1 {
     margin: 30px 0 20px 0;
 }
 
-.profileRightBarTop h3{
+.profileRightBarTop h3 {
     margin-bottom: 5px;
 }
 
-.profileRightBarBottom{
+.profileRightBarBottom {
     width: 100%;
-    height:max-content;
+    height: max-content;
     padding: 5px;
     display: flex;
     align-items: center;
@@ -103,21 +103,24 @@
     box-shadow: 0px 0px 28px -18px rgba(66, 68, 90, 1);
 }
 
-.profileBarFriendsProfile{
+.profileBarFriendsProfile {
     width: 80px;
     height: fit-content;
     border-radius: 10px;
-    margin: 3px 6px 10px 6px ;
+    margin: 3px 6px 10px 6px;
 }
 
-.profileBarFriendsProfile img{
+.profileBarFriendsProfileDiv {
+    cursor: pointer;
+}
+
+.profileBarFriendsProfile img {
     width: 80px;
     height: 80px;
     object-fit: fill;
     border-radius: 8px;
 }
 
-.profileBarFriendsProfile h5{
-    text-align: center
-    ;
+.profileBarFriendsProfile h5 {
+    text-align: center;
 }

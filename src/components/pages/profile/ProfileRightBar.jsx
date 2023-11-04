@@ -1,23 +1,19 @@
 import React, { useContext, useEffect } from "react";
-import UserContext from "../../../Contexts/User/UserContext";
 import PF from "../../../EnvironmentVariables";
+import UserContext from "../../../Contexts/User/UserContext";
 
-export default function ProfileRightBar() {
-  const context = useContext(UserContext);
-  const { fetchFriendDetails, friendDetails, sUser } = context;
-
-  useEffect(() => {
-    fetchFriendDetails();
-    // eslint-disable-next-line
-  }, []);
-
+export default function ProfileRightBar(props) {
+  let profileDetails = props.profileDetails;
+  let friendDetails = props.friendDetails;
+  const context = useContext(UserContext)
+  const {sUser} = context
   return (
     <div className="ProfileRightBar">
       <div className="profileRightBarTop">
-        <h3>{`Name: ${sUser.name}`}</h3>
-        <h3>{`DOB: ${sUser.DOB === null ? 'N/A' : sUser.DOB}`}</h3>
-        <h3>{`Currently Living in: ${sUser.currentlyLiving}`}</h3>
-        <h3>{`Relationship Status: ${sUser.relationshipStatus}`}</h3>
+        <h3>{`Name: ${profileDetails.name?profileDetails.name:sUser.name }`}</h3>
+        <h3>{`DOB: ${profileDetails.DOB === null ? 'N/A' : profileDetails.DOB || sUser.DOB?sUser.DOB: 'N/A'}`}</h3>
+        <h3>{`Currently Living in: ${profileDetails.currentlyLiving? profileDetails.currentlyLiving: sUser.currentlyLiving}`}</h3>
+        <h3>{`Relationship Status: ${profileDetails.relationshipStatus?profileDetails.relationshipStatus: sUser.relationshipStatus}`}</h3>
         <button>Update Details</button>
       </div>
       <h1>Your Friends</h1>
@@ -25,7 +21,7 @@ export default function ProfileRightBar() {
         {friendDetails ? (
           <div className="profileBarFriendsProfile">
             {friendDetails.map((friend) => (
-              <div key={friend.id}>
+              <div key={friend.id} className="profileBarFriendsProfileDiv">
                 <img src={`${PF}${friend.profilePicPath}`} alt="" />
                 <h5>{friend.name}</h5>
               </div>

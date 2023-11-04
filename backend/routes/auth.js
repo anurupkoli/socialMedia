@@ -39,9 +39,6 @@ router.post(
         password: secPassword,
         mobileNo: req.body.mobileNo,
         date: Date.now(),
-        // location: {
-        //   latitude:
-        // }
       });
 
       let data = {
