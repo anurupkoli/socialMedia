@@ -8,7 +8,7 @@ import UserContext from "../../Contexts/User/UserContext";
 import PostContext from "../../Contexts/Post/PostContext";
 import PF from "../../EnvironmentVariables";
 
-export default function Share() {
+export default function Share(props) {
   const context1 = useContext(UserContext);
   const context2 = useContext(PostContext);
   let { fetchUser, sUser, fetchUserProfilePic, userProfilePic } = context1;

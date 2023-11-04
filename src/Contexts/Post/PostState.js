@@ -5,6 +5,7 @@ const PostState = (props) => {
   const host = "http://localhost:8000";
   const sPost = [];
   const [posts, setPosts] = useState(sPost);
+  const [reRenderPosts, setreRenderPosts] = useState(0);
 
   const fetchPosts = async (userId) => {
     try {
@@ -39,10 +40,11 @@ const PostState = (props) => {
         },
         body: formData,
       });
-      const json = await response.json()
-      console.log(json)
+      // eslint-disable-next-line
+      const json = await response.json();
+      setreRenderPosts(reRenderPosts + 1);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
   };
 
@@ -62,7 +64,9 @@ const PostState = (props) => {
   };
 
   return (
-    <PostContext.Provider value={{ fetchPosts, posts, updateLikes, uploadPost }}>
+    <PostContext.Provider
+      value={{ fetchPosts, posts, updateLikes, uploadPost, reRenderPosts }}
+    >
       {props.children}
     </PostContext.Provider>
   );
