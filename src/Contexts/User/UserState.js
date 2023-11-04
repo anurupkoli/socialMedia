@@ -7,6 +7,7 @@ const UserState = (props)=>{
     const [sUser, setSUser] = useState(user);
     const [userProfilePic, setUserProfilePic] = useState(null);
     const [userBackgroundPic, setUserBackgroundPic] = useState(null);
+    const [friendDetails, setfriendDetails] = useState([]);
 
     const fetchUser = async () => {
         try {
@@ -69,11 +70,23 @@ const UserState = (props)=>{
         }
       };
 
-      
-      
+
+      const fetchFriendDetails = async()=>{
+        const res = await fetch(`${host}/api/auth/getFriendsDetails`, {
+          method: "GET",
+          headers: {
+            "auth-token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUzZmIxZjNiNGYxMjE5NTMyNTcxYmNlIn0sImlhdCI6MTY5ODY3MzU4Nn0.epFCuo31uChQ4VQ8MQMxAlAJZ8t1wlNEmzQZPu-QPe8"
+          }
+        })
+        if(!res.ok){
+          throw new Error('Network response was not ok')
+        }
+        const json = await res.json();
+        setfriendDetails(json.friends)
+      }
 
     return (
-        <UserContext.Provider value = {{fetchUser, sUser, fetchUserProfilePic, userProfilePic, fetchUserBackgroundPic, userBackgroundPic}} >
+        <UserContext.Provider value = {{fetchUser, sUser, fetchUserProfilePic, userProfilePic, fetchUserBackgroundPic, userBackgroundPic, fetchFriendDetails, friendDetails}} >
             {props.children}
         </UserContext.Provider>
     )

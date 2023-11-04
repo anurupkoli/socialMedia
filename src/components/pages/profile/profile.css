@@ -29,7 +29,6 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    border: 2px solid black;
 }
 
 .profileBackImg img{
@@ -93,7 +92,7 @@
 
 .profileRightBarBottom{
     width: 100%;
-    max-height: 100%;
+    height:max-content;
     padding: 5px;
     display: flex;
     align-items: center;
@@ -106,7 +105,7 @@
 
 .profileBarFriendsProfile{
     width: 80px;
-    height: 100px;
+    height: fit-content;
     border-radius: 10px;
     margin: 3px 6px 10px 6px ;
 }
@@ -118,7 +117,7 @@
     border-radius: 8px;
 }
 
-.profileBarFriendsProfile h4{
+.profileBarFriendsProfile h5{
     text-align: center
     ;
 }

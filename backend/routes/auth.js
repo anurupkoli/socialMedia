@@ -211,19 +211,52 @@ router.post("/unfollowFriend", fetchUserD, async (req, res) => {
   }
 });
 
-router.get('/getFriendProfileDetails/:friendId', async(req,res)=>{
-  const friendId = req.params.friendId;
+router.get('/getFriendProfileDetails', fetchUserD, async(req,res)=>{
+  const userId = req.user.id;
   try {
-    let friend = User.findById({_id: friendId})
-    if(!friend){
-      return res.status(400).json("No such friend")
+    let friends = User.findById(userId).select("friends")
+    if(!friends){
+      return res.status(400).json("No friends found")
     }
-    res.status(200).json(friend);
+    res.status(200).json(friends)
   } catch (error) {
     console.log(error)
     res.status(500).json(error)
   }
 })
+
+router.get('/getFriendsDetails', fetchUserD, async (req, res) => {
+  const userId = req.user.id;
+
+  try {
+    const user = await User.findById(userId).select('friends');
+
+    if (!user) {
+      return res.status(400).json("User not found");
+    }
+    if (!user.friends || user.friends.length === 0) {
+      return res.status(200).json("No friends found");
+    }
+
+    const friendDetails = await User.find({ _id: { $in: user.friends } });
+    let response = await Promise.all(friendDetails.map(friend => {
+      return {
+        id: friend._id,
+        name: friend.name,
+        description: friend.description,
+        profilePicPath: `/uploadedProfilePic/${friend.profilePic.img}`,
+        backgroundImgPath: `/uploadedBackgroundPic/${friend.backgroundImg.img}`,
+        DOB: friend.DOB,
+        currentlyLiving: friend.currentlyLiving,
+        relationshipStatus: friend.relationshipStatus
+      }
+    }))
+    res.status(200).json({ friends: response });
+  } catch (error) {
+    console.log(error);
+    res.status(500).json(error);
+  }
+});
 
 
 

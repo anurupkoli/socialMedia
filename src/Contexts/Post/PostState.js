@@ -14,7 +14,7 @@ const PostState = (props) => {
         headers: {
           "Content-Type": "application/json",
           "auth-token":
-            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjUzZmIxZjNiNGYxMjE5NTMyNTcxYmNlIn0sImlhdCI6MTY5ODgyMzUxMH0.jt1tX8Tt2RqCwkJWS7MsJaZKonl_X4aLx23TlapCqbM",
+            "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyIjp7ImlkIjoiNjU0MjE0ODNlMzUwMWFiYThiMDMwMmRkIn0sImlhdCI6MTY5OTA5MDgxN30.Zrr7xifieTwwPJs-_WqDSmYZbcpFfROFR5XEE7Ijr2o",
         },
       });
       if (!response.ok) {
