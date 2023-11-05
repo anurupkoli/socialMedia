@@ -37,7 +37,7 @@ const UserSchema = mongoose.Schema({
         type: String,
         default: ''
     },
-    rurrentlyLiving: {
+    currentlyLiving: {
         type: String,
         default: ''
     },

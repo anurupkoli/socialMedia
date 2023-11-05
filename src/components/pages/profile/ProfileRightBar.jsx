@@ -1,10 +1,9 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext } from "react";
 import PF from "../../../EnvironmentVariables";
 import UserContext from "../../../Contexts/User/UserContext";
 
 export default function ProfileRightBar(props) {
-  let profileDetails = props.profileDetails;
-  let friendDetails = props.friendDetails;
+  let {profileDetails, friendDetails, setFriendProfileDetails} = props;
   const context = useContext(UserContext)
   const {sUser} = context
   return (
@@ -19,9 +18,9 @@ export default function ProfileRightBar(props) {
       <h1>Your Friends</h1>
       <div className="profileRightBarBottom">
         {friendDetails ? (
-          <div className="profileBarFriendsProfile">
-            {friendDetails.map((friend) => (
-              <div key={friend.id} className="profileBarFriendsProfileDiv">
+          <div className="profileBarfriendCard" >
+          {friendDetails.map((friend) => (
+              <div className="profileBarFriendsProfile" key={friend.id}  onClick={()=> setFriendProfileDetails(friend)}  >
                 <img src={`${PF}${friend.profilePicPath}`} alt="" />
                 <h5>{friend.name}</h5>
               </div>

@@ -244,7 +244,7 @@ router.get('/getFriendsDetails', fetchUserD, async (req, res) => {
         profilePicPath: `/uploadedProfilePic/${friend.profilePic.img}`,
         backgroundImgPath: `/uploadedBackgroundPic/${friend.backgroundImg.img}`,
         DOB: friend.DOB,
-        currentlyLiving: friend.currentlyLiving,
+        currentlyLiving: friend.currentlyLiving?friend.currentlyLiving:'N/A',
         relationshipStatus: friend.relationshipStatus
       }
     }))

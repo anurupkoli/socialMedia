@@ -1,4 +1,4 @@
-import { React, useContext, useState, useRef, useEffect } from "react";
+import { React, useContext, useState, useEffect } from "react";
 import Topbar from "../../topbar/Topbar";
 import Leftbar from "../../leftbar/Leftbar";
 import Feed from "../../feed/Feed";
@@ -21,26 +21,38 @@ export default function Profile() {
     fetchUserProfilePic,
   } = context;
 
-  const [isUser, setisUser] = useState(true);
   const user = {
     id: sUser._id,
     name: sUser.name,
     description: sUser.description,
-    backgroundPic: userBackgroundPic,
+    backgroundPic:userBackgroundPic,
     profilePic: userProfilePic,
     DOB: sUser.DOB,
     currentlyLiving: sUser.currentlyLiving,
-    relationshipStatus: sUser.relationshipStatus
-  }
+    relationshipStatus: sUser.relationshipStatus,
+  };
+
   const [profileDetails, setProfileDetails] = useState(user);
 
-  const setFriend = useRef(null);
   useEffect(() => {
     fetchUserBackgroundPic();
     fetchUserProfilePic();
     fetchFriendDetails();
     // eslint-disable-next-line
   }, [profileDetails]);
+
+  const setFriendProfileDetails = (friend) => {
+    setProfileDetails({
+      id: friend.id,
+      name: friend.name,
+      description: friend.description,
+      backgroundPic: friend.backgroundImgPath,
+      profilePic: friend.profilePicPath,
+      DOB: friend.DOB,
+      currentlyLiving: friend.currentlyLiving,
+      relationshipStatus: friend.relationshipStatus,
+    });
+  };
 
   return (
     <>
@@ -52,14 +64,18 @@ export default function Profile() {
           </div>
           <div className="profileRightBar">
             <div className="profileRightTop">
-              <ProfileComponent profileDetails={profileDetails} sUser={sUser}/>
+              <ProfileComponent profileDetails={profileDetails} />
             </div>
             <div className="profileRightBottom">
               <div className="feed">
                 <Feed />
               </div>
               <div className="rightBar">
-                <ProfileRightBar  profileDetails={profileDetails} friendDetails={friendDetails}/>
+                <ProfileRightBar
+                  profileDetails={profileDetails}
+                  friendDetails={friendDetails}
+                  setFriendProfileDetails = {setFriendProfileDetails}
+                />
               </div>
             </div>
           </div>
