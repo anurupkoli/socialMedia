@@ -46,7 +46,7 @@ export default function Share(props) {
         <div className="shareContainer1">
           <div className="shareTop">
             <div className="shareImg">
-              <img src={`${PF}/uploadedProfilePic/${userProfilePic}`} alt="" />
+              <img src={`${PF}${userProfilePic}`} alt="" />
             </div>
             <input
               type="text"

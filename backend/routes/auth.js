@@ -364,7 +364,7 @@ router.get("/getProfilePic", fetchUserD, async (req, res) => {
       return res.status(400).json("Profile Pic not found");
     }
     res.contentType(user.profilePic.contentType)
-    res.status(200).send(user.profilePic.img)
+    res.status(200).send('/uploadedProfilePic/'+user.profilePic.img)
   } catch (error) {
     console.log(error)
     res.status(500).json(error)
@@ -381,7 +381,7 @@ router.get("/getBackgroundPic", fetchUserD, async (req, res) => {
       return res.status(400).json("Profile Pic not found");
     }
     res.contentType(user.backgroundImg.contentType)
-    res.status(200).send(user.backgroundImg.img)
+    res.status(200).send('/uploadedBackgroundPic/'+user.backgroundImg.img)
   } catch (error) {
     console.log(error)
     res.status(500).json(error)

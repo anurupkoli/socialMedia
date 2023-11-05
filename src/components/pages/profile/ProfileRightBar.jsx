@@ -3,7 +3,7 @@ import PF from "../../../EnvironmentVariables";
 import UserContext from "../../../Contexts/User/UserContext";
 
 export default function ProfileRightBar(props) {
-  let {profileDetails, friendDetails, setFriendProfileDetails} = props;
+  let {profileDetails, friendDetails, setFriendProfileDetails, isUser} = props;
   const context = useContext(UserContext)
   const {sUser} = context
   return (
@@ -13,7 +13,7 @@ export default function ProfileRightBar(props) {
         <h3>{`DOB: ${profileDetails.DOB === null ? 'N/A' : profileDetails.DOB || sUser.DOB?sUser.DOB: 'N/A'}`}</h3>
         <h3>{`Currently Living in: ${profileDetails.currentlyLiving? profileDetails.currentlyLiving: sUser.currentlyLiving}`}</h3>
         <h3>{`Relationship Status: ${profileDetails.relationshipStatus?profileDetails.relationshipStatus: sUser.relationshipStatus}`}</h3>
-        <button>Update Details</button>
+        {isUser?<button>Update Details</button>:null}
       </div>
       <h1>Your Friends</h1>
       <div className="profileRightBarBottom">

@@ -1,15 +1,16 @@
-import {React, useContext, useEffect} from 'react'
+import {React, useContext, useEffect, useState} from 'react'
 import './feed.css'
 import Share from '../share/Share'
 import Post from '../posts/Post'
 import PostContext from "../../Contexts/Post/PostContext";
 import UserContext from "../../Contexts/User/UserContext";
 
-export default function Feed() {
+export default function Feed(props) {
   const context1 = useContext(PostContext);
   const context2 = useContext(UserContext);
   let {fetchPosts, posts, reRenderPosts} = context1
   let {sUser} = context2
+  const {isUser} = props;
   
   useEffect(() => {
     fetchPosts(sUser._id);
@@ -21,7 +22,7 @@ export default function Feed() {
   };
   return (
     <>
-      <Share/>
+      {isUser?<Share/>:null}
       {posts?(<div>
         {sortPostsByCreatedAt(posts).map((post) => {
           return <Post key={post.id} post={post}/>;

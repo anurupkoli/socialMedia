@@ -54,7 +54,7 @@ export default function Topbar() {
       </div>
       <NavLink to={`${route}`} onClick={toggleRoute}>
         <div className="userProfile">
-          <img src={`${PF}/uploadedProfilePic/${userProfilePic}`} alt="profile" />
+          <img src={`${PF}${userProfilePic}`} alt="profile" />
         </div>
       </NavLink>
     </div>

@@ -25,21 +25,31 @@ export default function Profile() {
     id: sUser._id,
     name: sUser.name,
     description: sUser.description,
-    backgroundPic:userBackgroundPic,
+    backgroundPic: userBackgroundPic,
     profilePic: userProfilePic,
     DOB: sUser.DOB,
     currentlyLiving: sUser.currentlyLiving,
     relationshipStatus: sUser.relationshipStatus,
   };
-
   const [profileDetails, setProfileDetails] = useState(user);
+  const [isUser, setisUser] = useState(true);
 
   useEffect(() => {
     fetchUserBackgroundPic();
     fetchUserProfilePic();
     fetchFriendDetails();
+    setProfileDetails({
+      id: sUser._id,
+      name: sUser.name,
+      description: sUser.description,
+      backgroundPic: userBackgroundPic,
+      profilePic: userProfilePic,
+      DOB: sUser.DOB,
+      currentlyLiving: sUser.currentlyLiving,
+      relationshipStatus: sUser.relationshipStatus,
+    });
     // eslint-disable-next-line
-  }, [profileDetails]);
+  }, [sUser]);
 
   const setFriendProfileDetails = (friend) => {
     setProfileDetails({
@@ -52,6 +62,7 @@ export default function Profile() {
       currentlyLiving: friend.currentlyLiving,
       relationshipStatus: friend.relationshipStatus,
     });
+    setisUser(false)
   };
 
   return (
@@ -68,13 +79,14 @@ export default function Profile() {
             </div>
             <div className="profileRightBottom">
               <div className="feed">
-                <Feed />
+                <Feed isUser={isUser} />
               </div>
               <div className="rightBar">
                 <ProfileRightBar
                   profileDetails={profileDetails}
                   friendDetails={friendDetails}
-                  setFriendProfileDetails = {setFriendProfileDetails}
+                  setFriendProfileDetails={setFriendProfileDetails}
+                  isUser={isUser}
                 />
               </div>
             </div>
