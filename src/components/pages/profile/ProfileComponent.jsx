@@ -1,6 +1,5 @@
-import React from "react";
 import "./profile.css";
-import {  useContext } from "react";
+import { React, useContext, useState, useEffect } from "react";
 import PF from "../../../EnvironmentVariables";
 import UserContext from "../../../Contexts/User/UserContext";
 
@@ -8,14 +7,35 @@ export default function  ProfileComponent(props) {
   let {profileDetails} = props
   const context = useContext(UserContext)
   const {sUser, userProfilePic, userBackgroundPic} = context
+  const [profilePicPath, setprofilePicPath] = useState('/images/socialmediaprofile.jpg');
+  const [backgroundPicPath, setbackgroundPicPath] = useState('/images/socialmediabackground.jpg');
+
+  useEffect(() => {
+    if (profileDetails.profilePic !== null || userProfilePic !== null) {
+      if (profileDetails.profilePic && typeof profileDetails.profilePic === 'string' && profileDetails.profilePic.includes('/uploadedProfilePic/undefined')) {
+        setprofilePicPath('/images/socialmediaprofile.jpg');
+      } else {
+        setprofilePicPath(`${PF}${profileDetails.profilePic ? profileDetails.profilePic : userProfilePic}`);
+      }
+    }
+    
+    if (profileDetails.backgroundPic !== null || userBackgroundPic !== null) {
+      if (profileDetails.backgroundPic && typeof profileDetails.backgroundPic === 'string' && profileDetails.backgroundPic.includes('/uploadedBackgroundPic/undefined')) {
+        setbackgroundPicPath('/images/socialmediabackground.jpg');
+      } else {
+        setbackgroundPicPath(`${PF}${profileDetails.backgroundPic ? profileDetails.backgroundPic : userBackgroundPic}`);
+      }
+    }
+  }, [profileDetails, userProfilePic, userBackgroundPic]);
+
   return (
     <>
       <div className="profileCover">
         <div className="profileBackImg">
-          <img src={`${PF}${profileDetails.backgroundPic?profileDetails.backgroundPic:userBackgroundPic}` || '/images/socialmediabackground.jpg'  } alt="" />
+          <img src={backgroundPicPath} alt="" />
         </div>
         <div className="profileFrontImg">
-          <img src={`${PF}${profileDetails.profilePic?profileDetails.profilePic:userProfilePic}` } alt="" />
+          <img src={profilePicPath} alt="" />
         </div>
       </div>
       <div className="userDescription">

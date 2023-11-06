@@ -1,9 +1,54 @@
-import React from "react";
+import { React, useState } from "react";
 import "./signUp.css";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 
 export default function SignUp() {
-  const handleSignUpSubmit = async () => {};
+  const history = useNavigate();
+  const host = "http://localhost:8000";
+
+  const [userCredentials, setuserCredentials] = useState({
+    name: "",
+    email: "",
+    password: "",
+    mobileNo: "",
+  });
+
+  const [cPassword, setcPassword] = useState({ cpassword: null });
+
+  const handleInputChange = (e) => {
+    setuserCredentials({ ...userCredentials, [e.target.name]: e.target.value });
+  };
+
+  const handleCPasswordChange = (e) => {
+    setcPassword({ ...cPassword, [e.target.name]: e.target.value });
+  };
+
+  const handleSignUpSubmit = async (e) => {
+    e.preventDefault();
+    if (cPassword.cpassword !== userCredentials.password) {
+      alert("Passwords do not match");
+    } else {
+      const resp = await fetch(`${host}/api/auth/createUser`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          name: userCredentials.name,
+          email: userCredentials.email,
+          password: userCredentials.password,
+          mobileNo: userCredentials.mobileNo,
+        }),
+      });
+      const json = await resp.json();
+      if (json.authToken) {
+        localStorage.setItem("auth-token", json.authToken);
+        history("/");
+      } else {
+        alert(json.error);
+      }
+    }
+  };
   return (
     <div className="mainSignUpContainer">
       <div className="leftSignUpPage">
@@ -15,16 +60,26 @@ export default function SignUp() {
           <input
             type="text"
             placeholder="UserName"
-            required
             name="name"
             id="name"
+            onChange={handleInputChange}
+            required
           />
           <input
             type="email"
             placeholder="Email"
-            required
             name="email"
             id="email"
+            onChange={handleInputChange}
+            required
+          />
+          <input
+            type="number"
+            placeholder="Mobile No"
+            name="mobileNo"
+            id="mobileNo"
+            onChange={handleInputChange}
+            required
           />
           <input
             type="password"
@@ -32,14 +87,16 @@ export default function SignUp() {
             minLength={6}
             name="password"
             id="password"
+            onChange={handleInputChange}
             required
           />
           <input
             type="password"
             placeholder="Confirm Password"
             minLength={6}
-            name="password"
-            id="password"
+            name="cpassword"
+            id="cpassword"
+            onChange={handleCPasswordChange}
             required
           />
           <button id="signUpSignUpBtn" type="submit">

@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useContext, useEffect } from "react";
 import "./topbar.css";
 import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
@@ -6,7 +6,6 @@ import MessageIcon from "@mui/icons-material/Message";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { NavLink } from "react-router-dom";
 import UserContext from "../../Contexts/User/UserContext";
-import { useContext } from "react";
 import PF from "../../EnvironmentVariables";
 
 export default function Topbar() {
@@ -21,6 +20,14 @@ export default function Topbar() {
       setRoute('/')
     }
   }
+  const [profilePicPath, setprofilePicPath] = useState("/images/socialmediaprofile.jpg");
+
+  useEffect(() => {
+    if(userProfilePic !== null){
+      setprofilePicPath(`${PF}${userProfilePic}`)
+    }
+  }, [userProfilePic]);
+
   return (
     <div className="navBar">
       <div className="leftNavbar">
@@ -54,7 +61,7 @@ export default function Topbar() {
       </div>
       <NavLink to={`${route}`} onClick={toggleRoute}>
         <div className="userProfile">
-          <img src={`${PF}${userProfilePic}`} alt="profile" />
+          <img src={profilePicPath} alt="" />
         </div>
       </NavLink>
     </div>

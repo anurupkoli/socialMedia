@@ -48,7 +48,7 @@ router.post(
       };
 
       const authToken = JWST.sign(data, jws_secret);
-      res.status(200).json(authToken);
+      res.status(200).json({authToken});
     } catch (error) {
       console.log(error);
       res.status(500).json({ error: "Some error occured" });
@@ -375,7 +375,7 @@ router.get("/getBackgroundPic", fetchUserD, async (req, res) => {
       return res.status(400).json("User not found");
     }
     if (!user.backgroundImg || !user.backgroundImg.img) {
-      return res.status(400).json("Profile Pic not found");
+      return res.status(400).json("Background Pic not found");
     }
     res.contentType(user.backgroundImg.contentType);
     res.status(200).send("/uploadedBackgroundPic/" + user.backgroundImg.img);

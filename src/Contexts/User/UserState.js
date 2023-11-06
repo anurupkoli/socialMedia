@@ -58,13 +58,13 @@ const UserState = (props) => {
           "auth-token": localStorage.getItem("auth-token"),
         },
       });
-
+    
       if (!resp.ok) {
         throw new Error("Network response was not ok");
       }
-
       const backgroundPic = await resp.text();
       setUserBackgroundPic(backgroundPic);
+
     } catch (error) {
       console.error("Error fetching user data:", error);
     }
