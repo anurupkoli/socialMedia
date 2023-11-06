@@ -96,50 +96,51 @@ router.get("/getUser", fetchUserD, async (req, res) => {
   let userId = req.user.id;
   try {
     let user = await User.findById(userId).select("-password,-profilePic");
-    res.status(200).json({user: user});
+    res.status(200).json({ user: user });
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
   }
 });
 
-router.post('/updateUser', fetchUserD, async(req,res)=>{
+router.post("/updateUser", fetchUserD, async (req, res) => {
   const userId = req.user.id;
   try {
-    let user = await User.findById(userId)
-    if(!user){
-      return res.status(400).json('No such user')
+    let user = await User.findById(userId);
+    if (!user) {
+      return res.status(400).json("No such user");
     }
-    
+
     let updateUser = {};
-    let {description,currentlyLiving, name, DOB, relationshipStatus} = req.body;
-    if(description){
+    let { description, currentlyLiving, name, DOB, relationshipStatus } =
+      req.body;
+    if (description) {
       updateUser.description = description;
     }
-    if(currentlyLiving){
+    if (currentlyLiving) {
       updateUser.currentlyLiving = currentlyLiving;
     }
-    if(name){
+    if (name) {
       updateUser.name = name;
     }
-    if(DOB){
+    if (DOB) {
       updateUser.DOB = DOB;
     }
-    if(relationshipStatus){
+    if (relationshipStatus) {
       updateUser.relationshipStatus = relationshipStatus;
     }
 
     user = await User.findByIdAndUpdate(
       userId,
-      {$set: updateUser},
-      {new: true}
-    )
-    res.status(200).json('User updated')
+      { $set: updateUser },
+      { new: true }
+    );
+    res.status(200).json("User updated");
   } catch (error) {
     console.log(error);
-    res.status(500).json(error)
+    res.status(500).json(error);
   }
-})
+});
 
 router.post("/followFriend", fetchUserD, async (req, res) => {
   try {
@@ -162,9 +163,9 @@ router.post("/followFriend", fetchUserD, async (req, res) => {
       { $push: { friends: req.body.friendId } }
     );
     friend = await User.updateOne(
-      {_id: friendId},
-      {$push: {friends: userId}}
-    )
+      { _id: friendId },
+      { $push: { friends: userId } }
+    );
     return res.status(200).json("Friend Added");
   } catch (error) {
     console.log(error);
@@ -177,7 +178,7 @@ router.post("/unfollowFriend", fetchUserD, async (req, res) => {
   let friendId = req.body.friendId;
   try {
     let user = await User.findById(userId);
-    let friend = await User.findOne({ _id:friendId});
+    let friend = await User.findOne({ _id: friendId });
     if (!friend) {
       return res.status(400).json("No such friend");
     }
@@ -208,25 +209,25 @@ router.post("/unfollowFriend", fetchUserD, async (req, res) => {
   }
 });
 
-router.get('/getFriendProfileDetails', fetchUserD, async(req,res)=>{
+router.get("/getFriendProfileDetails", fetchUserD, async (req, res) => {
   const userId = req.user.id;
   try {
-    let friends = User.findById(userId).select("friends")
-    if(!friends){
-      return res.status(400).json("No friends found")
+    let friends = User.findById(userId).select("friends");
+    if (!friends) {
+      return res.status(400).json("No friends found");
     }
-    res.status(200).json(friends)
+    res.status(200).json(friends);
   } catch (error) {
-    console.log(error)
-    res.status(500).json(error)
+    console.log(error);
+    res.status(500).json(error);
   }
-})
+});
 
-router.get('/getFriendsDetails', fetchUserD, async (req, res) => {
+router.get("/getFriendsDetails", fetchUserD, async (req, res) => {
   const userId = req.user.id;
 
   try {
-    const user = await User.findById(userId).select('friends');
+    const user = await User.findById(userId).select("friends");
 
     if (!user) {
       return res.status(400).json("User not found");
@@ -236,26 +237,28 @@ router.get('/getFriendsDetails', fetchUserD, async (req, res) => {
     }
 
     const friendDetails = await User.find({ _id: { $in: user.friends } });
-    let response = await Promise.all(friendDetails.map(friend => {
-      return {
-        id: friend._id,
-        name: friend.name,
-        description: friend.description,
-        profilePicPath: `/uploadedProfilePic/${friend.profilePic.img}`,
-        backgroundImgPath: `/uploadedBackgroundPic/${friend.backgroundImg.img}`,
-        DOB: friend.DOB,
-        currentlyLiving: friend.currentlyLiving?friend.currentlyLiving:'N/A',
-        relationshipStatus: friend.relationshipStatus
-      }
-    }))
+    let response = await Promise.all(
+      friendDetails.map((friend) => {
+        return {
+          id: friend._id,
+          name: friend.name,
+          description: friend.description,
+          profilePicPath: `/uploadedProfilePic/${friend.profilePic.img}`,
+          backgroundImgPath: `/uploadedBackgroundPic/${friend.backgroundImg.img}`,
+          DOB: friend.DOB,
+          currentlyLiving: friend.currentlyLiving
+            ? friend.currentlyLiving
+            : "N/A",
+          relationshipStatus: friend.relationshipStatus,
+        };
+      })
+    );
     res.status(200).json({ friends: response });
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
   }
 });
-
-
 
 const Storage1 = multer.diskStorage({
   destination: "images/uploadedProfilePic",
@@ -267,8 +270,6 @@ const Storage1 = multer.diskStorage({
 const uploadProfilePic = multer({
   storage: Storage1,
 }).single("uploadImg");
-
-
 
 router.post(
   "/uploadProfilePic",
@@ -304,8 +305,6 @@ router.post(
   }
 );
 
-
-
 const Storage2 = multer.diskStorage({
   destination: "images/uploadedBackgroundPic",
   filename: (req, file, cd) => {
@@ -316,8 +315,6 @@ const Storage2 = multer.diskStorage({
 const uploadBackgroundPic = multer({
   storage: Storage2,
 }).single("uploadBackgroundPic");
-
-
 
 router.post(
   "/uploadBackgroundPic",
@@ -363,11 +360,11 @@ router.get("/getProfilePic", fetchUserD, async (req, res) => {
     if (!user.profilePic || !user.profilePic.img) {
       return res.status(400).json("Profile Pic not found");
     }
-    res.contentType(user.profilePic.contentType)
-    res.status(200).send('/uploadedProfilePic/'+user.profilePic.img)
+    res.contentType(user.profilePic.contentType);
+    res.status(200).send("/uploadedProfilePic/" + user.profilePic.img);
   } catch (error) {
-    console.log(error)
-    res.status(500).json(error)
+    console.log(error);
+    res.status(500).json(error);
   }
 });
 router.get("/getBackgroundPic", fetchUserD, async (req, res) => {
@@ -380,11 +377,11 @@ router.get("/getBackgroundPic", fetchUserD, async (req, res) => {
     if (!user.backgroundImg || !user.backgroundImg.img) {
       return res.status(400).json("Profile Pic not found");
     }
-    res.contentType(user.backgroundImg.contentType)
-    res.status(200).send('/uploadedBackgroundPic/'+user.backgroundImg.img)
+    res.contentType(user.backgroundImg.contentType);
+    res.status(200).send("/uploadedBackgroundPic/" + user.backgroundImg.img);
   } catch (error) {
-    console.log(error)
-    res.status(500).json(error)
+    console.log(error);
+    res.status(500).json(error);
   }
 });
 

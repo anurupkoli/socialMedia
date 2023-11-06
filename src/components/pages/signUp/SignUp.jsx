@@ -3,16 +3,14 @@ import "./signUp.css";
 import { NavLink } from "react-router-dom";
 
 export default function SignUp() {
-    const handleSignUpSubmit = async()=>{
-
-    }
+  const handleSignUpSubmit = async () => {};
   return (
-    <div className="mainLoginContainer">
-      <div className="leftLoginPage">
+    <div className="mainSignUpContainer">
+      <div className="leftSignUpPage">
         <h1>SocialMedia</h1>
         <h3>Connect with everybody around the world with SocialMedia.</h3>
       </div>
-      <div className="rightLoginPage">
+      <div className="rightSignUpPage">
         <form onSubmit={handleSignUpSubmit}>
           <input
             type="text"
@@ -44,13 +42,12 @@ export default function SignUp() {
             id="password"
             required
           />
-          <button id="loginBtn" type="submit">
-            Login
+          <button id="signUpSignUpBtn" type="submit">
+            Create a new Account
           </button>
         </form>
-        <p id="resetPassword">Forgot Password?</p>
-        <NavLink id="signUpBtn" to={"/signUp"}>
-          Create a New Account?
+        <NavLink id="signUpLoginBtn" to={"/signUp"}>
+          Login
         </NavLink>
       </div>
     </div>

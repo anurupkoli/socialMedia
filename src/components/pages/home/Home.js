@@ -15,7 +15,7 @@ export default function Home() {
             <Leftbar />
           </div>
           <div className="feed">
-            <Feed isUser = {true} />
+            <Feed isUser={true} />
           </div>
           <div className="rightBar">
             <Rightbar />
