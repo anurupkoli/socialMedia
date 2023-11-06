@@ -1,0 +1,101 @@
+body{
+    background-color: rgb(252, 241, 252);
+    margin: 0;
+    padding: 0;
+}
+
+.mainLoginContainer{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: auto;
+    width: max-content;
+    margin-top: 5rem;
+}
+
+.rightLoginPage {
+    width: 25rem;
+    height: 30rem;
+    background-color: white;
+    border-radius: 15px;
+    box-shadow: 2px 2px 14px -8px black;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.rightLoginPage form{
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.rightLoginPage form input{
+    margin-bottom: 40px;
+    padding: 20px;
+    outline: none;
+    border: 2px solid gray;
+    border-radius: 10px;
+    font-size: 17px;
+}
+
+#loginBtn{
+    margin-bottom: 40px;
+    padding: 15px;
+    font-size: 20px;
+    background-color: rgb(208, 110, 208);
+    color: aliceblue;
+    font-weight:550;
+    border-radius: 10px;
+    outline: none;
+    border: 2px solid rgb(188, 0, 188);
+    cursor: pointer;
+    transition: all .15s ease-out;
+}
+
+#loginBtn:hover{
+    box-shadow: 2px 2px 4px -1px black;
+}
+
+#resetPassword{
+    margin-bottom: 40px;
+    font-size: 15px;
+    color: rgb(188, 0, 188);
+    font-weight: 505;
+    cursor: pointer;
+}
+
+#signUpBtn{
+    text-decoration: none;
+    background-color: rgb(33, 195, 33);
+    padding: 20px;
+    font-size: 18px;
+    color: aliceblue;
+    border-radius: 10px;
+    border: 2px solid rgb(0, 178, 0);
+    transition: all .15s ease-out;
+}
+
+#signUpBtn:hover{
+    box-shadow: 2px 2px 4px -1px black;
+}
+
+.leftLoginPage{
+    width: 25rem;
+    margin-right: 5rem;
+}
+.leftLoginPage h1{
+    font-weight: 530;
+    font-size: 50px;
+    color: rgb(188, 0, 188);
+}
+
+.leftLoginPage h3{
+    font-weight: 500;
+    font-size: 25px;
+}
+
+
+
