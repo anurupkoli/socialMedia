@@ -1,4 +1,4 @@
-import React, { useState, useContext} from "react";
+import React, { useState, useContext, useEffect} from "react";
 import "./post.css";
 import MoreVertIcon from '@mui/icons-material/MoreVert';
 import FavoriteIcon from '@mui/icons-material/Favorite';
@@ -9,6 +9,7 @@ import UserContext from "../../Contexts/User/UserContext";
 
 export default function Post(props) {
   let post = props.post
+  console.log(post.profilePicPath)
 
   const context1 = useContext(PostContext);
   const context2 = useContext(UserContext);
@@ -20,6 +21,17 @@ export default function Post(props) {
   const [likes, setLikes] = useState(post.likes.count)
   const [favoriteIconColor, setFavoriteIconColor] = useState(initialLikeState?'red':'black')
   const [thumbsUpIconColor, setThumbsUpIconColor] = useState(initialLikeState?'blue':'black')
+  const [profilePicPath, setprofilePicPath] = useState('images/socialmediaprofile.jpg');
+
+  useEffect(() => {
+    if (post.profilePicPath !== null) {
+      if (post.profilePicPath && typeof post.profilePicPath === 'string' && post.profilePicPath.includes('/uploadedProfilePic/undefined')) {
+        setprofilePicPath('/images/socialmediaprofile.jpg');
+      } else {
+        setprofilePicPath(`${PF}${post.profilePicPath }`);
+      }
+    }
+  }, [post]);
 
   const updateLike = ()=>{
     if(isLiked === false){
@@ -64,7 +76,7 @@ export default function Post(props) {
         <div className="postWrapper">
         <div className="postTop">
           <div className="postTopLeft">
-            <div className="postUserImg"><img src={`${PF}${post.profilePicPath}`} alt="" /></div>
+            <div className="postUserImg"><img src={profilePicPath} alt="" /></div>
             <span className="postUserName">{post.name}</span>
             <span className="postTime">{formatTimeAgo(post.createdAt)}</span>
           </div>

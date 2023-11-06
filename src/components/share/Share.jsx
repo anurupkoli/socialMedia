@@ -35,18 +35,23 @@ export default function Share(props) {
     uploadPost(description, file);
   };
 
+  const [profileImgPath, setprofileImgPath] = useState('/images/socialmediaprofile.jpg');
+
   useEffect(() => {
     fetchUser();
     fetchUserProfilePic();
+    if(userProfilePic !== null){
+      setprofileImgPath(`${PF}${userProfilePic}`)
+    }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [userProfilePic]);
   return (
     <>
       <div className="share">
         <div className="shareContainer1">
           <div className="shareTop">
             <div className="shareImg">
-              <img src={`${PF}${userProfilePic}`} alt="" />
+              <img src={profileImgPath} alt=""/>
             </div>
             <input
               type="text"
