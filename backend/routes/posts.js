@@ -4,6 +4,7 @@ const Posts = require("../models/UserPosts");
 const User = require("../models/MongoUser");
 const multer = require("multer");
 const fetchUser = require("../middlewares/fetchUser");
+const { upload } = require("@testing-library/user-event/dist/upload");
 
 const router = express.Router();
 
@@ -27,14 +28,21 @@ router.post("/uploadPost", fetchUser, uploadPost, async (req, res) => {
     if (!user) {
       res.status(400).json("User not found");
     }
-    let post = await Posts.create({
-      user: userId,
-      description: description,
-      postImg: {
+    let postToUpload = {
+      user: userId
+    };
+
+    if(description){
+      postToUpload.description = description
+    }
+    if(uploadPost){
+      postToUpload.postImg = {
         img: uploadPost.filename,
-        contentType: "image/jpg",
-      },
-    });
+        contentType: 'image/jpg'
+      }
+    }
+
+    let post = await Posts.create(postToUpload);
     res.status(200).json("Post Uploaded");
   } catch (error) {
     console.log(error);

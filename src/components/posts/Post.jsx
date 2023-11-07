@@ -9,7 +9,6 @@ import UserContext from "../../Contexts/User/UserContext";
 
 export default function Post(props) {
   let post = props.post
-  console.log(post.profilePicPath)
 
   const context1 = useContext(PostContext);
   const context2 = useContext(UserContext);
