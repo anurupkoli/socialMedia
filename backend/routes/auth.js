@@ -260,6 +260,22 @@ router.get("/getFriendsDetails", fetchUserD, async (req, res) => {
   }
 });
 
+router.get('/getUnfollwedFriends', fetchUserD, async(req,res)=>{
+  let userId = req.user.id;
+  try {
+    const user = await User.findById(userId);
+    if(!user){
+      return res.status(400).json('Invalid Credentials')
+    }
+    const users = await User.find({_id: {$nin: [...user.friends,userId]}}, '_id name profilePic');
+
+    res.status(200).json(users)
+  } catch (error) {
+    console.log(error)
+    res.status(500).json(error)
+  }
+})
+
 const Storage1 = multer.diskStorage({
   destination: "images/uploadedProfilePic",
   filename: (req, file, cd) => {

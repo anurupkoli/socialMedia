@@ -61,9 +61,28 @@ const PostState = (props) => {
     const json = await response.json();
   };
 
+  const deletePost = async(postId)=>{
+    try {
+      const response = await fetch(`${host}/api/posts/deletePost/${postId}`, {
+        method: "DELETE",
+        headers: {
+          "Content-type": "application/json",
+          "auth-token": localStorage.getItem('auth-token')
+        },
+      })
+      if(!response.ok){
+        console.log(response)
+      }
+      // eslint-disable-next-line
+      let json = await response.json()
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <PostContext.Provider
-      value={{ fetchPosts, posts, updateLikes, uploadPost, reRenderPosts }}
+      value={{ fetchPosts, posts, updateLikes, uploadPost, reRenderPosts, deletePost }}
     >
       {props.children}
     </PostContext.Provider>

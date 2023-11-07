@@ -1,4 +1,4 @@
-import React from "react";
+import {React, useContext, useEffect, useState} from "react";
 import "./leftbar.css";
 import RssFeedIcon from "@mui/icons-material/RssFeed";
 import ChatIcon from "@mui/icons-material/Chat";
@@ -9,8 +9,17 @@ import HelpIcon from "@mui/icons-material/Help";
 import WorkIcon from "@mui/icons-material/Work";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import SchoolIcon from "@mui/icons-material/School";
+import UserContext from "../../Contexts/User/UserContext";
 
 export default function Leftbar() {
+  const context = useContext(UserContext)
+  let {getUnfollowedFriends, unfollowedFriends} = context;
+  const [profilePic, setprofilePic] = useState('images/socialmediaprofile.jpg');
+
+  useEffect(() => {
+    getUnfollowedFriends();
+    // eslint-disable-next-line
+  }, [unfollowedFriends]);
   return (
       <div className="leftBarWrapper">
         <div className="leftBarFeeds">
@@ -57,48 +66,6 @@ export default function Leftbar() {
         <hr />
         <div className="leftBarFriends">
           <ul>
-            <li className="leftBarFriend">
-              <div className="leftBarFriendImg">
-                <img src="/images/shivaray2.jpg" alt="f" />
-              </div>
-              <span>Friend1</span>
-            </li>
-            <li className="leftBarFriend">
-              <div className="leftBarFriendImg">
-                <img src="/images/shivaray2.jpg" alt="f" />
-              </div>
-              <span>Friend1</span>
-            </li>
-            <li className="leftBarFriend">
-              <div className="leftBarFriendImg">
-                <img src="/images/shivaray2.jpg" alt="f" />
-              </div>
-              <span>Friend1</span>
-            </li>
-            <li className="leftBarFriend">
-              <div className="leftBarFriendImg">
-                <img src="/images/shivaray2.jpg" alt="f" />
-              </div>
-              <span>Friend1</span>
-            </li>
-            <li className="leftBarFriend">
-              <div className="leftBarFriendImg">
-                <img src="/images/shivaray2.jpg" alt="f" />
-              </div>
-              <span>Friend1</span>
-            </li>
-            <li className="leftBarFriend">
-              <div className="leftBarFriendImg">
-                <img src="/images/shivaray2.jpg" alt="f" />
-              </div>
-              <span>Friend1</span>
-            </li>
-            <li className="leftBarFriend">
-              <div className="leftBarFriendImg">
-                <img src="/images/shivaray2.jpg" alt="f" />
-              </div>
-              <span>Friend1</span>
-            </li>
             <li className="leftBarFriend">
               <div className="leftBarFriendImg">
                 <img src="/images/shivaray2.jpg" alt="f" />

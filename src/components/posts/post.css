@@ -23,9 +23,23 @@
 
 .postTopRight{
     display: flex;
-    align-items: center;
-    justify-content: center;
+    align-items:flex-end;
+    justify-content: flex-start;
     cursor: pointer;
+    flex-direction: column;
+    width: 5rem;
+    height: 4rem;
+}
+
+#deletePostIcon{
+    position: relative;
+    top: 5px;
+    right: 0px;
+    display: none;
+}
+
+.postTopRight:hover #deletePostIcon{
+    display: flex;
 }
 
 .postUserImg{

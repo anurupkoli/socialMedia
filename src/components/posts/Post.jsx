@@ -8,7 +8,7 @@ import PostContext from "../../Contexts/Post/PostContext";
 import UserContext from "../../Contexts/User/UserContext";
 
 export default function Post(props) {
-  let post = props.post
+  let {post,deleteAPost} = props;
 
   const context1 = useContext(PostContext);
   const context2 = useContext(UserContext);
@@ -81,6 +81,9 @@ export default function Post(props) {
           </div>
           <div className="postTopRight">
             <MoreVertIcon />
+            <div id="deletePostIcon">
+              <button onClick={()=>{deleteAPost(post.id)}}>Delete Post?</button>
+            </div>
           </div>
         </div>
         <div className="postCenter">

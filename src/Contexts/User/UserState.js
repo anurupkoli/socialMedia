@@ -8,6 +8,7 @@ const UserState = (props) => {
   const [userProfilePic, setUserProfilePic] = useState(null);
   const [userBackgroundPic, setUserBackgroundPic] = useState(null);
   const [friendDetails, setfriendDetails] = useState([]);
+  const [unfollowedFriends, setunfollowedFriends] = useState([]);
 
   const fetchUser = async () => {
     try {
@@ -84,6 +85,22 @@ const UserState = (props) => {
     setfriendDetails(json.friends);
   };
 
+  const getUnfollowedFriends = async ()=>{
+    try {
+      const resp = await fetch(`${host}/api/auth/getUnfollwedFriends`, {
+        method: "GET",
+        headers: {
+          "auth-token": localStorage.getItem('auth-token')
+        }
+      })
+  
+      const json = await resp.json();
+      setunfollowedFriends(json)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -95,6 +112,8 @@ const UserState = (props) => {
         userBackgroundPic,
         fetchFriendDetails,
         friendDetails,
+        getUnfollowedFriends,
+        unfollowedFriends
       }}
     >
       {props.children}
