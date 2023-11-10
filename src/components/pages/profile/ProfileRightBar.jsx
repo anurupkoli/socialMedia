@@ -6,6 +6,7 @@ export default function ProfileRightBar(props) {
   let {profileDetails, friendDetails, setFriendProfileDetails, isUser} = props;
   const context = useContext(UserContext)
   const {sUser} = context
+  
   return (
     <div className="ProfileRightBar">
       <div className="profileRightBarTop">
@@ -21,7 +22,7 @@ export default function ProfileRightBar(props) {
           <div className="profileBarfriendCard" >
           {friendDetails.map((friend) => (
               <div className="profileBarFriendsProfile" key={friend.id}  onClick={()=> setFriendProfileDetails(friend)}  >
-                <img src={`${PF}${friend.profilePicPath}`} alt="" />
+                <img src={friend.profilePicPath==='/uploadedProfilePic/undefined'?'images/socialmediaprofile.jpg':`${PF}${friend.profilePicPath}`} alt="" />
                 <h5>{friend.name}</h5>
               </div>
             ))}

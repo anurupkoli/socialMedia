@@ -75,7 +75,7 @@ export default function Profile() {
           </div>
           <div className="profileRightBar">
             <div className="profileRightTop">
-              <ProfileComponent profileDetails={profileDetails} />
+              <ProfileComponent profileDetails={profileDetails} isUser={isUser} />
             </div>
             <div className="profileRightBottom">
               <div className="feed">

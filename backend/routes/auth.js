@@ -146,6 +146,7 @@ router.post("/followFriend", fetchUserD, async (req, res) => {
   try {
     let userId = req.user.id;
     let friendId = req.body.friendId;
+    console.log(friendId)
     let user = await User.findById(userId);
     let friend = await User.findById(friendId);
     if (!friend) {

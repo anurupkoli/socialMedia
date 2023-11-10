@@ -101,6 +101,25 @@ const UserState = (props) => {
     }
   }
 
+  const followFriend = async(friendId)=>{
+    try {
+      const response = await fetch(`${host}/api/auth/followFriend`, {
+        method: "POST", 
+        headers:{
+          "Content-type": "application/json",
+          "auth-token": localStorage.getItem('auth-token')
+        },
+        body: JSON.stringify({
+          friendId: friendId
+        })
+      })
+      const json = await response.json();
+      alert(json)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -113,7 +132,8 @@ const UserState = (props) => {
         fetchFriendDetails,
         friendDetails,
         getUnfollowedFriends,
-        unfollowedFriends
+        unfollowedFriends,
+        followFriend
       }}
     >
       {props.children}
