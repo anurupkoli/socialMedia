@@ -1,4 +1,4 @@
-import {React, useContext, useEffect, useState} from "react";
+import { React, useContext, useEffect, useState } from "react";
 import "./leftbar.css";
 import RssFeedIcon from "@mui/icons-material/RssFeed";
 import ChatIcon from "@mui/icons-material/Chat";
@@ -10,70 +10,77 @@ import WorkIcon from "@mui/icons-material/Work";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import SchoolIcon from "@mui/icons-material/School";
 import UserContext from "../../Contexts/User/UserContext";
+import PF from "../../EnvironmentVariables";
 
 export default function Leftbar() {
-  const context = useContext(UserContext)
-  let {getUnfollowedFriends, unfollowedFriends} = context;
-  const [profilePic, setprofilePic] = useState('images/socialmediaprofile.jpg');
+  const context = useContext(UserContext);
+  let { getUnfollowedFriends, unfollowedFriends } = context;
+  const [profilePic, setprofilePic] = useState("images/socialmediaprofile.jpg");
 
   useEffect(() => {
     getUnfollowedFriends();
     // eslint-disable-next-line
-  }, [unfollowedFriends]);
+  }, []);
   return (
-      <div className="leftBarWrapper">
-        <div className="leftBarFeeds">
-          <ul>
-            <li className="leftBarFeedItems">
-              <RssFeedIcon />
-              <span>Feed</span>
-            </li>
-            <li className="leftBarFeedItems">
-              <ChatIcon />
-              <span>Chats</span>
-            </li>
-            <li className="leftBarFeedItems">
-              <SmartDisplayIcon />
-              <span>Videos</span>
-            </li>
-            <li className="leftBarFeedItems">
-              <Diversity1Icon />
-              <span>Groups</span>
-            </li>
-            <li className="leftBarFeedItems">
-              <BookmarksIcon />
-              <span>Bookmarks</span>
-            </li>
-            <li className="leftBarFeedItems">
-              <HelpIcon />
-              <span>Questions</span>
-            </li>
-            <li className="leftBarFeedItems">
-              <WorkIcon />
-              <span>Jobs</span>
-            </li>
-            <li className="leftBarFeedItems">
-              <EventAvailableIcon />
-              <span>Events</span>
-            </li>
-            <li className="leftBarFeedItems">
-              <SchoolIcon />
-              <span>Cources</span>
-            </li>
-          </ul>
-          <button className="btn">Show More</button>
-        </div>
-        <hr />
-        <div className="leftBarFriends">
-          <ul>
-            <li className="leftBarFriend">
-              <div className="leftBarFriendImg">
-                <img src="/images/shivaray2.jpg" alt="f" />
-              </div>
-              <span>Friend1</span>
-            </li>
-          </ul>
-        </div>
+    <div className="leftBarWrapper">
+      <div className="leftBarFeeds">
+        <ul>
+          <li className="leftBarFeedItems">
+            <RssFeedIcon />
+            <span>Feed</span>
+          </li>
+          <li className="leftBarFeedItems">
+            <ChatIcon />
+            <span>Chats</span>
+          </li>
+          <li className="leftBarFeedItems">
+            <SmartDisplayIcon />
+            <span>Videos</span>
+          </li>
+          <li className="leftBarFeedItems">
+            <Diversity1Icon />
+            <span>Groups</span>
+          </li>
+          <li className="leftBarFeedItems">
+            <BookmarksIcon />
+            <span>Bookmarks</span>
+          </li>
+          <li className="leftBarFeedItems">
+            <HelpIcon />
+            <span>Questions</span>
+          </li>
+          <li className="leftBarFeedItems">
+            <WorkIcon />
+            <span>Jobs</span>
+          </li>
+          <li className="leftBarFeedItems">
+            <EventAvailableIcon />
+            <span>Events</span>
+          </li>
+          <li className="leftBarFeedItems">
+            <SchoolIcon />
+            <span>Cources</span>
+          </li>
+        </ul>
+        <button className="btn">Show More</button>
       </div>
+      <hr />
+      <div className="leftBarFriends">
+        {unfollowedFriends ? (
+          <ul>
+            {unfollowedFriends.map((friend) => {
+              return (
+                <li className="leftBarFriend">
+                  <div className="leftBarFriendImg">
+                    <img src={friend.profilePic?`${PF}${friend.profilePic}`: profilePic} alt="f" />
+                  </div>
+                  <span>{friend.name}</span>
+                </li>
+              );
+            })}
+          </ul>
+        ) : null}
+      </div>
+    </div>
   );
 }

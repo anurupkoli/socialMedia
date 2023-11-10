@@ -267,9 +267,16 @@ router.get('/getUnfollwedFriends', fetchUserD, async(req,res)=>{
     if(!user){
       return res.status(400).json('Invalid Credentials')
     }
-    const users = await User.find({_id: {$nin: [...user.friends,userId]}}, '_id name profilePic');
+    const friends = await User.find({_id: {$nin: [...user.friends,userId]}}, '_id name profilePic');
+    const response = await Promise.all(friends.map(friend=>{
+      return{
+        id: friend._id,
+        name: friend.name,
+        profilePic: '/uploadedProfilePic/'+friend.profilePic.img
+      }
+    }))
 
-    res.status(200).json(users)
+    res.status(200).json(response)
   } catch (error) {
     console.log(error)
     res.status(500).json(error)
