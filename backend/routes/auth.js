@@ -272,7 +272,7 @@ router.get('/getUnfollwedFriends', fetchUserD, async(req,res)=>{
       return{
         id: friend._id,
         name: friend.name,
-        profilePic: '/uploadedProfilePic/'+friend.profilePic.img
+        profilePic: `${friend.profilePic.img}`
       }
     }))
 

@@ -16,7 +16,7 @@ export default function RighBarAdd() {
           </span>
         </div>
         <div className="addContainer">
-
+            <img src="images/pumaAdvertisement.jpg" alt="" />
         </div>
         
         <h3>Online Friends</h3>

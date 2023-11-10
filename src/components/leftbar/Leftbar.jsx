@@ -15,12 +15,20 @@ import PF from "../../EnvironmentVariables";
 export default function Leftbar() {
   const context = useContext(UserContext);
   let { getUnfollowedFriends, unfollowedFriends } = context;
+  // eslint-disable-next-line
   const [profilePic, setprofilePic] = useState("images/socialmediaprofile.jpg");
+
+  const followFriendClick = ()=>{
+
+  }
 
   useEffect(() => {
     getUnfollowedFriends();
     // eslint-disable-next-line
   }, []);
+
+  console.log(unfollowedFriends)
+
   return (
     <div className="leftBarWrapper">
       <div className="leftBarFeeds">
@@ -70,11 +78,19 @@ export default function Leftbar() {
           <ul>
             {unfollowedFriends.map((friend) => {
               return (
-                <li className="leftBarFriend">
+                <li key={friend.id} className="leftBarFriend">
                   <div className="leftBarFriendImg">
-                    <img src={friend.profilePic?`${PF}${friend.profilePic}`: profilePic} alt="f" />
+                    <img
+                      src={
+                        friend.profilePic==="undefined"
+                          ? profilePic
+                          : `${PF}/uploadedProfilePic/${friend.profilePic}`
+                      }
+                      alt="f"
+                    />
                   </div>
                   <span>{friend.name}</span>
+                  <span onClick={()=>{followFriendClick()}} className="leftbarComponentFollowFriend">Follow</span>
                 </li>
               );
             })}
