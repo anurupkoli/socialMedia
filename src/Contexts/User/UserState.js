@@ -120,6 +120,24 @@ const UserState = (props) => {
       console.log(error)
     }
   }
+  const unfollowFriend = async(friendId)=>{
+    try {
+      const response = await fetch(`${host}/api/auth/unfollowFriend`, {
+        method: "POST", 
+        headers:{
+          "Content-type": "application/json",
+          "auth-token": localStorage.getItem('auth-token')
+        },
+        body: JSON.stringify({
+          friendId: friendId
+        })
+      })
+      const json = await response.json();
+      alert(json)
+    } catch (error) {
+      console.log(error)
+    }
+  }
 
   const  uploadProfilePic = async(file)=>{
     let formData = new FormData();
@@ -174,6 +192,7 @@ const UserState = (props) => {
         getUnfollowedFriends,
         unfollowedFriends,
         followFriend,
+        unfollowFriend,
         uploadProfilePic,
         reRenderPage,
         uploadBackgroundPic

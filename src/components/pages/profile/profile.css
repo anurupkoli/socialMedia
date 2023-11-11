@@ -58,31 +58,31 @@
 
 .editIconDiv {
     position: relative;
-    right: -38rem;
-    bottom: 4rem;
+    right: -36rem;
+    bottom: 6rem;
     color: rgb(208, 110, 208);
-    cursor: pointer ;
+    cursor: pointer;
     font-size: 30px;
     width: fit-content;
     width: -moz-fit-content;
 }
 
-.editIconDiv2{
-    position: absolute;
-    top: 4rem;
-    left: 27rem;
+.editIconDiv2 {
+    position: relative;
+    top: -10rem;
+    left: 0rem;
     cursor: pointer;
-    color:rgb(208, 110, 208) ;
+    color: rgb(208, 110, 208);
     font-size: 30px;
 }
 
-.editIconButton{
+.editIconButton {
     position: relative;
     right: -39rem;
     bottom: 4rem;
 }
 
-.editIconButton2{
+.editIconButton2 {
     position: absolute;
     top: 4rem;
     left: 29rem;
@@ -145,7 +145,7 @@
     cursor: pointer;
 }
 
-.profileBarfriendCard{
+.profileBarfriendCard {
     display: flex;
     flex-wrap: wrap;
 }
@@ -161,3 +161,22 @@
     text-align: center;
 }
 
+.unfollowBtnDiv {
+    margin: auto;
+    width: fit-content;
+    width: -moz-fit-content;
+    margin-top: 10px;
+}
+
+#unfollowBtn {
+    padding: 5px 10px;
+    border-radius: 10px;
+    cursor: pointer;
+    background-color: rgb(208, 110, 208);
+    border: none;
+    transition: all .2s ease-out;
+}
+
+#unfollowBtn:hover {
+    background-color: rgb(249, 139, 249);
+}

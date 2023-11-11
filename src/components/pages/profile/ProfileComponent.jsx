@@ -16,6 +16,8 @@ export default function ProfileComponent(props) {
     fetchUserBackgroundPic,
     reRenderPage,
     uploadBackgroundPic,
+    followFriend,
+    unfollowFriend,
   } = context;
   const [profilePicPath, setprofilePicPath] = useState(
     "/images/socialmediaprofile.jpg"
@@ -26,6 +28,7 @@ export default function ProfileComponent(props) {
 
   const [profileImg, setProfileImg] = useState(null);
   const [backgroundImg, setBackgroundImg] = useState(null);
+  let [buttonType, setbuttonType] = useState("Unfollow");
 
   const uploadProfileImgRef = useRef(null);
   const uploadBackgroundInputImgRef = useRef(null);
@@ -54,6 +57,19 @@ export default function ProfileComponent(props) {
 
   const setBackgroundFile = (e) => {
     setBackgroundImg(e.target.files[0]);
+  };
+
+  const handleUnfollowBtn = () => {
+    if (buttonType === "Unfollow") {
+      unfollowFriend(profileDetails.id);
+      setbuttonType("Follow");
+      return;
+    }
+    if (buttonType === "Follow") {
+      followFriend(profileDetails.id);
+      setbuttonType("Unfollow");
+      return;
+    }
   };
 
   useEffect(() => {
@@ -101,6 +117,38 @@ export default function ProfileComponent(props) {
 
   return (
     <>
+      <div className="profileCover">
+        <div className="profileBackImg">
+          <img src={backgroundPicPath} alt="" />
+        </div>
+        <div className="profileFrontImg">
+          <img src={profilePicPath} alt="" />
+        </div>
+      </div>
+
+      <div className="userDescription">
+        <h4>{`${profileDetails.name ? profileDetails.name : sUser.name}`}</h4>
+        <span>{`${
+          profileDetails.description
+            ? profileDetails.description
+            : sUser.description
+            ? sUser.description
+            : "No description"
+        }`}</span>
+      </div>
+      {!isUser ? (
+        <div className="unfollowBtnDiv">
+          <button
+            id="unfollowBtn"
+            onClick={() => {
+              handleUnfollowBtn();
+            }}
+          >
+            {buttonType}
+          </button>
+        </div>
+      ) : null}
+
       {isUser ? (
         <span>
           <span
@@ -121,7 +169,8 @@ export default function ProfileComponent(props) {
             />
           </span>
           {backgroundImg ? (
-            <button className="editIconButton2"
+            <button
+              className="editIconButton2"
               onClick={() => {
                 handleBackgroundUpload();
               }}
@@ -131,15 +180,6 @@ export default function ProfileComponent(props) {
           ) : null}
         </span>
       ) : null}
-
-      <div className="profileCover">
-        <div className="profileBackImg">
-          <img src={backgroundPicPath} alt="" />
-        </div>
-        <div className="profileFrontImg">
-          <img src={profilePicPath} alt="" />
-        </div>
-      </div>
 
       {isUser ? (
         <span
@@ -159,7 +199,9 @@ export default function ProfileComponent(props) {
             style={{ display: "none" }}
           />
         </span>
-      ) : null}
+      ) : (
+        ""
+      )}
       {profileImg ? (
         <button
           className="editIconButton"
@@ -169,17 +211,9 @@ export default function ProfileComponent(props) {
         >
           Upload
         </button>
-      ) : null}
-      <div className="userDescription">
-        <h4>{`${profileDetails.name ? profileDetails.name : sUser.name}`}</h4>
-        <span>{`${
-          profileDetails.description
-            ? profileDetails.description
-            : sUser.description
-            ? sUser.description
-            : "No description"
-        }`}</span>
-      </div>
+      ) : (
+        ""
+      )}
     </>
   );
 }
