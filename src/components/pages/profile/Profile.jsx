@@ -19,6 +19,7 @@ export default function Profile() {
     fetchFriendDetails,
     fetchUserBackgroundPic,
     fetchUserProfilePic,
+    reRenderPage
   } = context;
 
   const user = {
@@ -49,7 +50,7 @@ export default function Profile() {
       relationshipStatus: sUser.relationshipStatus,
     });
     // eslint-disable-next-line
-  }, [sUser]);
+  }, [sUser, reRenderPage]);
 
   const setFriendProfileDetails = (friend) => {
     setProfileDetails({

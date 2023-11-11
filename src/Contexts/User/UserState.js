@@ -9,6 +9,7 @@ const UserState = (props) => {
   const [userBackgroundPic, setUserBackgroundPic] = useState(null);
   const [friendDetails, setfriendDetails] = useState([]);
   const [unfollowedFriends, setunfollowedFriends] = useState([]);
+  let [reRenderPage, setreRenderPage] = useState(1);
 
   const fetchUser = async () => {
     try {
@@ -120,6 +121,45 @@ const UserState = (props) => {
     }
   }
 
+  const  uploadProfilePic = async(file)=>{
+    let formData = new FormData();
+    formData.append('uploadImg', file?file:null)
+    try {
+      const resp = await fetch(`${host}/api/auth/uploadProfilePic`, {
+        method: "POST",
+        headers:{
+          "auth-token": localStorage.getItem('auth-token')
+        },
+        body: formData
+      })
+
+      const json = await resp.json();
+      setreRenderPage(reRenderPage+=1)
+      alert(json)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+  const  uploadBackgroundPic = async(file)=>{
+    let formData = new FormData();
+    formData.append('uploadBackgroundPic', file?file:null)
+    try {
+      const resp = await fetch(`${host}/api/auth/uploadBackgroundPic`, {
+        method: "POST",
+        headers:{
+          "auth-token": localStorage.getItem('auth-token')
+        },
+        body: formData
+      })
+
+      const json = await resp.json();
+      setreRenderPage(reRenderPage+=1)
+      alert(json)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <UserContext.Provider
       value={{
@@ -133,7 +173,10 @@ const UserState = (props) => {
         friendDetails,
         getUnfollowedFriends,
         unfollowedFriends,
-        followFriend
+        followFriend,
+        uploadProfilePic,
+        reRenderPage,
+        uploadBackgroundPic
       }}
     >
       {props.children}

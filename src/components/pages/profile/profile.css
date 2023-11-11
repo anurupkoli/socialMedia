@@ -61,10 +61,32 @@
     right: -38rem;
     bottom: 4rem;
     color: rgb(208, 110, 208);
-    cursor: pointer !important;
+    cursor: pointer ;
     font-size: 30px;
     width: fit-content;
     width: -moz-fit-content;
+}
+
+.editIconDiv2{
+    position: absolute;
+    top: 4rem;
+    left: 27rem;
+    cursor: pointer;
+    color:rgb(208, 110, 208) ;
+    font-size: 30px;
+}
+
+.editIconButton{
+    position: relative;
+    right: -39rem;
+    bottom: 4rem;
+}
+
+.editIconButton2{
+    position: absolute;
+    top: 4rem;
+    left: 29rem;
+    cursor: pointer;
 }
 
 
@@ -73,7 +95,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: flex-end;
-    margin-top: -40px;
+    margin-top: -10px;
 }
 
 .userDescription span {
