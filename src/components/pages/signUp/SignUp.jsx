@@ -103,7 +103,7 @@ export default function SignUp() {
             Create a new Account
           </button>
         </form>
-        <NavLink id="signUpLoginBtn" to={"/signUp"}>
+        <NavLink id="signUpLoginBtn" to={"/login"}>
           Login
         </NavLink>
       </div>

@@ -1,4 +1,4 @@
-.navBar{
+.navBar {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -14,35 +14,38 @@
     z-index: 999;
 }
 
-.leftNavbar{
+.leftNavbar {
     margin-left: 40px;
     cursor: pointer;
 }
 
-.leftNavbar span{
+.leftNavbar span {
     font-size: 25px;
     text-decoration: none;
     color: black;
 }
 
-.navBarLinks{
+.navBarLinks {
     font-size: 20px;
 }
-.navBarLink{
+
+.navBarLink {
     margin: 0 10px;
     color: black;
     text-decoration: none;
 }
-.navBarLink:hover{
+
+.navBarLink:hover {
     cursor: pointer;
     text-decoration: underline;
 }
-.navBarLink NavLink{
+
+.navBarLink NavLink {
     text-decoration: none;
     color: black;
 }
 
-.middleNavbar{
+.middleNavbar {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -53,31 +56,33 @@
     border-radius: 20px;
 }
 
-.middleNavbar input{
+.middleNavbar input {
     width: 90%;
     height: 25px;
     border-radius: 20px;
     border: none;
 }
-.middleNavbar input:focus{
+
+.middleNavbar input:focus {
     outline: none;
 }
 
-.rightNavbar{
+.rightNavbar {
     display: flex;
     align-items: center;
     justify-content: center;
 }
 
-.rightNavbarItem{
+.rightNavbarItem {
     margin: 0 10px;
     position: relative;
 }
-.rightNavbarItem:hover{
+
+.rightNavbarItem:hover {
     cursor: pointer;
 }
 
-.rightNavbarItem span{
+.rightNavbarItem span {
     position: absolute;
     top: -5px;
     right: -5px;
@@ -92,7 +97,24 @@
     font-size: 12px;
 }
 
-.userProfile{
+.logoutBtn {
+    padding: 10px;
+    margin-left: 20px;
+    font-size: 17px;
+    border: 2px solid white;
+    background-color: rgb(208, 110, 208);
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all .2s ease-out;
+}
+
+.logoutBtn:hover {
+    background-color: green;
+    border: 2px solid green;
+    color: white;
+}
+
+.userProfile {
     background-color: aliceblue;
     width: 45px;
     height: 45px;
@@ -101,7 +123,7 @@
     cursor: pointer;
 }
 
-.userProfile img{
+.userProfile img {
     width: 100%;
     height: 45px;
     object-fit: cover;

@@ -11,8 +11,10 @@ import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import SchoolIcon from "@mui/icons-material/School";
 import UserContext from "../../Contexts/User/UserContext";
 import PF from "../../EnvironmentVariables";
+import { useNavigate } from "react-router-dom";
 
 export default function Leftbar() {
+  const navigate = useNavigate()
   const context = useContext(UserContext);
   let { getUnfollowedFriends, unfollowedFriends, followFriend } = context;
   // eslint-disable-next-line
@@ -25,7 +27,12 @@ export default function Leftbar() {
   };
 
   useEffect(() => {
-    getUnfollowedFriends();
+    if(localStorage.getItem('auth-token')){
+      getUnfollowedFriends();
+    }
+    else{
+      navigate('/login')
+    }
     // eslint-disable-next-line
   }, [updatePage, followFriendClick]);
 

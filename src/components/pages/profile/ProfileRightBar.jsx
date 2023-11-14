@@ -33,6 +33,7 @@ export default function ProfileRightBar(props) {
       eUserDetails.eRelStatus
     );
     setupdateModalDis('none')
+    setupdateDetailsButton('Update Details')
   };
 
   const handleUpdateBtnClick = () => {
@@ -54,11 +55,7 @@ export default function ProfileRightBar(props) {
           profileDetails.name ? profileDetails.name : sUser.name
         }`}</h3>
         <h3>{`DOB: ${
-          profileDetails.DOB === null
-            ? "N/A"
-            : profileDetails.DOB || sUser.DOB
-            ? sUser.DOB
-            : "N/A"
+          isUser ? (sUser.DOB ? sUser.DOB.split('T')[0] : 'N/A') : (profileDetails.DOB ? profileDetails.DOB.split('T')[0] : 'N/A')
         }`}</h3>
         <h3>{`Currently Living in: ${
           profileDetails.currentlyLiving

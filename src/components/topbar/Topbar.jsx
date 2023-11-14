@@ -4,48 +4,64 @@ import SearchIcon from "@mui/icons-material/Search";
 import PersonIcon from "@mui/icons-material/Person";
 import MessageIcon from "@mui/icons-material/Message";
 import NotificationsIcon from "@mui/icons-material/Notifications";
-import { NavLink } from "react-router-dom";
+import { NavLink, useNavigate } from "react-router-dom";
 import UserContext from "../../Contexts/User/UserContext";
 import PF from "../../EnvironmentVariables";
 
 export default function Topbar() {
-  const context = useContext(UserContext)
-  let {userProfilePic} = context;
-  const [route, setRoute] = useState('/profile');
-  const toggleRoute = ()=>{
-    if(route === '/profile'){
-      setRoute('/')
+  const navigate = useNavigate();
+  const context = useContext(UserContext);
+  let { userProfilePic } = context;
+  const [route, setRoute] = useState("/profile");
+  const toggleRoute = () => {
+    if (route === "/profile") {
+      setRoute("/");
       return;
     }
-    if(route==='/'){
-      setRoute('/profile')
+    if (route === "/") {
+      setRoute("/profile");
       return;
     }
-  }
-  const [profilePicPath, setprofilePicPath] = useState("/images/socialmediaprofile.jpg");
+  };
+
+  const [profilePicPath, setprofilePicPath] = useState(
+    "/images/socialmediaprofile.jpg"
+  );
 
   useEffect(() => {
-    if(userProfilePic !== null){
-      setprofilePicPath(`${PF}${userProfilePic}`)
+    if (userProfilePic !== null) {
+      setprofilePicPath(`${PF}${userProfilePic}`);
     }
   }, [userProfilePic]);
+
+  const handleLogoutClick = () => {
+    const confirm = window.confirm("Do you really want to Logout?")
+    if(confirm){
+      localStorage.removeItem('auth-token');
+    navigate("/login")
+    return;
+    }
+    else{
+      return;
+    }
+  };
 
   return (
     <div className="navBar">
       <div className="leftNavbar">
-        <NavLink to="/" style={{'textDecoration': 'none'}} >
+        <NavLink to="/" style={{ textDecoration: "none" }}>
           <span>SocialMedia</span>
         </NavLink>
       </div>
       <div className="navBarLinks">
         <span className="navBarLink">TimeLine</span>
-        <NavLink to="/" style={{'textDecoration': 'none'}}  >
-          <span className="navBarLink" >Home</span>
+        <NavLink to="/" style={{ textDecoration: "none" }}>
+          <span className="navBarLink">Home</span>
         </NavLink>
       </div>
       <div className="middleNavbar">
         <input placeholder="Search for Friend, Blog, Post, Video" type="text" />
-        <SearchIcon style={{'cursor': 'pointer'}} />
+        <SearchIcon style={{ cursor: "pointer" }} />
       </div>
       <div className="rightNavbar">
         <div className="rightNavbarItem">
@@ -60,6 +76,9 @@ export default function Topbar() {
           <NotificationsIcon />
           <span>2</span>
         </div>
+        <button onClick={handleLogoutClick} className="logoutBtn">
+          LogOut
+        </button>
       </div>
       <NavLink to={`${route}`} onClick={toggleRoute}>
         <div className="userProfile">
