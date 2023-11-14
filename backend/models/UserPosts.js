@@ -12,6 +12,10 @@ const commentSchema = mongoose.Schema({
   comment: {
     type: String,
     required: true
+  },
+  profilePic: {
+    type: String,
+    required: true
   }
 })
 

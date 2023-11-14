@@ -164,7 +164,7 @@ router.delete("/deletePost/:id", fetchUser, async (req, res) => {
       return res.status(400).json("Authentication revoked");
     }
     let deletedPost = await Posts.findByIdAndDelete(postId);
-    res.status(200).json(deletedPost);
+    res.status(200).json('Post Deleted');
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
@@ -188,7 +188,7 @@ router.post('/commentOnPost/:id',fetchUser,async(req,res)=>{
 
     post = await Posts.findByIdAndUpdate(
       postId,
-      {$push: {comments: [{name: user.name, comment: comment, user: user._id}]}},
+      {$push: {comments: [{name: user.name, comment: comment, user: user._id, profilePic: `uploadedProfilePic/${user.profilePic.img}`}]}},
       {new: true}
     )
     res.status(200).json('Comment Uploaded')
@@ -222,6 +222,16 @@ router.delete('/deleteCommentOnPost/:id/:commentId',fetchUser,async(req,res)=>{
   } catch (error) {
     console.log(error)
     res.status(500).json("Internal Server Error")
+  }
+})
+
+router.get('/getCommentsOnPost/:id', async(req,res)=>{
+  const postId = req.params.id;
+  try {
+    let post = await Posts.findById(postId);
+    res.status(200).json(post.comments)
+  } catch (error) {
+    console.log(error)
   }
 })
 

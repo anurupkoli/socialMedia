@@ -29,7 +29,7 @@ const PostState = (props) => {
   const uploadPost = async (description, file) => {
     try {
       let formData = new FormData();
-      formData.append("uploadPost", file?file:null);
+      formData.append("uploadPost", file ? file : null);
       formData.append("description", description);
       const response = await fetch(`${host}/api/posts/uploadPost`, {
         method: "POST",
@@ -47,42 +47,73 @@ const PostState = (props) => {
   };
 
   const updateLikes = async (postId, didLike, friendEmail) => {
-    const response = await fetch(`${host}/api/posts/updateLikes/${postId}`, {
-      method: "PUT",
-      headers: {
-        "Content-type": "application/json",
-      },
-      body: JSON.stringify({
-        friendEmail: friendEmail,
-        didLike: didLike,
-      }),
-    });
-    // eslint-disable-next-line
-    const json = await response.json();
+    try {
+      const response = await fetch(`${host}/api/posts/updateLikes/${postId}`, {
+        method: "PUT",
+        headers: {
+          "Content-type": "application/json",
+        },
+        body: JSON.stringify({
+          friendEmail: friendEmail,
+          didLike: didLike,
+        }),
+      });
+      // eslint-disable-next-line
+      const json = await response.json();
+    } catch (error) {
+      console.log(error);
+    }
   };
 
-  const deletePost = async(postId)=>{
+  const deletePost = async (postId) => {
     try {
       const response = await fetch(`${host}/api/posts/deletePost/${postId}`, {
         method: "DELETE",
         headers: {
           "Content-type": "application/json",
-          "auth-token": localStorage.getItem('auth-token')
+          "auth-token": localStorage.getItem("auth-token"),
         },
-      })
-      if(!response.ok){
-        console.log(response)
+      });
+      if (!response.ok) {
+        console.log(response);
       }
       // eslint-disable-next-line
-      let json = await response.json()
+      let json = await response.json();
+      alert(json);
     } catch (error) {
-      console.log(error)
+      console.log(error);
     }
-  }
+  };
+
+  const getCommentsOnPost = async (postId) => {
+    try {
+      const resp = await fetch(
+        `${host}/api/posts/getCommentsOnPost/${postId}`,
+        {
+          method: "GET",
+          headers: {
+            "auth-token": localStorage.getItem("auth-token"),
+          },
+        }
+      );
+      const json = await resp.json();
+      return json;
+    } catch (error) {
+      console.log(error);
+    }
+  };
 
   return (
     <PostContext.Provider
-      value={{ fetchPosts, posts, updateLikes, uploadPost, reRenderPosts, deletePost }}
+      value={{
+        fetchPosts,
+        posts,
+        updateLikes,
+        uploadPost,
+        reRenderPosts,
+        deletePost,
+        getCommentsOnPost,
+      }}
     >
       {props.children}
     </PostContext.Provider>
