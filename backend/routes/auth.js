@@ -48,7 +48,7 @@ router.post(
       };
 
       const authToken = JWST.sign(data, jws_secret);
-      res.status(200).json({authToken});
+      res.status(200).json({ authToken });
     } catch (error) {
       console.log(error);
       res.status(500).json({ error: "Some error occured" });
@@ -135,7 +135,7 @@ router.post("/updateUser", fetchUserD, async (req, res) => {
       { $set: updateUser },
       { new: true }
     );
-    res.status(200).json("User updated");
+    res.status(200).json(user);
   } catch (error) {
     console.log(error);
     res.status(500).json(error);
@@ -146,7 +146,6 @@ router.post("/followFriend", fetchUserD, async (req, res) => {
   try {
     let userId = req.user.id;
     let friendId = req.body.friendId;
-    console.log(friendId)
     let user = await User.findById(userId);
     let friend = await User.findById(friendId);
     if (!friend) {
@@ -261,28 +260,33 @@ router.get("/getFriendsDetails", fetchUserD, async (req, res) => {
   }
 });
 
-router.get('/getUnfollwedFriends', fetchUserD, async(req,res)=>{
+router.get("/getUnfollwedFriends", fetchUserD, async (req, res) => {
   let userId = req.user.id;
   try {
     const user = await User.findById(userId);
-    if(!user){
-      return res.status(400).json('Invalid Credentials')
+    if (!user) {
+      return res.status(400).json("Invalid Credentials");
     }
-    const friends = await User.find({_id: {$nin: [...user.friends,userId]}}, '_id name profilePic');
-    const response = await Promise.all(friends.map(friend=>{
-      return{
-        id: friend._id,
-        name: friend.name,
-        profilePic: `${friend.profilePic.img}`
-      }
-    }))
+    const friends = await User.find(
+      { _id: { $nin: [...user.friends, userId] } },
+      "_id name profilePic"
+    );
+    const response = await Promise.all(
+      friends.map((friend) => {
+        return {
+          id: friend._id,
+          name: friend.name,
+          profilePic: `${friend.profilePic.img}`,
+        };
+      })
+    );
 
-    res.status(200).json(response)
+    res.status(200).json(response);
   } catch (error) {
-    console.log(error)
-    res.status(500).json(error)
+    console.log(error);
+    res.status(500).json(error);
   }
-})
+});
 
 const Storage1 = multer.diskStorage({
   destination: "images/uploadedProfilePic",

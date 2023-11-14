@@ -15,9 +15,11 @@ export default function Topbar() {
   const toggleRoute = ()=>{
     if(route === '/profile'){
       setRoute('/')
+      return;
     }
     if(route==='/'){
       setRoute('/profile')
+      return;
     }
   }
   const [profilePicPath, setprofilePicPath] = useState("/images/socialmediaprofile.jpg");

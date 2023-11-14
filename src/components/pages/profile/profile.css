@@ -124,6 +124,33 @@
     margin-bottom: 5px;
 }
 
+.updateInputs{
+    display: flex;
+    align-items: center;
+    justify-content:space-between;
+    margin-top: 10px;
+}
+
+.updateInputs input{
+    padding: 5px;
+    border-radius: 15px;
+    border: 2px solid rgb(233, 13, 233);
+    width: 15rem;
+}
+
+.updateDetailsBtn{
+    padding: 5px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    background-color: rgb(208, 110, 208);
+    transition: all .2s ease-out;
+}
+
+.updateDetailsBtn:hover{
+    background-color: rgb(251, 166, 251);
+}
+
 .profileRightBarBottom {
     width: 100%;
     height: max-content;
