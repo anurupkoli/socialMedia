@@ -85,6 +85,25 @@ const PostState = (props) => {
     }
   };
 
+  const uploadCommentOnPost = async (comment, postId)=>{
+    try {
+      const resp = await fetch(`${host}/api/posts/commentOnPost/${postId}`, {
+        method: "POST",
+        headers: {
+          "Content-type": "application/json",
+          "auth-token": localStorage.getItem('auth-token')
+        },
+        body: JSON.stringify({
+          "comment": comment
+        })
+      })
+      const json = await resp.json();
+      alert(json)
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   const getCommentsOnPost = async (postId) => {
     try {
       const resp = await fetch(
@@ -113,6 +132,7 @@ const PostState = (props) => {
         reRenderPosts,
         deletePost,
         getCommentsOnPost,
+        uploadCommentOnPost
       }}
     >
       {props.children}

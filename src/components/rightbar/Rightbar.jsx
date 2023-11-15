@@ -14,6 +14,7 @@ export default function Rightbar() {
   //   fetchFriendDetails()
   //   // eslint-disable-next-line
   // }, []);
+  
   return (
     <div className='rightBar'>
       <RighBarAdd/>

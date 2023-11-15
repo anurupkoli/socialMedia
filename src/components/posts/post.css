@@ -112,3 +112,17 @@
     cursor: pointer;
 }
 
+.commentSec{
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+#userComment{
+    width: 100%;
+    height: 60px;
+    border: none;
+}
+
+#userComment:focus{
+    outline: none;
+}

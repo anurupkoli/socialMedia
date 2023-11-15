@@ -25,7 +25,7 @@ export default function Leftbar() {
     setupdatePage(updatePage + 1);
     followFriend(friendId)
   };
-
+  
   useEffect(() => {
     if(localStorage.getItem('auth-token')){
       getUnfollowedFriends();

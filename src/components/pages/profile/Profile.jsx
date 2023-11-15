@@ -50,7 +50,7 @@ export default function Profile() {
       relationshipStatus: sUser.relationshipStatus,
     });
     // eslint-disable-next-line
-  }, [sUser, reRenderPage]);
+  }, [reRenderPage]);
 
   const setFriendProfileDetails = (friend) => {
     setProfileDetails({

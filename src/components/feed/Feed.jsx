@@ -8,7 +8,7 @@ import UserContext from "../../Contexts/User/UserContext";
 export default function Feed(props) {
   const context1 = useContext(PostContext);
   const context2 = useContext(UserContext);
-  let {fetchPosts, posts, reRenderPosts, deletePost} = context1
+  let {fetchPosts, posts,reRenderPosts, deletePost} = context1
   let {sUser} = context2
   const {isUser} = props;
 
@@ -21,7 +21,7 @@ export default function Feed(props) {
   useEffect(() => {
     fetchPosts(sUser._id);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [sUser._id, reRenderPosts, updatePage]);
+  }, [ reRenderPosts,updatePage]);
 
   const sortPostsByCreatedAt = (posts) => {
     return posts.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));

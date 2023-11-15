@@ -7,14 +7,15 @@ import PF from "../../EnvironmentVariables";
 import PostContext from "../../Contexts/Post/PostContext";
 import UserContext from "../../Contexts/User/UserContext";
 import Comments from "../comments/Comments";
+import SendRoundedIcon from "@mui/icons-material/SendRounded";
 
 export default function Post(props) {
   let { post, deleteAPost } = props;
 
   const context1 = useContext(PostContext);
   const context2 = useContext(UserContext);
-  let { updateLikes, getCommentsOnPost } = context1;
-  let { sUser } = context2;
+  let { updateLikes, getCommentsOnPost, uploadCommentOnPost } = context1;
+  let { sUser, userProfilePic } = context2;
 
   let initialLikeState = post.likes.emails.includes(sUser.email);
   const [isLiked, setIsLiked] = useState(initialLikeState);
@@ -28,30 +29,11 @@ export default function Post(props) {
   const [profilePicPath, setprofilePicPath] = useState(
     "images/socialmediaprofile.jpg"
   );
+  const [userComment, setuserComment] = useState("");
+  const [renderPage, setrenderPage] = useState(0);
 
   const [postComments, setPostComments] = useState([]);
-  const [fireCommentSec, setfireCommentSec] = useState('none');
-
-  useEffect(() => {
-    if (post.profilePicPath !== null) {
-      if (
-        post.profilePicPath &&
-        typeof post.profilePicPath === "string" &&
-        post.profilePicPath.includes("/uploadedProfilePic/undefined")
-      ) {
-        setprofilePicPath("/images/socialmediaprofile.jpg");
-      } else {
-        setprofilePicPath(`${PF}${post.profilePicPath}`);
-      }
-    }
-
-    const fetchPostFun = async () => {
-      const resp = await getCommentsOnPost(post.id);
-      setPostComments(resp)
-    };
-    fetchPostFun()
-    // eslint-disable-next-line
-  }, [post]);
+  const [fireCommentSec, setfireCommentSec] = useState("none");
 
   const updateLike = () => {
     if (isLiked === false) {
@@ -89,6 +71,43 @@ export default function Post(props) {
       }
     }
   };
+
+  const sortCommentsByCreatedAt = (comments) => {
+    return comments
+      .slice()
+      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+  };
+
+  const handleCommentChange = (e) => {
+    setuserComment(e.target.value);
+  };
+
+  const handleSendCommentClick = async(e) => {
+    e.preventDefault();
+    await uploadCommentOnPost(userComment, post.id)
+    setrenderPage(renderPage + 1);
+  };
+
+  useEffect(() => {
+    if (post.profilePicPath !== null) {
+      if (
+        post.profilePicPath &&
+        typeof post.profilePicPath === "string" &&
+        post.profilePicPath.includes("/uploadedProfilePic/undefined")
+      ) {
+        setprofilePicPath("/images/socialmediaprofile.jpg");
+      } else {
+        setprofilePicPath(`${PF}${post.profilePicPath}`);
+      }
+    }
+
+    const fetchPostFun = async () => {
+      const resp = await getCommentsOnPost(post.id);
+      setPostComments(resp);
+    };
+    fetchPostFun();
+    // eslint-disable-next-line
+  }, [post]);
   return (
     <>
       <div className="posts">
@@ -132,12 +151,59 @@ export default function Post(props) {
               />
               <span className="postLikeCount">{likes} people like it</span>
             </div>
-            <div className="postBottomRight" onClick={()=>{setfireCommentSec(fireCommentSec==='none'?'block':'none')}}>
+            <div
+              className="postBottomRight"
+              onClick={() => {
+                setfireCommentSec(fireCommentSec === "none" ? "block" : "none");
+              }}
+            >
               <span>{post.comments.length} comments</span>
             </div>
           </div>
-          <div className="commentSec" style={{"display": `${fireCommentSec}`}}>
-            <Comments/>
+          <div className="commentSec" style={{ display: `${fireCommentSec}` }}>
+            <div className="commentContainer" style={{ marginBottom: "-30px" }}>
+              <div className="commentSecProfDetails">
+                <div className="commentSecProfilePic">
+                  <img
+                    src={
+                      userProfilePic
+                        ? PF + userProfilePic
+                        : "./images/socialmediaprofile.jpg"
+                    }
+                    alt=""
+                  />
+                </div>
+                <h4>{sUser.name}</h4>
+              </div>
+              <div className="commentDiv">
+                <form>
+                  <textarea
+                    name="userComment"
+                    id="userComment"
+                    onChange={handleCommentChange}
+                    placeholder="Write your comment here"
+                  ></textarea>
+                  <button
+                    type="submit"
+                    onClick={handleSendCommentClick}
+                    id="sendRoundedBtnIcon"
+                  >
+                    <SendRoundedIcon htmlColor="purple" />
+                  </button>
+                </form>
+              </div>
+            </div>
+            {postComments ? (
+              <div>
+                {sortCommentsByCreatedAt(postComments).map((postComment) => {
+                  return (
+                    <Comments key={postComment._id} postComment={postComment} />
+                  );
+                })}
+              </div>
+            ) : (
+              "No comments yet"
+            )}
           </div>
         </div>
       </div>

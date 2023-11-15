@@ -1,0 +1,45 @@
+.commentContainer{
+    margin-top: 40px;
+}
+
+.commentSecProfDetails{
+    display: flex;
+    align-items: center;
+}
+
+.commentSecProfDetails h4{
+    margin-right: 5px;
+}
+
+.commentSecProfilePic{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.commentSecProfilePic img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
+
+.commentDiv{
+    width: 90%;
+    margin: auto;
+}
+
+.commentDiv form{
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+    justify-content: center;
+    width: 100%;
+}
+
+#sendRoundedBtnIcon{
+    border-radius: 50%;
+    padding: 5px;
+    border: 1px solid purple;
+    cursor: pointer;
+}
