@@ -8,14 +8,14 @@ import UserContext from "../../Contexts/User/UserContext";
 export default function Feed(props) {
   const context1 = useContext(PostContext);
   const context2 = useContext(UserContext);
-  let {fetchPosts, posts,reRenderPosts, deletePost} = context1
-  let {sUser} = context2
+  const {fetchPosts, posts,reRenderPosts, deletePost} = context1
+  const {sUser} = context2
   const {isUser} = props;
 
   const [updatePage, setupdatePage] = useState(0);
 
   const deleteAPost = (postId)=>{
-    deletePost(postId)?setupdatePage(updatePage+1):setupdatePage(updatePage);
+    deletePost(postId)?setupdatePage((updatePage)=>updatePage+1):setupdatePage(updatePage);
   }
   
   useEffect(() => {

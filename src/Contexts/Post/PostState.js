@@ -40,7 +40,7 @@ const PostState = (props) => {
       });
       // eslint-disable-next-line
       const json = await response.json();
-      setreRenderPosts(reRenderPosts + 1);
+      setreRenderPosts((reRenderPosts)=>reRenderPosts+1);
     } catch (error) {
       console.log(error);
     }
@@ -129,10 +129,10 @@ const PostState = (props) => {
         posts,
         updateLikes,
         uploadPost,
-        reRenderPosts,
         deletePost,
         getCommentsOnPost,
-        uploadCommentOnPost
+        uploadCommentOnPost,
+        reRenderPosts
       }}
     >
       {props.children}

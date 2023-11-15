@@ -187,7 +187,7 @@ const UserState = (props) => {
       });
 
       const json = await resp.json();
-      setreRenderPage((reRenderPage += 1));
+      setreRenderPage((reRenderPage)=>reRenderPage+1);
       alert(json);
     } catch (error) {
       console.log(error);
@@ -206,7 +206,7 @@ const UserState = (props) => {
       });
 
       const json = await resp.json();
-      setreRenderPage((reRenderPage += 1));
+      setreRenderPage((reRenderPage)=>reRenderPage+1);
       alert(json);
     } catch (error) {
       console.log(error);

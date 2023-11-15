@@ -188,7 +188,7 @@ router.post('/commentOnPost/:id',fetchUser,async(req,res)=>{
 
     post = await Posts.findByIdAndUpdate(
       postId,
-      {$push: {comments: [{name: user.name, comment: comment, user: user._id, profilePic: `uploadedProfilePic/${user.profilePic.img}`}]}},
+      {$push: {comments: [{user: user._id, name: user.name, comment: comment, profilePic: `uploadedProfilePic/${user.profilePic.img}`, timeStamp: new Date()}]}},
       {new: true}
     )
     res.status(200).json('Comment Uploaded')

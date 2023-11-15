@@ -1,5 +1,5 @@
 .commentContainer{
-    margin-top: 40px;
+    margin-top: 20px;
 }
 
 .commentSecProfDetails{
@@ -22,6 +22,12 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
+}
+
+#commentTimeStamp{
+    font-size: 10px;
+    margin-left: 10px;
+    text-align: center;
 }
 
 .commentDiv{

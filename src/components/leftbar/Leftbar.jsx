@@ -16,13 +16,13 @@ import { useNavigate } from "react-router-dom";
 export default function Leftbar() {
   const navigate = useNavigate()
   const context = useContext(UserContext);
-  let { getUnfollowedFriends, unfollowedFriends, followFriend } = context;
+  const { getUnfollowedFriends, unfollowedFriends, followFriend } = context;
   // eslint-disable-next-line
   const [profilePic, setprofilePic] = useState("images/socialmediaprofile.jpg");
   const [updatePage, setupdatePage] = useState(0);
 
   const followFriendClick = (friendId) => {
-    setupdatePage(updatePage + 1);
+    setupdatePage((updatePage)=>updatePage+1);
     followFriend(friendId)
   };
   
@@ -34,8 +34,7 @@ export default function Leftbar() {
       navigate('/login')
     }
     // eslint-disable-next-line
-  }, [updatePage, followFriendClick]);
-
+  }, [updatePage]);
   return (
     <div className="leftBarWrapper">
       <div className="leftBarFeeds">

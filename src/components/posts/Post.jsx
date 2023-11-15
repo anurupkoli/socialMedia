@@ -73,10 +73,13 @@ export default function Post(props) {
   };
 
   const sortCommentsByCreatedAt = (comments) => {
-    return comments
-      .slice()
-      .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
+    return comments.slice().sort((a, b) => {
+      const timestampA = new Date(a.timeStamp).getTime();
+      const timestampB = new Date(b.timeStamp).getTime();
+      return timestampB - timestampA; // Sort in descending order (latest first)
+    });
   };
+  
 
   const handleCommentChange = (e) => {
     setuserComment(e.target.value);
@@ -85,7 +88,7 @@ export default function Post(props) {
   const handleSendCommentClick = async(e) => {
     e.preventDefault();
     await uploadCommentOnPost(userComment, post.id)
-    setrenderPage(renderPage + 1);
+    setrenderPage((renderPage)=>renderPage + 1);
   };
 
   useEffect(() => {
@@ -107,7 +110,8 @@ export default function Post(props) {
     };
     fetchPostFun();
     // eslint-disable-next-line
-  }, [post]);
+  }, [post, renderPage]);
+
   return (
     <>
       <div className="posts">
@@ -161,7 +165,7 @@ export default function Post(props) {
             </div>
           </div>
           <div className="commentSec" style={{ display: `${fireCommentSec}` }}>
-            <div className="commentContainer" style={{ marginBottom: "-30px" }}>
+            <div className="commentContainer">
               <div className="commentSecProfDetails">
                 <div className="commentSecProfilePic">
                   <img
