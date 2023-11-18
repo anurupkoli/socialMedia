@@ -13,7 +13,8 @@ import UserContext from "../../Contexts/User/UserContext";
 import PF from "../../EnvironmentVariables";
 import { useNavigate } from "react-router-dom";
 
-export default function Leftbar() {
+export default function Leftbar(props) {
+  const {setRender} = props;
   const navigate = useNavigate()
   const context = useContext(UserContext);
   const { getUnfollowedFriends, unfollowedFriends, followFriend } = context;
@@ -24,6 +25,7 @@ export default function Leftbar() {
   const followFriendClick = async(friendId) => {
     await followFriend(friendId)
     setupdatePage((updatePage)=>updatePage+1);
+    setRender((render)=>render+1)
   };
   
   useEffect(() => {
@@ -35,6 +37,7 @@ export default function Leftbar() {
     }
     // eslint-disable-next-line
   }, [updatePage]);
+  
   return (
     <div className="leftBarWrapper">
       <div className="leftBarFeeds">

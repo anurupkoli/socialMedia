@@ -14,12 +14,16 @@ export default function Feed(props) {
 
   const [updatePage, setupdatePage] = useState(0);
 
-  const deleteAPost = (postId)=>{
-    deletePost(postId)?setupdatePage((updatePage)=>updatePage+1):setupdatePage(updatePage);
+  const deleteAPost = async (postId)=>{
+    await deletePost(postId);
+    setupdatePage((updatePage)=>updatePage+1);
   }
   
   useEffect(() => {
-    fetchPosts(sUser._id);
+    const fetch = async()=>{
+      await fetchPosts(sUser._id);
+    }
+    fetch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [ reRenderPosts,updatePage]);
 

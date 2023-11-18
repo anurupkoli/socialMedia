@@ -5,7 +5,7 @@ import UserContext from "../../../Contexts/User/UserContext";
 import EditIcon from "@mui/icons-material/Edit";
 
 export default function ProfileComponent(props) {
-  let { profileDetails, isUser } = props;
+  let { profileDetails, isUser, setRender } = props;
   const context = useContext(UserContext);
   const {
     sUser,
@@ -16,7 +16,6 @@ export default function ProfileComponent(props) {
     fetchUserBackgroundPic,
     reRenderPage,
     uploadBackgroundPic,
-    followFriend,
     unfollowFriend,
   } = context;
   const [profilePicPath, setprofilePicPath] = useState(
@@ -28,7 +27,6 @@ export default function ProfileComponent(props) {
 
   const [profileImg, setProfileImg] = useState(null);
   const [backgroundImg, setBackgroundImg] = useState(null);
-  let [buttonType, setbuttonType] = useState("Unfollow");
 
   const uploadProfileImgRef = useRef(null);
   const uploadBackgroundInputImgRef = useRef(null);
@@ -41,13 +39,13 @@ export default function ProfileComponent(props) {
     uploadBackgroundInputImgRef.current.click();
   };
 
-  const handleProfileUpload = () => {
-    uploadProfilePic(profileImg);
+  const handleProfileUpload = async() => {
+    await uploadProfilePic(profileImg);
     setProfileImg(null);
   };
 
-  const handleBackgroundUpload = () => {
-    uploadBackgroundPic(backgroundImg);
+  const handleBackgroundUpload = async() => {
+    await uploadBackgroundPic(backgroundImg);
     setBackgroundImg(null);
   };
 
@@ -59,20 +57,18 @@ export default function ProfileComponent(props) {
     setBackgroundImg(e.target.files[0]);
   };
 
-  const handleUnfollowBtn = () => {
-    if (buttonType === "Unfollow") {
-      unfollowFriend(profileDetails.id);
-      setbuttonType("Follow");
-      return;
-    }
-    if (buttonType === "Follow") {
-      followFriend(profileDetails.id);
-      setbuttonType("Unfollow");
-      return;
-    }
+  const handleUnfollowBtn = async() => {
+      await unfollowFriend(profileDetails.id);
+      setRender((render)=>render+1)
   };
 
   useEffect(() => {
+    const fetch = async()=>{
+      await fetchUserProfilePic();
+      await fetchUserBackgroundPic()
+    }
+    fetch()
+
     if (profileDetails.profilePic !== null || userProfilePic !== null) {
       if (
         profileDetails.profilePic &&
@@ -110,8 +106,7 @@ export default function ProfileComponent(props) {
         );
       }
     }
-    fetchUserProfilePic();
-    fetchUserBackgroundPic();
+    
     // eslint-disable-next-line
   }, [profileDetails, userProfilePic, userBackgroundPic, reRenderPage]);
 
@@ -144,7 +139,7 @@ export default function ProfileComponent(props) {
               handleUnfollowBtn();
             }}
           >
-            {buttonType}
+            Unfollow
           </button>
         </div>
       ) : null}

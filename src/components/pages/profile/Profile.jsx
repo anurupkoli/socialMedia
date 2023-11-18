@@ -19,7 +19,7 @@ export default function Profile() {
     fetchFriendDetails,
     fetchUserBackgroundPic,
     fetchUserProfilePic,
-    reRenderPage
+    reRenderPage,
   } = context;
 
   const user = {
@@ -34,23 +34,28 @@ export default function Profile() {
   };
   const [profileDetails, setProfileDetails] = useState(user);
   const [isUser, setisUser] = useState(true);
+  const [render, setRender] = useState(0);
 
   useEffect(() => {
-    fetchUserBackgroundPic();
-    fetchUserProfilePic();
-    fetchFriendDetails();
-    setProfileDetails({
-      id: sUser._id,
-      name: sUser.name,
-      description: sUser.description,
-      backgroundPic: userBackgroundPic,
-      profilePic: userProfilePic,
-      DOB: sUser.DOB,
-      currentlyLiving: sUser.currentlyLiving,
-      relationshipStatus: sUser.relationshipStatus,
-    });
+    const fetch = async () => {
+      await fetchUserBackgroundPic();
+      await fetchUserProfilePic();
+      await fetchFriendDetails();
+      await setProfileDetails({
+        id: sUser._id,
+        name: sUser.name,
+        description: sUser.description,
+        backgroundPic: userBackgroundPic,
+        profilePic: userProfilePic,
+        DOB: sUser.DOB,
+        currentlyLiving: sUser.currentlyLiving,
+        relationshipStatus: sUser.relationshipStatus,
+      });
+    };
+    fetch()
+    setisUser(true)
     // eslint-disable-next-line
-  }, [reRenderPage]);
+  }, [reRenderPage, render]);
 
   const setFriendProfileDetails = (friend) => {
     setProfileDetails({
@@ -63,7 +68,7 @@ export default function Profile() {
       currentlyLiving: friend.currentlyLiving,
       relationshipStatus: friend.relationshipStatus,
     });
-    setisUser(false)
+    setisUser(false);
   };
 
   return (
@@ -72,11 +77,15 @@ export default function Profile() {
         <Topbar />
         <div className="profileContainer">
           <div className="leftBar">
-            <Leftbar />
+            <Leftbar setRender={setRender}/>
           </div>
           <div className="profileRightBar">
             <div className="profileRightTop">
-              <ProfileComponent profileDetails={profileDetails} isUser={isUser} />
+              <ProfileComponent
+                profileDetails={profileDetails}
+                isUser={isUser}
+                setRender={setRender}
+              />
             </div>
             <div className="profileRightBottom">
               <div className="feed">
