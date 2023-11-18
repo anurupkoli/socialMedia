@@ -150,7 +150,7 @@ const UserState = (props) => {
         }),
       });
       const json = await response.json();
-      alert(json);
+      alert(json)
     } catch (error) {
       console.log(error);
     }

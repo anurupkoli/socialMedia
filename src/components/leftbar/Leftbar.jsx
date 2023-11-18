@@ -21,9 +21,9 @@ export default function Leftbar() {
   const [profilePic, setprofilePic] = useState("images/socialmediaprofile.jpg");
   const [updatePage, setupdatePage] = useState(0);
 
-  const followFriendClick = (friendId) => {
+  const followFriendClick = async(friendId) => {
+    await followFriend(friendId)
     setupdatePage((updatePage)=>updatePage+1);
-    followFriend(friendId)
   };
   
   useEffect(() => {
