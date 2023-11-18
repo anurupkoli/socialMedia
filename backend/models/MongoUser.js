@@ -1,4 +1,6 @@
 const mongoose  = require('mongoose')
+
+//MongoDB schema for User
 const UserSchema = mongoose.Schema({
     name: {
         type: String,
@@ -51,6 +53,6 @@ const UserSchema = mongoose.Schema({
     }
 })
 
-
+//exporting as a user and can be used as a foreign key
 const User = mongoose.model('user', UserSchema)
 module.exports = User;

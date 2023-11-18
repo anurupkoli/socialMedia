@@ -1,5 +1,7 @@
+//Post Schema for user
 const mongoose = require("mongoose");
 
+//comment schema created seperately as it stores multiple info in the form of object
 const commentSchema = mongoose.Schema(
   {
     user: {
@@ -28,6 +30,8 @@ const commentSchema = mongoose.Schema(
   }
 );
 
+
+//Actual post Schema
 const PostSchema = mongoose.Schema(
   {
     user: {
