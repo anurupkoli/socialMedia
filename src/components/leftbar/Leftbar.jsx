@@ -1,5 +1,5 @@
 import { React, useContext, useEffect, useState } from "react";
-import "./leftbar.css";
+import "./Leftbar.css";
 import RssFeedIcon from "@mui/icons-material/RssFeed";
 import ChatIcon from "@mui/icons-material/Chat";
 import SmartDisplayIcon from "@mui/icons-material/SmartDisplay";
@@ -14,7 +14,7 @@ import PF from "../../EnvironmentVariables";
 import { useNavigate } from "react-router-dom";
 
 export default function Leftbar(props) {
-  const {setRender} = props;
+  const {setRender, render} = props;
   const navigate = useNavigate()
   const context = useContext(UserContext);
   const { getUnfollowedFriends, unfollowedFriends, followFriend } = context;
@@ -36,7 +36,7 @@ export default function Leftbar(props) {
       navigate('/login')
     }
     // eslint-disable-next-line
-  }, [updatePage]);
+  }, [updatePage, render]);
   
   return (
     <div className="leftBarWrapper">

@@ -77,7 +77,7 @@ export default function Profile() {
         <Topbar />
         <div className="profileContainer">
           <div className="leftBar">
-            <Leftbar setRender={setRender}/>
+            <Leftbar setRender={setRender} render={render}/>
           </div>
           <div className="profileRightBar">
             <div className="profileRightTop">
