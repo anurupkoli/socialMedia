@@ -36,6 +36,20 @@ export default function Profile() {
   const [isUser, setisUser] = useState(true);
   const [render, setRender] = useState(0);
 
+  const setFriendProfileDetails = (friend) => {
+    setProfileDetails({
+      id: friend.id,
+      name: friend.name,
+      description: friend.description,
+      backgroundPic: friend.backgroundImgPath,
+      profilePic: friend.profilePicPath,
+      DOB: friend.DOB,
+      currentlyLiving: friend.currentlyLiving,
+      relationshipStatus: friend.relationshipStatus,
+    });
+    setisUser(false);
+  };
+
   useEffect(() => {
     const fetch = async () => {
       await fetchUserBackgroundPic();
@@ -56,20 +70,6 @@ export default function Profile() {
     setisUser(true)
     // eslint-disable-next-line
   }, [reRenderPage, render]);
-
-  const setFriendProfileDetails = (friend) => {
-    setProfileDetails({
-      id: friend.id,
-      name: friend.name,
-      description: friend.description,
-      backgroundPic: friend.backgroundImgPath,
-      profilePic: friend.profilePicPath,
-      DOB: friend.DOB,
-      currentlyLiving: friend.currentlyLiving,
-      relationshipStatus: friend.relationshipStatus,
-    });
-    setisUser(false);
-  };
 
   return (
     <>

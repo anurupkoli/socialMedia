@@ -62,6 +62,7 @@ const UserState = (props) => {
       const json = await res.json();
       alert('Details updated')
       setSUser(json)
+      setreRenderPage((reRenderPage)=>reRenderPage+1)
     } catch (error) {
       console.log(error);
     }
