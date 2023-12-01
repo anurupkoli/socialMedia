@@ -1,10 +1,13 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import "./comments.css";
 import PF from "../../EnvironmentVariables";
+import PostContext from "../../Contexts/Post/PostContext";
 
 export default function Comments(props) {
-  let { postComment } = props;
+  let { postComment, setrenderPage, postId } = props;
   const [profilePic, setprofilePic] = useState("");
+  const postConetxt = useContext(PostContext)
+  const {deleteCommentOnPost} = postConetxt;
 
   const formatTimeAgo = (timeStamp) => {
     const currentTime = new Date();
@@ -27,6 +30,11 @@ export default function Comments(props) {
     }
   };
 
+  const handleDeletComment = async()=>{
+    await deleteCommentOnPost(postId, postComment._id);
+    setrenderPage((renderPage)=>renderPage+1);
+  }
+
   useEffect(() => {
     if (postComment.profilePic === "uploadedProfilePic/undefined") {
       setprofilePic("./images/socialmediaprofile.jpg");
@@ -45,6 +53,7 @@ export default function Comments(props) {
         <h4>{postComment.name}</h4>
         <span>says</span>
         <span id="commentTimeStamp">{formatTimeAgo(postComment.timeStamp)}</span>
+        <span id="deleteComment" onClick={handleDeletComment}>delete</span>
       </div>
       <div className="commentDiv">{postComment.comment}</div>
     </div>

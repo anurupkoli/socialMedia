@@ -89,7 +89,7 @@ export default function Profile() {
             </div>
             <div className="profileRightBottom">
               <div className="feed">
-                <Feed isUser={isUser} />
+                <Feed isUser={isUser} setRender={setRender} render={render} />
               </div>
               <div className="rightBar">
                 <ProfileRightBar

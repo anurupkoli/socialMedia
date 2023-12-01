@@ -16,7 +16,7 @@ export default function Home() {
             <Leftbar render={render} setRender={setRender} />
           </div>
           <div className="feed">
-            <Feed isUser={true} />
+            <Feed isUser={true} render={render} />
           </div>
           <div className="rightBar">
             <Rightbar />

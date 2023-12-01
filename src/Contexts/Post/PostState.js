@@ -122,6 +122,21 @@ const PostState = (props) => {
     }
   };
 
+  const deleteCommentOnPost = async(postId, commentId)=>{
+    try {
+      const resp = await fetch(`${host}/api/posts/deleteCommentOnPost/${postId}/${commentId}`, {
+        method: "DELETE", 
+        headers: {
+          "auth-token": localStorage.getItem('auth-token')
+        }
+      });
+      const json = await resp.json();
+      alert(json);
+    } catch (error) {
+      console.log(error)
+    }
+  }
+
   return (
     <PostContext.Provider
       value={{
@@ -132,7 +147,8 @@ const PostState = (props) => {
         deletePost,
         getCommentsOnPost,
         uploadCommentOnPost,
-        reRenderPosts
+        reRenderPosts,
+        deleteCommentOnPost
       }}
     >
       {props.children}

@@ -10,7 +10,7 @@ export default function Feed(props) {
   const context2 = useContext(UserContext);
   const {fetchPosts, posts,reRenderPosts, deletePost} = context1
   const {sUser} = context2
-  const {isUser} = props;
+  const {isUser, render} = props;
 
   const [updatePage, setupdatePage] = useState(0);
 
@@ -25,7 +25,7 @@ export default function Feed(props) {
     }
     fetch()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ reRenderPosts,updatePage]);
+  }, [ reRenderPosts,updatePage, render]);
 
   const sortPostsByCreatedAt = (posts) => {
     return posts.slice().sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
