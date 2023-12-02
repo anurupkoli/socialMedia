@@ -167,7 +167,7 @@ export default function Post(props) {
           </div>
           <div className="commentSec" style={{ display: `${fireCommentSec}` }}>
             <div className="commentContainer">
-              <div className="commentSecProfDetails">
+              <div className="commentSecProfDetails1">
                 <div className="commentSecProfilePic">
                   <img
                     src={

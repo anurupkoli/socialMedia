@@ -32,8 +32,11 @@ export default function Comments(props) {
   };
 
   const handleDeletComment = async () => {
-    await deleteCommentOnPost(postId, postComment._id);
-    setrenderPage((renderPage) => renderPage + 1);
+    const resp = await deleteCommentOnPost(postId, postComment._id);
+    alert(resp);
+    if(resp==="Comment Deleted"){
+      setrenderPage((renderPage) => renderPage + 1);
+    }
   };
 
   useEffect(() => {
@@ -47,21 +50,25 @@ export default function Comments(props) {
 
   return (
     <div className="commentContainer">
-      <div className="commentSecProfDetails">
-        <div className="commentSecProfilePic">
-          <img src={`${profilePic}`} alt="" />
-        </div>
-        <h4>{postComment.name}</h4>
-        <span>says</span>
-        <span id="commentTimeStamp">
-          {formatTimeAgo(postComment.timeStamp)}
-        </span>
-        <span className="commentRight">
-          <MoreVertIcon />
-          <span id="commentOptions" onClick={handleDeletComment}>
-            <button onClick={handleDeletComment}>Delete</button>
+      <div className="commentSecProfDetails2">
+        <div className="commentProfileLeft">
+          <div className="commentSecProfilePic">
+            <img src={`${profilePic}`} alt="" />
+          </div>
+          <h4>{postComment.name}</h4>
+          <span>says</span>
+          <span id="commentTimeStamp">
+            {formatTimeAgo(postComment.timeStamp)}
           </span>
-        </span>
+        </div>
+        <div className="commentProfileRight">
+          <span className="commentRight">
+            <MoreVertIcon />
+            <span id="commentOptions" onClick={handleDeletComment}>
+              <button className="deleteBtn" onClick={handleDeletComment}>Delete</button>
+            </span>
+          </span>
+        </div>
       </div>
       <div className="commentDiv">{postComment.comment}</div>
     </div>

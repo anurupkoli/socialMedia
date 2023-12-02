@@ -130,6 +130,10 @@
     max-height: 300px;
     overflow-y: auto;
 }
+.commentSecProfDetails1{
+    display: flex;
+    align-items:center;
+}
 
 #userComment{
     width: 100%;

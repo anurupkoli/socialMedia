@@ -4,12 +4,14 @@
     flex-direction: column;
 }
 
-.commentSecProfDetails{
+.commentSecProfDetails2{
     display: flex;
-    align-items: center;
+    align-items:flex-start;
+    justify-content: space-between;
+    height: 40px;
 }
 
-.commentSecProfDetails h4{
+.commentSecProfDetails2 h4{
     margin-right: 5px;
 }
 
@@ -24,6 +26,11 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
+}
+
+.commentProfileLeft{
+    display: flex;
+    align-items: center;
 }
 
 #commentTimeStamp{

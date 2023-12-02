@@ -131,7 +131,7 @@ const PostState = (props) => {
         }
       });
       const json = await resp.json();
-      alert(json);
+      return json;
     } catch (error) {
       console.log(error)
     }
