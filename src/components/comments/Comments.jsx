@@ -33,7 +33,6 @@ export default function Comments(props) {
 
   const handleDeletComment = async () => {
     const resp = await deleteCommentOnPost(postId, postComment._id);
-    alert(resp);
     if(resp==="Comment Deleted"){
       setrenderPage((renderPage) => renderPage + 1);
     }

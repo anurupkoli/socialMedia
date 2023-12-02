@@ -91,6 +91,12 @@ export default function Post(props) {
     setrenderPage((renderPage)=>renderPage + 1);
   };
 
+  const deletePost = async()=>{
+    if(window.confirm("Do you want to delete this post?"))
+      await deleteAPost(post.id);
+    return 
+  }
+
   useEffect(() => {
     if (post.profilePicPath !== null) {
       if (
@@ -130,7 +136,7 @@ export default function Post(props) {
                 <button
                   className="deleteBtn"
                   onClick={() => {
-                    deleteAPost(post.id);
+                    deletePost();
                   }}
                 >
                   Delete Post?

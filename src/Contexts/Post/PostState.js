@@ -41,6 +41,7 @@ const PostState = (props) => {
       // eslint-disable-next-line
       const json = await response.json();
       setreRenderPosts((reRenderPosts)=>reRenderPosts+1);
+      return json;
     } catch (error) {
       console.log(error);
     }

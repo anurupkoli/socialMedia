@@ -30,18 +30,23 @@ export default function Share(props) {
     setfile(e.target.files[0]);
   };
 
-  const sharePost = (e) => {
+  const sharePost = async(e) => {
     e.preventDefault();
-    uploadPost(description, file);
+    const resp = await uploadPost(description, file);
+    setfile(null);
+    setdescription("");
+    alert(resp)
   };
 
-  const [profileImgPath, setprofileImgPath] = useState('/images/socialmediaprofile.jpg');
+  const [profileImgPath, setprofileImgPath] = useState(
+    "/images/socialmediaprofile.jpg"
+  );
 
   useEffect(() => {
     fetchUser();
     fetchUserProfilePic();
-    if(userProfilePic !== null){
-      setprofileImgPath(`${PF}${userProfilePic}`)
+    if (userProfilePic !== null) {
+      setprofileImgPath(`${PF}${userProfilePic}`);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [userProfilePic]);
@@ -51,7 +56,7 @@ export default function Share(props) {
         <div className="shareContainer1">
           <div className="shareTop">
             <div className="shareImg">
-              <img src={profileImgPath} alt=""/>
+              <img src={profileImgPath} alt="" />
             </div>
             <input
               type="text"
@@ -61,10 +66,10 @@ export default function Share(props) {
             />
           </div>
           <hr />
-          <div className="shareBottom" >
+          <div className="shareBottom">
             <div className="shareTypes" onClick={fireImageInputRef}>
               <PermMediaIcon htmlColor="green" />
-              <span>Photo or Video</span>
+              <span style={{ marginLeft: "5px" }}>Photo or Video</span>
               <input
                 type="file"
                 accept="image/*"
@@ -72,7 +77,7 @@ export default function Share(props) {
                 multiple={false}
                 ref={uploadImageRef}
                 onChange={setImage}
-                style={{display: "none"}}
+                style={{ display: "none" }}
               />
             </div>
             <div className="shareTypes">
@@ -90,6 +95,13 @@ export default function Share(props) {
             <button className="shareBtn" onClick={sharePost}>
               Share
             </button>
+          </div>
+          <div id="postImg">
+            {file?file.type.startsWith("image/") ? (
+              <img src={URL.createObjectURL(file)} alt="Selected" />
+            ) : (
+              <h3>Select Image file</h3>
+            ):null}
           </div>
         </div>
       </div>
