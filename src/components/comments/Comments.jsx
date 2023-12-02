@@ -2,12 +2,13 @@ import { React, useState, useEffect, useContext } from "react";
 import "./comments.css";
 import PF from "../../EnvironmentVariables";
 import PostContext from "../../Contexts/Post/PostContext";
+import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default function Comments(props) {
   let { postComment, setrenderPage, postId } = props;
   const [profilePic, setprofilePic] = useState("");
-  const postConetxt = useContext(PostContext)
-  const {deleteCommentOnPost} = postConetxt;
+  const postConetxt = useContext(PostContext);
+  const { deleteCommentOnPost } = postConetxt;
 
   const formatTimeAgo = (timeStamp) => {
     const currentTime = new Date();
@@ -30,10 +31,10 @@ export default function Comments(props) {
     }
   };
 
-  const handleDeletComment = async()=>{
+  const handleDeletComment = async () => {
     await deleteCommentOnPost(postId, postComment._id);
-    setrenderPage((renderPage)=>renderPage+1);
-  }
+    setrenderPage((renderPage) => renderPage + 1);
+  };
 
   useEffect(() => {
     if (postComment.profilePic === "uploadedProfilePic/undefined") {
@@ -52,8 +53,15 @@ export default function Comments(props) {
         </div>
         <h4>{postComment.name}</h4>
         <span>says</span>
-        <span id="commentTimeStamp">{formatTimeAgo(postComment.timeStamp)}</span>
-        <span id="deleteComment" onClick={handleDeletComment}>delete</span>
+        <span id="commentTimeStamp">
+          {formatTimeAgo(postComment.timeStamp)}
+        </span>
+        <span className="commentRight">
+          <MoreVertIcon />
+          <span id="commentOptions" onClick={handleDeletComment}>
+            <button onClick={handleDeletComment}>Delete</button>
+          </span>
+        </span>
       </div>
       <div className="commentDiv">{postComment.comment}</div>
     </div>

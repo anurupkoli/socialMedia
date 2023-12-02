@@ -1,5 +1,7 @@
 .commentContainer{
     margin-top: 20px;
+    display: flex;
+    flex-direction: column;
 }
 
 .commentSecProfDetails{
@@ -27,8 +29,29 @@
 #commentTimeStamp{
     font-size: 10px;
     margin-left: 10px;
-    margin-right: 10px;
     text-align: center;
+}
+
+.commentRight{
+    margin-left: 20px;
+    display: flex;
+    align-items:flex-end;
+    justify-content: flex-start;
+    cursor: pointer;
+    flex-direction: column;
+    width: 5rem;
+    height: 4rem;
+}
+
+#commentOptions{
+    position: relative;
+    top: 5px;
+    right: 0px;
+    display: none;
+}
+
+.commentRight:hover #commentOptions{
+    display: flex;
 }
 
 .commentDiv{

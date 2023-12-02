@@ -31,15 +31,29 @@
     height: 4rem;
 }
 
-#deletePostIcon{
+#postOptionsDiv{
     position: relative;
     top: 5px;
     right: 0px;
     display: none;
 }
 
-.postTopRight:hover #deletePostIcon{
+.postTopRight:hover #postOptionsDiv{
     display: flex;
+}
+
+.deleteBtn{
+    font-size: 12px;
+    padding: 5px 5px;
+    border: none;
+    border-radius: 10px;
+    background-color: rgb(208, 110, 208);
+    transition: all 0.2s ease-out;
+    cursor: pointer;
+}
+.deleteBtn:hover{
+    border-radius: 15px;
+    box-shadow: 1px 2px 3px 2px rgb(56, 56, 56);
 }
 
 .postUserImg{

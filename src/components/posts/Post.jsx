@@ -126,8 +126,9 @@ export default function Post(props) {
             </div>
             <div className="postTopRight">
               <MoreVertIcon />
-              <div id="deletePostIcon">
+              <div id="postOptionsDiv">
                 <button
+                  className="deleteBtn"
                   onClick={() => {
                     deleteAPost(post.id);
                   }}
