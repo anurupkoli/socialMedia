@@ -5,7 +5,7 @@ import PostContext from "../../Contexts/Post/PostContext";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 
 export default function Comments(props) {
-  let { postComment, setrenderPage, postId } = props;
+  let { postComment, setrenderPage, postId, renderPage } = props;
   const [profilePic, setprofilePic] = useState("");
   const postConetxt = useContext(PostContext);
   const { deleteCommentOnPost } = postConetxt;
@@ -34,11 +34,15 @@ export default function Comments(props) {
   const handleDeletComment = async () => {
     const resp = await deleteCommentOnPost(postId, postComment._id);
     if(resp==="Comment Deleted"){
-      setrenderPage((renderPage) => renderPage + 1);
+      alert(resp)
+      setrenderPage(renderPage+1);
+      return;
     }
+    alert(resp)
   };
 
   useEffect(() => {
+    console.log("first")
     if (postComment.profilePic === "uploadedProfilePic/undefined") {
       setprofilePic("./images/socialmediaprofile.jpg");
     } else {
@@ -63,7 +67,7 @@ export default function Comments(props) {
         <div className="commentProfileRight">
           <span className="commentRight">
             <MoreVertIcon />
-            <span id="commentOptions" onClick={handleDeletComment}>
+            <span id="commentOptions">
               <button className="deleteBtn" onClick={handleDeletComment}>Delete</button>
             </span>
           </span>

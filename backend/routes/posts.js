@@ -214,7 +214,6 @@ router.delete('/deleteCommentOnPost/:id/:commentId',fetchUser,async(req,res)=>{
     if(commentIndex === -1){
       return res.status(400).json("Authentication Revoked")
     }
-
     post.comments.splice(commentIndex, 1);
     await post.save()
     res.status(200).json('Comment Deleted')

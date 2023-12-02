@@ -208,7 +208,7 @@ export default function Post(props) {
               <div>
                 {sortCommentsByCreatedAt(postComments).map((postComment) => {
                   return (
-                    <Comments key={postComment._id} postComment={postComment} postId={post.id} setrenderPage={setrenderPage} />
+                    <Comments key={postComment._id} postComment={postComment} postId={post.id} setrenderPage={setrenderPage} renderPage={renderPage} />
                   );
                 })}
               </div>
