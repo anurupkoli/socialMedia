@@ -55,7 +55,7 @@ export default function Profile() {
       await fetchUserBackgroundPic();
       await fetchUserProfilePic();
       await fetchFriendDetails();
-      await setProfileDetails({
+      setProfileDetails({
         id: sUser._id,
         name: sUser.name,
         description: sUser.description,

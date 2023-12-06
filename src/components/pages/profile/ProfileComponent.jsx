@@ -42,6 +42,7 @@ export default function ProfileComponent(props) {
   const handleProfileUpload = async() => {
     await uploadProfilePic(profileImg);
     setProfileImg(null);
+    setRender((render)=>render+1)
   };
 
   const handleBackgroundUpload = async() => {

@@ -8,6 +8,7 @@ const { body, validationResult } = require("express-validator");
 const fetchUserD = require("../middlewares/fetchUser");
 const multer = require("multer");
 const crypto = require("crypto");
+const deleteImage = require('../middlewares/imageHandling');
 const jws_secret = process.env.JWT_TOKEN;
 
 //Post route to create new user using 'api/auth/createUser'
@@ -117,7 +118,7 @@ router.get("/getUser", fetchUserD, async (req, res) => {
   //userId is fetched through authentication token
   let userId = req.user.id;
   try {
-    //fetching user from datase except password
+    //fetching user from database except password
     let user = await User.findById(userId).select("-password,-profilePic");
     res.status(200).json({ user: user });
   } catch (error) {
@@ -370,6 +371,14 @@ router.post(
     try {
       //fetching user from database
       let user = await User.findById(userId);
+      const profilePicPath  = user.profilePic && user.profilePic.img;
+      //Deleting profilePic if present before uploading new one
+      if(profilePicPath){
+        if(profilePicPath==='undefined'){
+          return;
+        }
+        await deleteImage(`images/uploadedProfilePic/${profilePicPath}`);
+      }
 
       //if user is not present reuturn with error
       if (!user) {
@@ -430,6 +439,13 @@ router.post(
       //fetching user from database
       let user = await User.findById(userId);
       //if not found return with error
+
+      const backgroundPicPath  = user.backgroundImg && user.backgroundImg.img;
+      //Deleting backgroundPic if already present before uploading new one
+      if(backgroundPicPath){
+        await deleteImage(`images/uploadedBackgroundPic/${backgroundPicPath}`);
+      }
+
       if (!user) {
         return res.status(400).json("Invalid request");
       }
