@@ -42,7 +42,6 @@ export default function Comments(props) {
   };
 
   useEffect(() => {
-    console.log("first")
     if (postComment.profilePic === "uploadedProfilePic/undefined") {
       setprofilePic("./images/socialmediaprofile.jpg");
     } else {
@@ -50,7 +49,6 @@ export default function Comments(props) {
     }
     // eslint-disable-next-line
   }, []);
-
   return (
     <div className="commentContainer">
       <div className="commentSecProfDetails2">
