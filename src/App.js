@@ -5,6 +5,7 @@ import UserState from "./Contexts/User/UserState";
 import PostState from "./Contexts/Post/PostState";
 import Login from "./components/pages/login/Login";
 import SignUp from "./components/pages/signUp/SignUp";
+import Messenger from "./components/pages/messenger/Messenger";
 
 function App() {
   return (
@@ -17,6 +18,7 @@ function App() {
               <Route exact path="/profile" element={<Profile />} />
               <Route exact path="/login" element={<Login/>}/>
               <Route exact path="/signUp" element={<SignUp/>}/>
+              <Route exact path="/messenger" element={<Messenger/>}/>
             </Routes>
           </BrowserRouter>
         </PostState>

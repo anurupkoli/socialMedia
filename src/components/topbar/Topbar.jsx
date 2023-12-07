@@ -35,13 +35,12 @@ export default function Topbar() {
   }, [userProfilePic]);
 
   const handleLogoutClick = () => {
-    const confirm = window.confirm("Do you really want to Logout?")
-    if(confirm){
-      localStorage.removeItem('auth-token');
-    navigate("/login")
-    return;
-    }
-    else{
+    const confirm = window.confirm("Do you really want to Logout?");
+    if (confirm) {
+      localStorage.removeItem("auth-token");
+      navigate("/login");
+      return;
+    } else {
       return;
     }
   };
@@ -82,7 +81,9 @@ export default function Topbar() {
       </div>
       <NavLink to={`${route}`} onClick={toggleRoute}>
         <div className="userProfile">
-          <img src={profilePicPath} alt="" />
+          <div className="userProfileWrapper">
+            <img src={profilePicPath} alt="" />
+          </div>
         </div>
       </NavLink>
     </div>

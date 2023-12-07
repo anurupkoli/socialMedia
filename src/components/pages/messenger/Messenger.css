@@ -1,0 +1,35 @@
+.messengerContainer{
+    display: flex;
+    height: calc(100vh - 50px);
+}
+
+.messengerMainContainer{
+    width: 100%;
+    overflow-x: hidden;
+}
+
+.messengerConversation{
+    display: flex;
+    flex: 3.5;
+}
+.conversationWrapper{
+    padding: 20px;
+}
+
+.messengerMessages{
+    display: flex;
+    flex: 6.5;
+}
+
+.messagesWrapper{
+    padding: 20px;
+}
+
+.messengerOnlineFriends{
+    display: flex;
+    flex: 2.5;
+}
+
+.messengerOnlineFriendsWrapper{
+    padding: 20px;
+}
