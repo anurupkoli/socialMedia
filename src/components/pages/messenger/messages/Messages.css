@@ -1,0 +1,49 @@
+.messagesMainContainer{
+    display: flex;
+    width: 100%;
+    margin-top: 20px;
+}
+
+.messagesMainContainer.user{
+    justify-content: flex-end;
+}
+
+.messagesProfileImg{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.messageContainer.user .messagesProfileImg{
+    display: none;
+}
+
+.messagesProfileImg img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    object-fit:cover;
+}
+
+.messagesMainContainer.user .messagesProfileImg img{
+    display: none;
+}
+
+.messagesContainer{
+    max-width: 60%;
+}
+
+.messageText{
+    background-color: rgb(255, 202, 255);
+    border-radius: 10px;
+    padding: 5px;
+}
+
+.messagesMainContainer.user .messageText{
+    background-color: rgb(245, 245, 245);
+}
+
+.timeAgo{
+    font-size: 12px;
+}

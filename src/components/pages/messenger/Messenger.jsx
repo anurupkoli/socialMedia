@@ -8,8 +8,10 @@ import MessageOnlineFriends from "./messageOnlineFriends/MessageOnlineFriends";
 export default function Messanger() {
   return (
     <>
-      <div className="messengerMainContainer">
+      <div className="messengerTopBar">
         <Topbar />
+      </div>
+      <div className="messengerMainContainer">
         <div className="messengerContainer">
           <div className="messengerConversation">
             <div className="conversationWrapper">
@@ -18,7 +20,23 @@ export default function Messanger() {
           </div>
           <div className="messengerMessages">
             <div className="messagesWrapper">
-              <Messages />
+              <div className="messagesTop">
+                <Messages />
+                <Messages isUser={true} />
+                <Messages />
+                <Messages />
+                <Messages />
+                <Messages />
+                <Messages />
+                <Messages />
+                <Messages />
+                <Messages />
+              </div>
+              <div className="messagesBottom">
+                <textarea className="messageInputTextArea" name="message" id="message" placeholder="Write something....." >
+                </textarea>
+                <button className="sendMessageBtn">send</button>
+              </div>
             </div>
           </div>
           <div className="messengerOnlineFriends">
