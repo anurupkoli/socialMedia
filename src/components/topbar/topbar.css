@@ -1,21 +1,23 @@
-.navBar {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  background-color: rgb(208, 110, 208);
-  padding: 5px;
+.navBar { 
   position: sticky;
   position: -webkit-sticky;
   width: 100%;
   margin: 0;
   top: 0;
-  padding: 5px;
-  height: 40px;
   z-index: 999;
 }
 
+.navbarWrapper{
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: rgb(208, 110, 208);
+  padding: 5px;
+  height: 40px;
+}
+
 .leftNavbar {
-  margin-left: 40px;
+  margin-left: 30px;
   cursor: pointer;
 }
 

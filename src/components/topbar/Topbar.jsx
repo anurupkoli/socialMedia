@@ -47,6 +47,7 @@ export default function Topbar() {
 
   return (
     <div className="navBar">
+      <div className="navbarWrapper">
       <div className="leftNavbar">
         <NavLink to="/" style={{ textDecoration: "none" }}>
           <span>SocialMedia</span>
@@ -86,6 +87,7 @@ export default function Topbar() {
           </div>
         </div>
       </NavLink>
+      </div>
     </div>
   );
 }

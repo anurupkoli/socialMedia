@@ -1,6 +1,8 @@
 .messengerContainer{
     display: flex;
-    height: calc(100vh - 50px);
+    height: calc(100vh - 70px);
+    width: 100%;
+    overflow-y: hidden;
 }
 
 .messengerMainContainer{
@@ -9,27 +11,24 @@
 }
 
 .messengerConversation{
-    display: flex;
-    flex: 3.5;
+    flex: 3;
 }
 .conversationWrapper{
-    padding: 20px;
+    padding: 10px;
 }
 
 .messengerMessages{
-    display: flex;
-    flex: 6.5;
+    flex: 7;
 }
 
 .messagesWrapper{
-    padding: 20px;
+    padding: 10px;
 }
 
 .messengerOnlineFriends{
-    display: flex;
     flex: 2.5;
 }
 
 .messengerOnlineFriendsWrapper{
-    padding: 20px;
+    padding: 10px;
 }

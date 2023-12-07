@@ -1,0 +1,46 @@
+.conversationMainContainer{
+    width: 100%;
+    height: 100%;
+}
+
+.conversationSearch{
+    border-bottom: 1px solid gray;
+    width: 80%;
+}
+
+.conversationSearch input{
+    padding: 5px;
+    font-size: 16px;
+    border: none;
+    outline: none;
+    width: 100%;
+}
+
+.conversationFriends{
+    margin-top: 20px;
+}
+
+.conversationFriendsMainContainer{
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    cursor: pointer;
+    padding: 10px;
+}
+
+.conversationFriendsMainContainer:hover{
+    background-color: rgb(255, 244, 255)
+}
+
+.conversationOnlineFriendImage{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.conversationOnlineFriendImage img{
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+}
