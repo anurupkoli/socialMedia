@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Messenger.css";
 import Topbar from "../../topbar/Topbar";
 import Conversation from "./conversation/Conversation";
@@ -9,6 +9,8 @@ import UserContext from "../../../Contexts/User/UserContext";
 export default function Messanger() {
   const context = useContext(UserContext)
   const {fetchFriendDetails, fetchUser, fetchUserProfilePic} = context;
+  const [mConversation, setMConversation] = useState(null)
+  
   useEffect(() => {
       const fn = async()=>{
         await fetchUser();
@@ -28,12 +30,12 @@ export default function Messanger() {
         <div className="messengerContainer">
           <div className="messengerConversation">
             <div className="conversationWrapper">
-              <Conversation />
+              <Conversation setMConversation={setMConversation} />
             </div>
           </div>
           <div className="messengerMessages">
             <div className="messagesWrapper">
-              <Messages/>
+              <Messages mConversation={mConversation}/>
             </div>
           </div>
           <div className="messengerOnlineFriends">

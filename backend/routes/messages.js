@@ -35,14 +35,14 @@ router.post('/sendMessage', fetchUser, async(req,res)=>{
             sender: userId,
             text: text
         })
-        res.status(200).json('Message sent')
+        res.status(200).json(messages)
     } catch (error) {
         console.log(error);
         res.status(500).json(error);
     }
 })
 
-router.get('/getMessages', fetchUser, async(req,res)=>{
+router.post('/getMessages', fetchUser, async(req,res)=>{
     const userId = req.user.id;
     const conversationId = req.body.conversationId;
     try {

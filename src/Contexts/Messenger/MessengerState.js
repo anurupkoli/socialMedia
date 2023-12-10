@@ -1,11 +1,13 @@
 import { useState } from "react";
 import MessengerContext from "./MessengerContext";
 const MessengerState = (props) => {
-  const host = "http://localhost:8000/api/conversations";
+  const host1 = "http://localhost:8000/api/conversations";
+  const host2 = "http://localhost:8000/api/messages"
+
   const [conversations, setConversations] = useState(null)
 
   const createConversation = async (friendId) => {
-    const resp = await fetch(`${host}/createConversation`, {
+    const resp = await fetch(`${host1}/createConversation`, {
       method: "POST",
       headers: {
         "auth-token": localStorage.getItem("auth-token"),
@@ -20,7 +22,7 @@ const MessengerState = (props) => {
   };
 
   const getConversations = async () => {
-    const resp = await fetch(`${host}/getConversations`, {
+    const resp = await fetch(`${host1}/getConversations`, {
       method: "GET",
       headers: {
         "auth-token": localStorage.getItem("auth-token"),
@@ -31,7 +33,7 @@ const MessengerState = (props) => {
   };
 
   const sendMessage = async(conversationId, text)=>{
-    const resp = await fetch(`${host}/sendMessage`, {
+    const resp = await fetch(`${host2}/sendMessage`, {
         method: "POST",
         headers: {
             "Content-type": "application/json",
@@ -43,12 +45,12 @@ const MessengerState = (props) => {
         })
     })
     const json = await resp.json();
-    console.log(json)
+    return json;
   }
 
   const getMessages = async(conversationId)=>{
-    const resp = await fetch(`${host}/getMessages`, {
-        method: "GET",
+    const resp = await fetch(`${host2}/getMessages`, {
+        method: "POST",
         headers: {
             "Content-type": "application/json",
             "auth-token": localStorage.getItem('auth-token')
@@ -57,8 +59,11 @@ const MessengerState = (props) => {
             conversationId: conversationId
         })
     })
+    if(!resp.ok){
+      console.log(resp)
+    }
     const json = await resp.json();
-    console.log(json)
+    return json;
   }
 
   return (
