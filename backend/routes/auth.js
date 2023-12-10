@@ -119,7 +119,7 @@ router.get("/getUser", fetchUserD, async (req, res) => {
   let userId = req.user.id;
   try {
     //fetching user from database except password
-    let user = await User.findById(userId).select("-password,-profilePic");
+    let user = await User.findById(userId).select("-password");
     res.status(200).json({ user: user });
   } catch (error) {
     console.log(error);

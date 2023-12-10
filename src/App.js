@@ -6,21 +6,24 @@ import PostState from "./Contexts/Post/PostState";
 import Login from "./components/pages/login/Login";
 import SignUp from "./components/pages/signUp/SignUp";
 import Messenger from "./components/pages/messenger/Messenger";
+import MessengerState from "./Contexts/Messenger/MessengerState";
 
 function App() {
   return (
     <>
       <UserState>
         <PostState>
-          <BrowserRouter>
-            <Routes>
-              <Route exact path="/" element={<Home />} />
-              <Route exact path="/profile" element={<Profile />} />
-              <Route exact path="/login" element={<Login/>}/>
-              <Route exact path="/signUp" element={<SignUp/>}/>
-              <Route exact path="/messenger" element={<Messenger/>}/>
-            </Routes>
-          </BrowserRouter>
+          <MessengerState>
+            <BrowserRouter>
+              <Routes>
+                <Route exact path="/" element={<Home />} />
+                <Route exact path="/profile" element={<Profile />} />
+                <Route exact path="/login" element={<Login />} />
+                <Route exact path="/signUp" element={<SignUp />} />
+                <Route exact path="/messenger" element={<Messenger />} />
+              </Routes>
+            </BrowserRouter>
+          </MessengerState>
         </PostState>
       </UserState>
     </>

@@ -1,11 +1,24 @@
-import React from "react";
+import React, { useContext, useEffect } from "react";
 import "./Messenger.css";
 import Topbar from "../../topbar/Topbar";
 import Conversation from "./conversation/Conversation";
 import Messages from "./messages/Messages";
 import MessageOnlineFriends from "./messageOnlineFriends/MessageOnlineFriends";
+import UserContext from "../../../Contexts/User/UserContext";
 
 export default function Messanger() {
+  const context = useContext(UserContext)
+  const {fetchFriendDetails, fetchUser, fetchUserProfilePic} = context;
+  useEffect(() => {
+      const fn = async()=>{
+        await fetchUser();
+        await fetchFriendDetails();
+        await fetchUserProfilePic();
+      }
+      fn()
+      // eslint-disable-next-line
+  },[])
+  
   return (
     <>
       <div className="messengerTopBar">
@@ -20,14 +33,7 @@ export default function Messanger() {
           </div>
           <div className="messengerMessages">
             <div className="messagesWrapper">
-              <div className="messagesTop">
-                <Messages />
-              </div>
-              <div className="messagesBottom">
-                <textarea className="messageInputTextArea" name="message" id="message" placeholder="Write something....." >
-                </textarea>
-                <button className="sendMessageBtn">send</button>
-              </div>
+              <Messages/>
             </div>
           </div>
           <div className="messengerOnlineFriends">
