@@ -27,6 +27,10 @@ export default function Leftbar(props) {
     setupdatePage((updatePage)=>updatePage+1);
     setRender((render)=>render+1)
   };
+
+  const handleChatClick = ()=>{
+    navigate('/messenger');
+  }
   
   useEffect(() => {
     if(localStorage.getItem('auth-token')){
@@ -46,7 +50,7 @@ export default function Leftbar(props) {
             <RssFeedIcon />
             <span>Feed</span>
           </li>
-          <li className="leftBarFeedItems">
+          <li className="leftBarFeedItems" onClick={handleChatClick} >
             <ChatIcon />
             <span>Chats</span>
           </li>

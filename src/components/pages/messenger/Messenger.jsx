@@ -22,15 +22,6 @@ export default function Messanger() {
             <div className="messagesWrapper">
               <div className="messagesTop">
                 <Messages />
-                <Messages isUser={true} />
-                <Messages />
-                <Messages />
-                <Messages />
-                <Messages />
-                <Messages />
-                <Messages />
-                <Messages />
-                <Messages />
               </div>
               <div className="messagesBottom">
                 <textarea className="messageInputTextArea" name="message" id="message" placeholder="Write something....." >

@@ -1,8 +1,12 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import './Conversation.css'
 import ConversationFriends from './ConversationFriends'
 
 export default function Conversation() {
+  useEffect(() => {
+    
+  }, [])
+  
   return (
     <>
       <div className="conversationMainContainer">

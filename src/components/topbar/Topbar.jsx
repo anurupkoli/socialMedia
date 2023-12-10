@@ -56,7 +56,7 @@ export default function Topbar() {
       <div className="navBarLinks">
         <span className="navBarLink">TimeLine</span>
         <NavLink to="/" style={{ textDecoration: "none" }}>
-          <span className="navBarLink">Home</span>
+          <span className="navBarLink"onClick={()=>navigate('/')} >Home</span>
         </NavLink>
       </div>
       <div className="middleNavbar">
@@ -64,7 +64,7 @@ export default function Topbar() {
         <SearchIcon style={{ cursor: "pointer" }} />
       </div>
       <div className="rightNavbar">
-        <div className="rightNavbarItem">
+        <div className="rightNavbarItem" onClick={()=>navigate('/messenger')} >
           <MessageIcon />
           <span>1</span>
         </div>
