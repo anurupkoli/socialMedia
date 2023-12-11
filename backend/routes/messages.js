@@ -51,6 +51,9 @@ router.post('/getMessages', fetchUser, async(req,res)=>{
         }
 
         const conversation = await Conversations.findById(conversationId);
+        if(!conversation){
+            return res.status(400)
+        }
         if(!conversation.users.includes(userId)){
             return res.status(400).json('Invalid request')
         }

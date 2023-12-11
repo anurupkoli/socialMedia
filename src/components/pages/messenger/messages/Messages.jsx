@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState } from "react";
+import React, { useContext, useEffect, useState, useRef } from "react";
 import "./Messages.css";
 import Message from "./Message";
 import UserContext from "../../../../Contexts/User/UserContext";
@@ -35,12 +35,18 @@ export default function Messages(props) {
     fn()
     // eslint-disable-next-line
   }, [mConversation])
+
+  const messageContainerRef = useRef(null)
+  useEffect(() => {
+    messageContainerRef.current.scrollTop = messageContainerRef.current.scrollHeight;
+  }, [messages])
+  
   
   return (
     <>
-      <div className="messagesTop">
+      <div className="messagesTop"ref={messageContainerRef} >
         {
-          messages?messages.map(message=>{
+          messages.length?messages.map(message=>{
             return <Message key={message._id} isUser={message.sender===sUser._id} message={message} />
           }):"Start Chatting"
         }
