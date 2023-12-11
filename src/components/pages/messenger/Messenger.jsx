@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, useState, useRef } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import "./Messenger.css";
 import Topbar from "../../topbar/Topbar";
 import Conversation from "./conversation/Conversation";
@@ -7,23 +7,20 @@ import MessageOnlineFriends from "./messageOnlineFriends/MessageOnlineFriends";
 import UserContext from "../../../Contexts/User/UserContext";
 
 export default function Messanger() {
-  const context = useContext(UserContext)
-  const {fetchFriendDetails, fetchUser, fetchUserProfilePic, sUser} = context;
-  const [mConversation, setMConversation] = useState(null)
+  const context = useContext(UserContext);
+  const { fetchFriendDetails, fetchUser, fetchUserProfilePic } = context;
+  const [mConversation, setMConversation] = useState(null);
 
-
-  
   useEffect(() => {
-      const fn = async()=>{
-        await fetchUser();
-        await fetchFriendDetails();
-        await fetchUserProfilePic();
-      }
-      fn()
-      // eslint-disable-next-line
-    },[])
-  
-  
+    const fn = async () => {
+      await fetchUser();
+      await fetchFriendDetails();
+      await fetchUserProfilePic();
+    };
+    fn();
+    // eslint-disable-next-line
+  }, []);
+
   return (
     <>
       <div className="messengerTopBar">
@@ -38,7 +35,7 @@ export default function Messanger() {
           </div>
           <div className="messengerMessages">
             <div className="messagesWrapper">
-              <Messages mConversation={mConversation}/>
+              <Messages mConversation={mConversation} />
             </div>
           </div>
           <div className="messengerOnlineFriends">
