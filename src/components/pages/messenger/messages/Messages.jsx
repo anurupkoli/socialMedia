@@ -3,6 +3,7 @@ import "./Messages.css";
 import Message from "./Message";
 import UserContext from "../../../../Contexts/User/UserContext";
 import MessengerContext from "../../../../Contexts/Messenger/MessengerContext";
+import {io} from "socket.io-client";
 
 export default function Messages(props) {
   const { mConversation } = props;
@@ -11,10 +12,12 @@ export default function Messages(props) {
   const {sUser} = context1;
 
   const context2 = useContext(MessengerContext);
-  const {getMessages, sendMessage} = context2;
+  const {getMessages, sendMessage, conversations} = context2;
   
   let  [messages, setMessages] = useState([])
   let [newMessage, setNewMessage] = useState('')
+  const [recievedMessage, setRecievedMessage] = useState(null)
+  const socket = useRef();
 
   const handleMessageChange = (e)=>{
     setNewMessage(e.target.value)
@@ -22,10 +25,42 @@ export default function Messages(props) {
 
   const handleSendMessageClick = async(e)=>{
     e.preventDefault()
-    const resp = await sendMessage(mConversation, newMessage)
+    const conversationMembers = conversations.find(conversation=>conversation._id===mConversation);
+    const friendId = conversationMembers.users?.find(user=>user!==sUser._id)
+    const message = {
+      userId: sUser._id,
+      friendId,
+      text: newMessage
+    }
+    socket.current.emit("sendMessage", message)
+
+    try {
+      const resp = await sendMessage(mConversation, newMessage)
     setMessages([...messages, resp])
     setNewMessage('')
+    } catch (error) {
+      console.log(error)
+    }
   }
+
+  useEffect(() => {
+    socket.current = io("ws://localhost:8001")
+    socket.current?.on("getMessage", message=>{
+      setRecievedMessage({
+        _id: Date.now(),
+        sender: message.userId,
+        text: message.text,
+        createdAt: new Date()
+      })
+    })
+  }, [])
+  
+  useEffect(()=>{
+    socket.current.emit("setUser", sUser._id)
+    socket.current.on("getUsers", users=>{
+    })
+   },[sUser])
+
 
   useEffect(() => {
     const fn = async()=>{
@@ -35,6 +70,15 @@ export default function Messages(props) {
     fn()
     // eslint-disable-next-line
   }, [mConversation])
+
+
+  useEffect(() => {
+    const conversationMembers = conversations?.find(
+      (conversation) => conversation._id === mConversation
+    );
+    recievedMessage && conversationMembers.users.includes(recievedMessage.sender)
+      && setMessages([...messages, recievedMessage])
+  }, [recievedMessage, conversations, mConversation]); 
 
   const messageContainerRef = useRef(null)
   useEffect(() => {
