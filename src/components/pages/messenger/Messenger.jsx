@@ -9,7 +9,8 @@ import UserContext from "../../../Contexts/User/UserContext";
 export default function Messanger() {
   const context = useContext(UserContext);
   const { fetchFriendDetails, fetchUser, fetchUserProfilePic } = context;
-  const [mConversation, setMConversation] = useState(null);
+  let [mConversation, setMConversation] = useState(null);
+  let [onlineUsers, setOnlineUsers] = useState([])
 
   useEffect(() => {
     const fn = async () => {
@@ -35,12 +36,12 @@ export default function Messanger() {
           </div>
           <div className="messengerMessages">
             <div className="messagesWrapper">
-              <Messages mConversation={mConversation} />
+              <Messages mConversation={mConversation} setOnlineUsers={setOnlineUsers} />
             </div>
           </div>
           <div className="messengerOnlineFriends">
             <div className="messengerOnlineFriendsWrapper">
-              <MessageOnlineFriends />
+              <MessageOnlineFriends  setMConversation={setMConversation} onlineUsers={onlineUsers} />
             </div>
           </div>
         </div>

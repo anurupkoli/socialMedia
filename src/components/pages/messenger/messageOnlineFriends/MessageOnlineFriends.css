@@ -1,0 +1,11 @@
+.messengerOnlineFriendDiv{
+    cursor: pointer;
+    padding: 0px 10px 10px 10px;
+    display: flex;
+    align-items: center;
+    transition: all .2s ease-out;
+}
+
+.messengerOnlineFriendDiv:hover{
+    background-color: rgb(253, 227, 253)
+}

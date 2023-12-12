@@ -1,16 +1,31 @@
 import React from 'react'
 import './onlineFriend.css'
+import PF from '../../EnvironmentVariables'
 
-export default function OnlineFriend() {
+export default function OnlineFriend(props) {
+  const {friend} = props
+
+  let profilePicPath = ''
+  let friendName = ''
+
+  if(friend){
+     profilePicPath = friend.profilePicPath === '/uploadedProfilePic/undefined'?'images/socialmediaprofile.jpg':PF+friend.profilePicPath
+     friendName = friend.name
+  }else{
+    return;
+  }
   return (
     <>
-        <div className="onlineFriendContainer">
+    {
+      friend &&
+      <div className="onlineFriendContainer">
             <div className="onlineFriendImg">
-                <img src="/images/shivaray2.jpg" alt="" />
+                <img src={profilePicPath} alt="" />
                 <div className="isOnlineIcon"></div>
             </div>
-            <span><b>Basavaraj Galgali</b></span>
+            <span><b>{friendName}</b></span>
         </div>
+        }
     </>
   )
 }

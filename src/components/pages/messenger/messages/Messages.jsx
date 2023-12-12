@@ -6,7 +6,7 @@ import MessengerContext from "../../../../Contexts/Messenger/MessengerContext";
 import { io } from "socket.io-client";
 
 export default function Messages(props) {
-  const { mConversation, messageBottomDisplay } = props;
+  const { mConversation, messageBottomDisplay, setOnlineUsers } = props;
 
   const context1 = useContext(UserContext);
   const { sUser } = context1;
@@ -61,7 +61,10 @@ export default function Messages(props) {
 
   useEffect(() => {
     socket.current.emit("setUser", sUser._id);
-    socket.current.on("getUsers", (users) => {});
+    socket.current.on("getUsers", (users) => {
+      setOnlineUsers(users);
+    });
+    // eslint-disable-next-line
   }, [sUser]);
 
   useEffect(() => {

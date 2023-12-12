@@ -27,10 +27,11 @@
     margin-top: 10px;
     cursor: pointer;
     padding: 10px;
+    transition: all .2s ease-out;
 }
 
 .conversationFriendsMainContainer:hover{
-    background-color: rgb(255, 244, 255)
+    background-color: rgb(253, 227, 253)
 }
 
 .conversationOnlineFriendImage{

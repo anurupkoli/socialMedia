@@ -10,7 +10,6 @@ router.post("/createConversation", fetchUser, async (req, res) => {
   const friendId = req.body.friendId;
   try {
     //trying to find if conversation has been already initiated
-    console.log(friendId)
     let conversation = await Conversations.findOne({
        users: {$all: [userId, friendId]}
     });
