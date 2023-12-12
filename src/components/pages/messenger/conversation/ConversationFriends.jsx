@@ -1,28 +1,41 @@
 import React, { useContext } from 'react'
 import './Conversation.css'
-import UserContext from '../../../../Contexts/User/UserContext'
 import PF from '../../../../EnvironmentVariables';
+import MessengerContext from '../../../../Contexts/Messenger/MessengerContext';
 
 export default function ConversationFriends(props) {
-  const {conversation} = props;
-  const context = useContext(UserContext)
-  const {friendDetails, sUser} = context;
-  const friendId = conversation.users && conversation.users.find(id => id!==sUser._id)
+  const {conversations, friend, setMConversation} = props;
   
-  const friendDetail = friendId && friendDetails.find(friend => friend.id === friendId)
+  const context = useContext(MessengerContext);
+  const {createConversation, setConversations}= context;
+
+  const conversation = conversations && conversations.find(conversation => conversation.users?.includes(friend.id))
   let profilePicPath = ''
   let friendName = ''
 
-  if(friendDetail){
-     profilePicPath = friendDetail.profilePicPath === '/uploadedProfilePic/undefined'?'images/socialmediaprofile.jpg':PF+friendDetail.profilePicPath
-     friendName = friendDetail.name
+  if(friend){
+     profilePicPath = friend.profilePicPath === '/uploadedProfilePic/undefined'?'images/socialmediaprofile.jpg':PF+friend.profilePicPath
+     friendName = friend.name
   }else{
     return;
+  }
+
+  const handleConversationClick = async()=>{
+    if(!conversation){
+      const resp = await createConversation(friend.id)
+      console.log(resp)
+      setConversations((prev)=>[...prev, resp])
+
+      setMConversation(resp._id)
+    }
+    else{
+      setMConversation(conversation._id)
+    }
   }
   
   return (
     <>
-        <div className="conversationFriendsMainContainer">
+        <div className="conversationFriendsMainContainer" onClick={handleConversationClick} >
             <div className="conversationOnlineFriendImage">
                 <img src={profilePicPath} alt="" />
                 <div className="isOnlineIcon"></div>

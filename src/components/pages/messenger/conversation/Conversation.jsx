@@ -27,17 +27,15 @@ export default function Conversation(props) {
           <input type="text" placeholder="Search for your friends" />
         </div>
         <div className="conversationFriends">
-          {conversations?.map((conversation) => {
+          {friendDetails?.map((friend) => {
             return (
               <div
-                key={conversation._id}
-                onClick={() => {
-                  setMConversation(conversation._id);
-                }}
+                key={friend.id}
               >
                 <ConversationFriends
-                  key={conversation._id}
-                  conversation={conversation}
+                  friend={friend}
+                  conversations={conversations}
+                  setMConversation={setMConversation}
                 />
               </div>
             );

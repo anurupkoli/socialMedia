@@ -103,7 +103,7 @@ export default function Messages(props) {
             })
           : "Start Chatting"}
       </div>
-      {messages.length ? (
+      {mConversation ? (
         <div
           className="messagesBottom"
           style={{ display: `${messageBottomDisplay}` }}

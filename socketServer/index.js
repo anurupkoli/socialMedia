@@ -19,7 +19,6 @@ const getUser = (friendId)=>{
 
 io.on("connect", (socket)=>{
     //After connection
-    console.log('user connected')
     socket.on("setUser", userId=>{
         addUser(userId, socket.id)
         io.emit("getUsers", users)

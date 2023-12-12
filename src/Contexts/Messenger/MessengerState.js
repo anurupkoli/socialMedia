@@ -10,6 +10,7 @@ const MessengerState = (props) => {
     const resp = await fetch(`${host1}/createConversation`, {
       method: "POST",
       headers: {
+        "Content-type": "application/json",
         "auth-token": localStorage.getItem("auth-token"),
       },
       body: JSON.stringify({
@@ -18,7 +19,7 @@ const MessengerState = (props) => {
     });
 
     const json = await resp.json();
-    console.log(json);
+    return json;
   };
 
   const getConversations = async () => {
@@ -67,7 +68,7 @@ const MessengerState = (props) => {
   }
 
   return (
-    <MessengerContext.Provider value={{ createConversation, getConversations, conversations, sendMessage, getMessages }}>
+    <MessengerContext.Provider value={{ createConversation, getConversations, conversations,setConversations, sendMessage, getMessages }}>
       {props.children}
     </MessengerContext.Provider>
   );
