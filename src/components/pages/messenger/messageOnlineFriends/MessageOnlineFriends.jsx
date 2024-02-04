@@ -13,8 +13,8 @@ export default function MessageOnlineFriends(props) {
   const context2 = useContext(MessengerContext);
   const { conversations } = context2;
 
-  let onlineUserIds = onlineUsers.map((user) => user.userId);
-  let friends = friendDetails.filter((friend) =>
+  let onlineUserIds = onlineUsers?.map((user) => user.userId);
+  let friends = friendDetails?.filter((friend) =>
     onlineUserIds.includes(friend.id)
   );
 

@@ -19,8 +19,7 @@ export default function Rightbar() {
     <div className='rightBar'>
       <RighBarAdd/>
       <h6 style={{'margin': "10px 0px"}}>Still has to be Implemented</h6>
-      <OnlineFriend/>
-      <OnlineFriend/>
+      <OnlineFriend friend = {null}/>
     </div>
   )
 }
