@@ -104,7 +104,7 @@ export default function Messages(props) {
                 />
               );
             })
-          : "Start Chatting"}
+          : <div className="startChatting">Start Chatting</div>}
       </div>
       {mConversation ? (
         <div
