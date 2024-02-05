@@ -6,7 +6,7 @@ import LocationOnIcon from "@mui/icons-material/LocationOn";
 import EmojiEmotionsIcon from "@mui/icons-material/EmojiEmotions";
 import UserContext from "../../Contexts/User/UserContext";
 import PostContext from "../../Contexts/Post/PostContext";
-import PF from "../../EnvironmentVariables";
+const {PF} = require('../../EnvironmentVariables')
 
 export default function Share(props) {
   const context1 = useContext(UserContext);

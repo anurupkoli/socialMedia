@@ -10,8 +10,8 @@ import WorkIcon from "@mui/icons-material/Work";
 import EventAvailableIcon from "@mui/icons-material/EventAvailable";
 import SchoolIcon from "@mui/icons-material/School";
 import UserContext from "../../Contexts/User/UserContext";
-import PF from "../../EnvironmentVariables";
 import { useNavigate } from "react-router-dom";
+const {PF} = require("../../EnvironmentVariables")
 
 export default function Leftbar(props) {
   const {setRender, render} = props;

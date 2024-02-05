@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
-import PF from "../../../EnvironmentVariables";
 import UserContext from "../../../Contexts/User/UserContext";
+const {PF} = require("../../../EnvironmentVariables")
 
 export default function ProfileRightBar(props) {
   let { profileDetails, friendDetails, setFriendProfileDetails, isUser } =

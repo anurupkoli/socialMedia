@@ -1,8 +1,8 @@
 import "./profile.css";
 import { React, useContext, useState, useEffect, useRef } from "react";
-import PF from "../../../EnvironmentVariables";
 import UserContext from "../../../Contexts/User/UserContext";
 import EditIcon from "@mui/icons-material/Edit";
+const {PF} = require('../../../EnvironmentVariables');
 
 export default function ProfileComponent(props) {
   let { profileDetails, isUser, setRender } = props;

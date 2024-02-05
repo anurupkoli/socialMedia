@@ -1,8 +1,10 @@
 import { useState } from "react";
 import MessengerContext from "./MessengerContext";
+const {HOST} = require("../../EnvironmentVariables")
+
 const MessengerState = (props) => {
-  const host1 = "http://localhost:8000/api/conversations";
-  const host2 = "http://localhost:8000/api/messages"
+  const host1 = `${HOST}/api/conversations`;
+  const host2 = `${HOST}/api/messages`
 
   const [conversations, setConversations] = useState(null)
 

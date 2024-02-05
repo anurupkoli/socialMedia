@@ -1,6 +1,6 @@
 import React from 'react'
 import './onlineFriend.css'
-import PF from '../../EnvironmentVariables'
+const {PF} = require("../../EnvironmentVariables")
 
 export default function OnlineFriend(props) {
   const {friend} = props

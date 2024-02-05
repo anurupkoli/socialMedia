@@ -1,10 +1,10 @@
 import { React, useState } from "react";
 import "./signUp.css";
 import { NavLink, useNavigate } from "react-router-dom";
+const {HOST} = require('../../../EnvironmentVariables')
 
 export default function SignUp() {
   const history = useNavigate();
-  const host = "http://localhost:8000";
 
   const [userCredentials, setuserCredentials] = useState({
     name: "",
@@ -28,7 +28,7 @@ export default function SignUp() {
     if (cPassword.cpassword !== userCredentials.password) {
       alert("Passwords do not match");
     } else {
-      const resp = await fetch(`${host}/api/auth/createUser`, {
+      const resp = await fetch(`${HOST}/api/auth/createUser`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",

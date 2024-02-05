@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import './Conversation.css'
-import PF from '../../../../EnvironmentVariables';
 import MessengerContext from '../../../../Contexts/Messenger/MessengerContext';
+const {PF} = require('../../../../EnvironmentVariables')
 
 export default function ConversationFriends(props) {
   const {conversations, friend, setMConversation} = props;

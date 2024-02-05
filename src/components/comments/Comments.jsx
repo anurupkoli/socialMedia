@@ -1,8 +1,8 @@
 import { React, useState, useEffect, useContext } from "react";
 import "./comments.css";
-import PF from "../../EnvironmentVariables";
 import PostContext from "../../Contexts/Post/PostContext";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
+const {PF} = require('../../EnvironmentVariables')
 
 export default function Comments(props) {
   let { postComment, setrenderPage, postId, renderPage } = props;

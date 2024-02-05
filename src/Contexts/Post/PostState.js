@@ -1,15 +1,16 @@
 import { useState } from "react";
 import PostContext from "./PostContext";
 
+const {HOST} = require("../../EnvironmentVariables")
+
 const PostState = (props) => {
-  const host = "http://localhost:8000";
   const sPost = [];
   const [posts, setPosts] = useState(sPost);
   const [reRenderPosts, setreRenderPosts] = useState(0);
 
   const fetchPosts = async (userId) => {
     try {
-      const response = await fetch(`${host}/api/posts/getPosts`, {
+      const response = await fetch(`${HOST}/api/posts/getPosts`, {
         method: "GET",
         headers: {
           "Content-Type": "application/json",
@@ -31,7 +32,7 @@ const PostState = (props) => {
       let formData = new FormData();
       formData.append("uploadPost", file ? file : null);
       formData.append("description", description);
-      const response = await fetch(`${host}/api/posts/uploadPost`, {
+      const response = await fetch(`${HOST}/api/posts/uploadPost`, {
         method: "POST",
         headers: {
           "auth-token": localStorage.getItem("auth-token"),
@@ -49,7 +50,7 @@ const PostState = (props) => {
 
   const updateLikes = async (postId, didLike, friendEmail) => {
     try {
-      const response = await fetch(`${host}/api/posts/updateLikes/${postId}`, {
+      const response = await fetch(`${HOST}/api/posts/updateLikes/${postId}`, {
         method: "PUT",
         headers: {
           "Content-type": "application/json",
@@ -68,7 +69,7 @@ const PostState = (props) => {
 
   const deletePost = async (postId) => {
     try {
-      const response = await fetch(`${host}/api/posts/deletePost/${postId}`, {
+      const response = await fetch(`${HOST}/api/posts/deletePost/${postId}`, {
         method: "DELETE",
         headers: {
           "Content-type": "application/json",
@@ -88,7 +89,7 @@ const PostState = (props) => {
 
   const uploadCommentOnPost = async (comment, postId)=>{
     try {
-      const resp = await fetch(`${host}/api/posts/commentOnPost/${postId}`, {
+      const resp = await fetch(`${HOST}/api/posts/commentOnPost/${postId}`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -108,7 +109,7 @@ const PostState = (props) => {
   const getCommentsOnPost = async (postId) => {
     try {
       const resp = await fetch(
-        `${host}/api/posts/getCommentsOnPost/${postId}`,
+        `${HOST}/api/posts/getCommentsOnPost/${postId}`,
         {
           method: "GET",
           headers: {
@@ -125,7 +126,7 @@ const PostState = (props) => {
 
   const deleteCommentOnPost = async(postId, commentId)=>{
     try {
-      const resp = await fetch(`${host}/api/posts/deleteCommentOnPost/${postId}/${commentId}`, {
+      const resp = await fetch(`${HOST}/api/posts/deleteCommentOnPost/${postId}/${commentId}`, {
         method: "DELETE", 
         headers: {
           "auth-token": localStorage.getItem('auth-token')

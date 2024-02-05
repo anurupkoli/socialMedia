@@ -3,11 +3,11 @@ import "./post.css";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import FavoriteIcon from "@mui/icons-material/Favorite";
 import ThumbUpAltIcon from "@mui/icons-material/ThumbUpAlt";
-import PF from "../../EnvironmentVariables";
 import PostContext from "../../Contexts/Post/PostContext";
 import UserContext from "../../Contexts/User/UserContext";
 import Comments from "../comments/Comments";
 import SendRoundedIcon from "@mui/icons-material/SendRounded";
+const {PF} = require("../../EnvironmentVariables")
 
 export default function Post(props) {
   let { post, deleteAPost } = props;

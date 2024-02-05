@@ -6,7 +6,7 @@ import MessageIcon from "@mui/icons-material/Message";
 import NotificationsIcon from "@mui/icons-material/Notifications";
 import { NavLink, useNavigate } from "react-router-dom";
 import UserContext from "../../Contexts/User/UserContext";
-import PF from "../../EnvironmentVariables";
+const {PF} = require("../../EnvironmentVariables")
 
 export default function Topbar() {
   const navigate = useNavigate();

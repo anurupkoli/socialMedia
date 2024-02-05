@@ -1,10 +1,10 @@
 import { React, useState } from "react";
 import "./login.css";
 import { NavLink, useNavigate } from "react-router-dom";
+const {HOST} = require('../../../EnvironmentVariables')
 
 export default function Login() {
   const history = useNavigate();
-  const host = "http://localhost:8000";
   const [userCredentials, setuserCredentials] = useState({
     email: "",
     password: "",
@@ -16,7 +16,7 @@ export default function Login() {
 
   const handleLoginSubmit = async (e) => {
     e.preventDefault();
-    const resp = await fetch(`${host}/api/auth/login`, {
+    const resp = await fetch(`${HOST}/api/auth/login`, {
       method: "POST",
       headers: {
         "Content-type": "application/json",

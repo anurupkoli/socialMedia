@@ -1,8 +1,8 @@
 import UserContext from "./UserContext";
 import { useState } from "react";
+const {HOST} = require("../../EnvironmentVariables")
 
 const UserState = (props) => {
-  const host = "http://localhost:8000";
   let user = {};
   const [sUser, setSUser] = useState(user);
   const [userProfilePic, setUserProfilePic] = useState(null);
@@ -13,7 +13,7 @@ const UserState = (props) => {
 
   const fetchUser = async () => {
     try {
-      const resp = await fetch(`${host}/api/auth/getUser`, {
+      const resp = await fetch(`${HOST}/api/auth/getUser`, {
         method: "GET",
         headers: {
           "Content-type": "application/json",
@@ -48,7 +48,7 @@ const UserState = (props) => {
       relationshipStatus: relaStat,
     };
 
-      const res = await fetch(`${host}/api/auth/updateUser`, {
+      const res = await fetch(`${HOST}/api/auth/updateUser`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -70,7 +70,7 @@ const UserState = (props) => {
 
   const fetchUserProfilePic = async () => {
     try {
-      const resp = await fetch(`${host}/api/auth/getProfilePic`, {
+      const resp = await fetch(`${HOST}/api/auth/getProfilePic`, {
         method: "GET",
         headers: {
           "Content-type": "application/json",
@@ -90,7 +90,7 @@ const UserState = (props) => {
   };
   const fetchUserBackgroundPic = async () => {
     try {
-      const resp = await fetch(`${host}/api/auth/getBackgroundPic`, {
+      const resp = await fetch(`${HOST}/api/auth/getBackgroundPic`, {
         method: "GET",
         headers: {
           "Content-type": "application/json",
@@ -109,7 +109,7 @@ const UserState = (props) => {
   };
 
   const fetchFriendDetails = async () => {
-    const res = await fetch(`${host}/api/auth/getFriendsDetails`, {
+    const res = await fetch(`${HOST}/api/auth/getFriendsDetails`, {
       method: "GET",
       headers: {
         "auth-token": localStorage.getItem("auth-token"),
@@ -124,7 +124,7 @@ const UserState = (props) => {
 
   const getUnfollowedFriends = async () => {
     try {
-      const resp = await fetch(`${host}/api/auth/getUnfollwedFriends`, {
+      const resp = await fetch(`${HOST}/api/auth/getUnfollwedFriends`, {
         method: "GET",
         headers: {
           "auth-token": localStorage.getItem("auth-token"),
@@ -140,7 +140,7 @@ const UserState = (props) => {
 
   const followFriend = async (friendId) => {
     try {
-      const response = await fetch(`${host}/api/auth/followFriend`, {
+      const response = await fetch(`${HOST}/api/auth/followFriend`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -158,7 +158,7 @@ const UserState = (props) => {
   };
   const unfollowFriend = async (friendId) => {
     try {
-      const response = await fetch(`${host}/api/auth/unfollowFriend`, {
+      const response = await fetch(`${HOST}/api/auth/unfollowFriend`, {
         method: "POST",
         headers: {
           "Content-type": "application/json",
@@ -179,7 +179,7 @@ const UserState = (props) => {
     let formData = new FormData();
     formData.append("uploadImg", file ? file : null);
     try {
-      const resp = await fetch(`${host}/api/auth/uploadProfilePic`, {
+      const resp = await fetch(`${HOST}/api/auth/uploadProfilePic`, {
         method: "POST",
         headers: {
           "auth-token": localStorage.getItem("auth-token"),
@@ -198,7 +198,7 @@ const UserState = (props) => {
     let formData = new FormData();
     formData.append("uploadBackgroundPic", file ? file : null);
     try {
-      const resp = await fetch(`${host}/api/auth/uploadBackgroundPic`, {
+      const resp = await fetch(`${HOST}/api/auth/uploadBackgroundPic`, {
         method: "POST",
         headers: {
           "auth-token": localStorage.getItem("auth-token"),
