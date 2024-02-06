@@ -53,3 +53,25 @@
     text-align: center;
     margin: 10rem auto;
 }
+
+.messageTopBar{
+    text-align: center;
+}
+
+.messageTopBar #videoCall{
+    cursor: pointer;
+    transition: all 0.15s ease-out;
+}
+
+.messageTopBar #videoCall:hover{
+    color: rgb(208, 0, 208);
+}
+
+#sendMessageBtn{
+    cursor: pointer;
+    transition: all 0.15s ease-out;
+}
+
+#sendMessageBtn:hover{
+    color: rgb(208, 0, 208);
+}

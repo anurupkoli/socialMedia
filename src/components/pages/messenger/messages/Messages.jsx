@@ -3,6 +3,8 @@ import "./Messages.css";
 import Message from "./Message";
 import UserContext from "../../../../Contexts/User/UserContext";
 import MessengerContext from "../../../../Contexts/Messenger/MessengerContext";
+import VideoChatIcon from "@mui/icons-material/VideoChat";
+import SendIcon from "@mui/icons-material/Send";
 import { io } from "socket.io-client";
 
 export default function Messages(props) {
@@ -94,17 +96,24 @@ export default function Messages(props) {
   return (
     <>
       <div className="messagesTop" ref={messageContainerRef}>
-        {messages.length
-          ? messages.map((message) => {
-              return (
+        <div className="messageTopBar">
+          <VideoChatIcon id="videoCall" htmlColor="purple" fontSize="large" />
+        </div>
+        {messages.length ? (
+          messages.map((message) => {
+            return (
+              <>
                 <Message
                   key={message._id}
                   isUser={message.sender === sUser._id}
                   message={message}
                 />
-              );
-            })
-          : <div className="startChatting">Start Chatting</div>}
+              </>
+            );
+          })
+        ) : (
+          <div className="startChatting">Start Chatting</div>
+        )}
       </div>
       {mConversation ? (
         <div
@@ -119,9 +128,12 @@ export default function Messages(props) {
             onChange={handleMessageChange}
             value={newMessage}
           ></textarea>
-          <button className="sendMessageBtn" onClick={handleSendMessageClick}>
-            send
-          </button>
+          <SendIcon
+            id="sendMessageBtn"
+            htmlColor="purple"
+            fontSize="large"
+            onClick={handleSendMessageClick}
+          />
         </div>
       ) : null}
     </>

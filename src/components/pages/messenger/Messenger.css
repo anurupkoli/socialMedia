@@ -53,11 +53,6 @@
     border-radius: 10px;
 }
 
-.sendMessageBtn{
-    width: 60px;
-    height: 30px;
-}
-
 .messengerOnlineFriends{
     flex: 2.5;
 }
