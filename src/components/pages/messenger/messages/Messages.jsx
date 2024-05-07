@@ -50,7 +50,7 @@ export default function Messages(props) {
   };
 
   useEffect(() => {
-    socket.current = io("ws://10.103.198.102:8001");
+    socket.current = io("ws://localhost:8001");
     socket.current?.on("getMessage", (message) => {
       setRecievedMessage({
         _id: Date.now(),

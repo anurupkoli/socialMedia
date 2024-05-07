@@ -7,6 +7,7 @@ import Login from "./components/pages/login/Login";
 import SignUp from "./components/pages/signUp/SignUp";
 import Messenger from "./components/pages/messenger/Messenger";
 import MessengerState from "./Contexts/Messenger/MessengerState";
+import Notification from "./components/pages/notification/Notification";
 
 function App() {
   return (
@@ -21,6 +22,7 @@ function App() {
                 <Route exact path="/login" element={<Login />} />
                 <Route exact path="/signUp" element={<SignUp />} />
                 <Route exact path="/messenger" element={<Messenger />} />
+                <Route exact path="/notification" element={<Notification/>} />
               </Routes>
             </BrowserRouter>
           </MessengerState>

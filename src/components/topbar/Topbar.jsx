@@ -72,7 +72,7 @@ export default function Topbar() {
           <PersonIcon />
           <span>3</span>
         </div>
-        <div className="rightNavbarItem">
+        <div className="rightNavbarItem" onClick={()=>navigate('/notification')} >
           <NotificationsIcon />
           <span>2</span>
         </div>
